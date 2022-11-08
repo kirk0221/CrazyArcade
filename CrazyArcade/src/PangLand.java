@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 public class PangLand extends JFrame{
 	public PangLand(){ //PangLand 생성자
 		this.setTitle("PangLand"); //창 제목
-		this.setSize(800, 600); //창 크기
+		this.setSize(800, 900); //창 크기
 		this.setResizable(false);//창 크기 고정
 		this.setLayout(new BorderLayout());///BorderLayout 설정
 		
