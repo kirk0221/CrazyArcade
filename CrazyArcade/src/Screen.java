@@ -43,6 +43,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		System.out.println("커밋 테스트");
 		System.out.println("커밋 테스트");
 		System.out.println("커밋 테스트");
+		System.out.println("커밋 테스트2");
 	}
 	
 	public void paint(Graphics g) {//스크린에 그리는 부분
