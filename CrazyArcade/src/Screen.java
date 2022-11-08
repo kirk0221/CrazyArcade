@@ -8,8 +8,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.swing.ImageIcon;
+
+
+
+
+/* branch and push 테스트를 위한 수정*/
+
+
+
 
 public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Image bufferedImage;
@@ -33,6 +40,9 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 				repaint();
 			}
 		},0, 1);
+		System.out.println("커밋 테스트");
+		System.out.println("커밋 테스트");
+		System.out.println("커밋 테스트");
 	}
 	
 	public void paint(Graphics g) {//스크린에 그리는 부분
