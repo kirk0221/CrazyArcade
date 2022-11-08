@@ -24,7 +24,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //윈도우 창 종료시 프로세스까지 모두 종료
 		this.setVisible(true); //창 보이게 하기
 	}
-	
+	//
 	
 	private JPanel centerPanel() { //창 가운데 들어갈 패널(맵 선택)
 		JPanel centerPanel = new JPanel(); //return할 패널 생성
