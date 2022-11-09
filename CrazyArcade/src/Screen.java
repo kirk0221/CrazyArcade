@@ -15,17 +15,17 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Image bufferedImage;
 	private Graphics bufferGraphics;
 	private Dimension dim;
-	private Character player1; //ÇÃ·¹ÀÌ¾î1 »ý¼º
-	private Character player2; //ÇÃ·¹ÀÌ¾î2 »ý¼º
+	private Character player1; //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½1 ï¿½ï¿½ï¿½ï¿½
+	private Character player2; //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½2 ï¿½ï¿½ï¿½ï¿½
 	
 	public Screen() {
-		player1 = new Dao(this); //ÇÃ·¹ÀÌ¾î1¿¡ ´Ù¿À »ý¼º
-		player2 = new Dao(this); //ÇÃ·¹ÀÌ¾î2¿¡ ´Ù¿À »ý¼º
+		player1 = new Dao(this); //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½1ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½
+		player2 = new Dao(this); //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½2ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 		addKeyListener(this);
 		addComponentListener(this);
 		
 		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {//0.001ÃÊ ÁÖ±â·Î repaint
+		timer.schedule(new TimerTask() {//0.001ï¿½ï¿½ ï¿½Ö±ï¿½ï¿½ repaint
 			
 			@Override
 			public void run() {
@@ -35,16 +35,16 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		},0, 1);
 	}
 	
-	public void paint(Graphics g) {//½ºÅ©¸°¿¡ ±×¸®´Â ºÎºÐ
+	public void paint(Graphics g) {//ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Îºï¿½
 		initBufferd();
 		Dimension dim = getSize();
 		bufferGraphics.clearRect(0, 0, dim.width, dim.height);
-		bufferGraphics.drawImage(player1.getImg(), player1.getX(), player1.getY(), this);//player1 ÀÌ¹ÌÁö »ý¼º
-		bufferGraphics.drawImage(player2.getImg(), player2.getX(), player2.getY(), this);//player2 ÀÌ¹ÌÁö »ý¼º
+		bufferGraphics.drawImage(player1.getImg(), player1.getX(), player1.getY(), this);//player1 ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		bufferGraphics.drawImage(player2.getImg(), player2.getX(), player2.getY(), this);//player2 ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		g.drawImage(this.bufferedImage, 0, 0, this);
 	}
 	
-	public void update(Graphics g) {//¾÷µ¥ÀÌÆ® ÇÔ¼ö
+	public void update(Graphics g) {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ô¼ï¿½
 		paint(g);
 	}
 
@@ -57,7 +57,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		switch(e.getKeyCode()) {//player1¿¡ ´ëÇÑ ¿òÁ÷ÀÓ
+		switch(e.getKeyCode()) {//player1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		case KeyEvent.VK_UP:
 			if(player1.getY()>=5) {
 				player1.up();
@@ -79,7 +79,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			break;
 		}
-		switch(e.getKeyCode()) {//player2¿¡ ´ëÇÑ ¿òÁ÷ÀÓ
+		switch(e.getKeyCode()) {//player2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		case KeyEvent.VK_W:
 			if(player2.getY()>=5) {
 				player2.up();
@@ -109,14 +109,14 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		
 	}
 	
-	private void initBufferd() {//¹öÆÛ ÃÊ±âÈ­
+	private void initBufferd() {//ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 		this.dim = getSize();
 		this.bufferedImage = createImage(dim.width, dim.height);
 		this.bufferGraphics = this.bufferedImage.getGraphics();
 	}
 
 	@Override
-	public void componentResized(ComponentEvent e) {//Ã¢ Å©±â°¡ ¹Ù²ð¶§ ¹öÆÛ ÃÊ±âÈ­
+	public void componentResized(ComponentEvent e) {//Ã¢ Å©ï¿½â°¡ ï¿½Ù²ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 		// TODO Auto-generated method stub
 		initBufferd();
 	}
