@@ -19,8 +19,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 
 	
 	public Screen() {
-		player1 = new Dao(this); //플레이어1에 다오 생성
-		player2 = new Dao(this); //플레이어2에 다오 생성
+		player1 = new Dao(this,500,300); //플레이어1에 다오 생성, 초기 위치는 매개변수로 전달
+		player2 = new Dao(this,200,300); //플레이어2에 다오 생성
 		addKeyListener(this);
 		addComponentListener(this);
 		
@@ -33,8 +33,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 				repaint();
 			}
 		},0, 1);
-		/* 코드 수정 및 업로드 테스트*/
-		System.out.println("업로드 테스트");
+		
+
 	}
 	
 	public void paint(Graphics g) {//스크린에 그리는 부분

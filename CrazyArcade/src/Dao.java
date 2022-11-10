@@ -13,12 +13,12 @@ public class Dao extends Character {
 	private ImageIcon dao4 = new ImageIcon("Resources/dao4.png");
 	
 
-	public Dao(Screen screen) {
+	public Dao(Screen screen, int x, int y) {
 		super(screen);
 		// TODO Auto-generated constructor stub
 		this.daoImg = dao2.getImage(); /*기본값은 앞모습*/
-		this.X = 400;//초기 X값
-		this.Y = 300;//초기 Y값
+		this.X = x;//초기 X값
+		this.Y = y;//초기 Y값
 		this.step = 5;//초기 이동 거리
 	}
 	
