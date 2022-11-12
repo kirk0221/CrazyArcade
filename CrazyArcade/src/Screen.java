@@ -69,8 +69,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	}
 	
 	public void characterin() {//캐릭터가 현재 맵의 어느 배열위치에 있는지 확인
-		int p1_x=player1.getX()/50;//이거 나눠서 나오는 값이랑 그림에서 나오게 되는 좌표랑 같게 연동시켜줘야함
-		int p1_y=player1.getY()/50;
+		int p1_x=player1.getX()/50;//이거 나눠서 나오는 값이랑 그림에서 나오게 되는 좌표랑 같게 연동시켜줘야함(김준씨 부탁해요)
+		int p1_y=player1.getY()/50;//이값도 바꿔야됨
 		System.out.println("p1의 위치는 : ("+player1.getX()+","+player1.getY()+")"+"p1의 인덱스 위치는 : ("+p1_x+","+p1_y+")");
 	}
 	
