@@ -2,36 +2,40 @@ import java.awt.Image;
 
 public abstract class Character {
 	private Screen screen;
-	private int X;
-	private int Y;
-	private int step;
+	private static int X;
+	private static int Y;
+	private static int step;
+	public int die;
 	
-	public Character(Screen screen) {//½ºÅ©¸° ºÒ·¯¿À±â
+	public Character(Screen screen) {//ìŠ¤í¬ë¦° ë¶ˆëŸ¬ì˜¤ê¸°
 		this.screen = screen;
 	}
-	public Screen getScreen() {//½ºÅ©¸° °¡Á®¿À´Â ÇÔ¼ö
+	public Screen getScreen() {//ìŠ¤í¬ë¦° ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
 		return this.screen;
 	}
-	public abstract Image getImg();//ÀÌ¹ÌÁö °¡Á®¿À´Â ÇÔ¼ö
+	public abstract Image getImg();//ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
 	
-	public int getX() {// X°ª °¡Á®¿À´Â ÇÔ¼ö
+	public int getX() {// Xê°’ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
 		return this.X;
 	}
 	
-	public int getY() {// Y°ª °¡Á®¿À´Â ÇÔ¼ö
+	public int getY() {// Yê°’ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
 		return this.Y;
 	}
 	
-	public void up() {//À§·Î °¡±â
+	public void up() {//ìœ„ë¡œ ê°€ê¸°
 		Y-=step;
 	}
-	public void down() {//¾Æ·¡·Î °¡±â
+	public void down() {//ì•„ë˜ë¡œ ê°€ê¸°
 		Y+=step;
 	}
-	public void left() {//¿ŞÂÊÀ¸·Î °¡±â
+	public void left() {//ì™¼ìª½ìœ¼ë¡œ ê°€ê¸°
 		X-=step;
 	}
-	public void right() {//¿À¸¥ÂÊÀ¸·Î °¡±â
+	public void right() {//ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ê¸°
 		X+=step;
+	}
+	public void die() {
+		die = 1;
 	}
 }

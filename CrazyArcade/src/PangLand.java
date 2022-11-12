@@ -3,16 +3,16 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 public class PangLand extends JFrame{
-	public PangLand(){ //PangLand »ý¼ºÀÚ
-		this.setTitle("PangLand"); //Ã¢ Á¦¸ñ
-		this.setSize(800, 600); //Ã¢ Å©±â
-		this.setResizable(false);//Ã¢ Å©±â °íÁ¤
-		this.setLayout(new BorderLayout());///BorderLayout ¼³Á¤
+	public PangLand(){ //PangLand ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		this.setTitle("PangLand"); //Ã¢ ï¿½ï¿½ï¿½ï¿½
+		this.setSize(800, 600); //Ã¢ Å©ï¿½ï¿½
+		this.setResizable(false);//Ã¢ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		this.setLayout(new BorderLayout());///BorderLayout ï¿½ï¿½ï¿½ï¿½
 		
 		this.add(new Screen());
 		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //À©µµ¿ì Ã¢ Á¾·á½Ã ÇÁ·Î¼¼½º±îÁö ¸ðµÎ Á¾·á
-		this.setLocationRelativeTo(null); //Ã¢ °¡¿îµ¥ À§Ä¡
-		this.setVisible(true); //Ã¢ º¸ÀÌ°Ô ÇÏ±â
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		this.setLocationRelativeTo(null); //Ã¢ ï¿½ï¿½ï¿½îµ¥ ï¿½ï¿½Ä¡
+		this.setVisible(true); //Ã¢ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ï±ï¿½
 	}
 }
