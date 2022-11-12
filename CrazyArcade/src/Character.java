@@ -7,32 +7,32 @@ public abstract class Character {
 	private static int step;
 	public int die;
 	
-	public Character(Screen screen) {//ìŠ¤í¬ë¦° ë¶ˆëŸ¬ì˜¤ê¸°
+	public Character(Screen screen) {//½ºÅ©¸° ºÒ·¯¿À±â
 		this.screen = screen;
 	}
-	public Screen getScreen() {//ìŠ¤í¬ë¦° ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
+	public Screen getScreen() {//½ºÅ©¸° °¡Á®¿À´Â ÇÔ¼ö
 		return this.screen;
 	}
-	public abstract Image getImg();//ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
+	public abstract Image getImg();//ÀÌ¹ÌÁö °¡Á®¿À´Â ÇÔ¼ö
 	
-	public int getX() {// Xê°’ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
+	public int getX() {// X°ª °¡Á®¿À´Â ÇÔ¼ö
 		return this.X;
 	}
 	
-	public int getY() {// Yê°’ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
+	public int getY() {// Y°ª °¡Á®¿À´Â ÇÔ¼ö
 		return this.Y;
 	}
 	
-	public void up() {//ìœ„ë¡œ ê°€ê¸°
+	public void up() {//À§·Î °¡±â
 		Y-=step;
 	}
-	public void down() {//ì•„ë˜ë¡œ ê°€ê¸°
+	public void down() {//¾Æ·¡·Î °¡±â
 		Y+=step;
 	}
-	public void left() {//ì™¼ìª½ìœ¼ë¡œ ê°€ê¸°
+	public void left() {//¿ŞÂÊÀ¸·Î °¡±â
 		X-=step;
 	}
-	public void right() {//ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ê¸°
+	public void right() {//¿À¸¥ÂÊÀ¸·Î °¡±â
 		X+=step;
 	}
 	public void die() {
