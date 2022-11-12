@@ -15,17 +15,30 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Image bufferedImage;
 	private Graphics bufferGraphics;
 	private Dimension dim;
-	private Character player1; //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½1 ï¿½ï¿½ï¿½ï¿½
-	private Character player2; //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½2 ï¿½ï¿½ï¿½ï¿½
+	
+	public int[][] map_size;//¸Ê »çÀÌÁî ¼³Á¤À» À§ÇÑ ¹è¿­
+	
+	private Character player1; //ÇÃ·¹ÀÌ¾î1 »ý¼º
+	private Character player2; //ÇÃ·¹ÀÌ¾î2 »ý¼º
+	WaterBalloon player1WaterBalloon; //ÇÃ·¹ÀÌ¾î1 ¹°Ç³¼± »ý¼º
+	WaterBalloon player2WaterBalloon; //ÇÃ·¹ÀÌ¾î2 ¹°Ç³¼± »ý¼º
+	
 	
 	public Screen() {
-		player1 = new Dao(this); //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½1ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½
-		player2 = new Dao(this); //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½2ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½
+		player1 = new Bazzi(this); //ÇÃ·¹ÀÌ¾î1¿¡ ´Ù¿À »ý¼º
+		player2 = new Bazzi(this); //ÇÃ·¹ÀÌ¾î2¿¡ ´Ù¿À »ý¼º
 		addKeyListener(this);
 		addComponentListener(this);
 		
+		this.map_size = new int[13][13];//¸Ê »çÀÌÁî 13*13
+		for(int i=0; i<13;i++) {//¸Ê 0À¸·Î ÃÊ±âÈ­
+			for(int j=0; j<13; j++) {
+				this.map_size[i][j] = 0;
+			}
+		}
+		
 		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {//0.001ï¿½ï¿½ ï¿½Ö±ï¿½ï¿½ repaint
+		timer.schedule(new TimerTask() {//0.001ÃÊ ÁÖ±â·Î repaint
 			
 			@Override
 			public void run() {
@@ -35,16 +48,20 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		},0, 1);
 	}
 	
-	public void paint(Graphics g) {//ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Îºï¿½
+	public void paint(Graphics g) {//½ºÅ©¸°¿¡ ±×¸®´Â ºÎºÐ
 		initBufferd();
 		Dimension dim = getSize();
 		bufferGraphics.clearRect(0, 0, dim.width, dim.height);
-		bufferGraphics.drawImage(player1.getImg(), player1.getX(), player1.getY(), this);//player1 ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-		bufferGraphics.drawImage(player2.getImg(), player2.getX(), player2.getY(), this);//player2 ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		bufferGraphics.drawImage(player1.getImg(), player1.getX(), player1.getY(), this);//player1 ÀÌ¹ÌÁö »ý¼º
+		bufferGraphics.drawImage(player2.getImg(), player2.getX(), player2.getY(), this);//player2 ÀÌ¹ÌÁö »ý¼º
 		g.drawImage(this.bufferedImage, 0, 0, this);
 	}
 	
-	public void update(Graphics g) {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ô¼ï¿½
+	public void characterin() {//Ä³¸¯ÅÍ°¡ ÇöÀç ¸ÊÀÇ ¾î´À ¹è¿­À§Ä¡¿¡ ÀÖ´ÂÁö È®ÀÎ
+		
+	}
+	
+	public void update(Graphics g) {//¾÷µ¥ÀÌÆ® ÇÔ¼ö
 		paint(g);
 	}
 
@@ -53,52 +70,60 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		// TODO Auto-generated method stub
 		
 	}
-
+//¤·¤·¤·¤·¤±¤¤¤·
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		switch(e.getKeyCode()) {//player1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		switch(e.getKeyCode()) {//player1¿¡ ´ëÇÑ ¿òÁ÷ÀÓ
 		case KeyEvent.VK_UP:
-			if(player1.getY()>=5) {
+			if(player1.getY()>=0) {
 				player1.up();
 			}
 			break;
 		case KeyEvent.VK_DOWN:
-			if(player1.getY()<=520) {
+			if(player1.getY()<=800) {
 				player1.down();
 			}
 			break;
 		case KeyEvent.VK_LEFT:
-			if(player1.getX()>=5) {
+			if(player1.getX()>=0) {
 				player1.left();
 			}
 			break;
 		case KeyEvent.VK_RIGHT:
-			if(player1.getX()<=740) {
+			if(player1.getX()<=800) {
 				player1.right();
 			}
 			break;
+		case KeyEvent.VK_SHIFT:
+			player1WaterBalloon = new WaterBalloon();
+			player1WaterBalloon.makeWaterBalloon(player1.getX(), player1.getY());//¹°Ç³¼± ³õ±â
+			break;
 		}
-		switch(e.getKeyCode()) {//player2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		switch(e.getKeyCode()) {//player2¿¡ ´ëÇÑ ¿òÁ÷ÀÓ
 		case KeyEvent.VK_W:
-			if(player2.getY()>=5) {
+			if(player2.getY()>=0) {
 				player2.up();
 			}
 			break;
 		case KeyEvent.VK_S:
-			if(player2.getY()<=520) {
+			if(player2.getY()<=800) {
 				player2.down();
 			}
 			break;
 		case KeyEvent.VK_A:
-			if(player2.getX()>=5) {
+			if(player2.getX()>=0) {
 				player2.left();
 			}
 			break;
 		case KeyEvent.VK_D:
-			if(player2.getX()<=740) {
+			if(player2.getX()<=800) {
 				player2.right();
 			}
+			break;
+		case KeyEvent.VK_SHIFT:
+			player2WaterBalloon = new WaterBalloon();
+			player2WaterBalloon.makeWaterBalloon(player2.getX(), player2.getY());//¹°Ç³¼± ³õ±â
 			break;
 		}
 	}
@@ -109,14 +134,14 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		
 	}
 	
-	private void initBufferd() {//ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+	private void initBufferd() {//¹öÆÛ ÃÊ±âÈ­
 		this.dim = getSize();
 		this.bufferedImage = createImage(dim.width, dim.height);
 		this.bufferGraphics = this.bufferedImage.getGraphics();
 	}
 
 	@Override
-	public void componentResized(ComponentEvent e) {//Ã¢ Å©ï¿½â°¡ ï¿½Ù²ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+	public void componentResized(ComponentEvent e) {//Ã¢ Å©±â°¡ ¹Ù²ð¶§ ¹öÆÛ ÃÊ±âÈ­
 		// TODO Auto-generated method stub
 		initBufferd();
 	}
