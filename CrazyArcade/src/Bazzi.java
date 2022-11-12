@@ -18,7 +18,7 @@ public class Bazzi extends Character {
 		this.Y = 300;//초기 Y값
 		this.step = 5;//초기 이동 거리
 		this.die = 0;//아직 죽지 않았음
-	}//ㅇㄹㅇ
+	}
 	
 	public Image getImg() {//이미지를 스크린에 주기위한 함수
 		return this.carImg;
