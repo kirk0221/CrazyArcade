@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 public class MAP_Patriots extends JFrame{
 	public MAP_Patriots(){ //PangLand 생성자
-		this.setTitle("Village"); //창 제목
+		this.setTitle("Patriots"); //창 제목
 		this.setSize(800, 800); //창 크기
 		this.setResizable(false);//창 크기 고정
 		this.setLayout(new BorderLayout());///BorderLayout 설정

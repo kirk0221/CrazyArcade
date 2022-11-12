@@ -24,6 +24,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	WaterBalloon player2WaterBalloon; //플레이어2 물풍선 생성
 	
 	
+	private Image map_Cookie = new ImageIcon("Resources/mapCookie.png").getImage();
+	
 	public Screen() {
 		player1 = new Bazzi(this); //플레이어1에 다오 생성
 		player2 = new Bazzi(this); //플레이어2에 다오 생성
@@ -52,6 +54,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		initBufferd();
 		Dimension dim = getSize();
 		bufferGraphics.clearRect(0, 0, dim.width, dim.height);
+		bufferGraphics.drawImage(map_Cookie,0,0,this);
 		bufferGraphics.drawImage(player1.getImg(), player1.getX(), player1.getY(), this);//player1 이미지 생성
 		bufferGraphics.drawImage(player2.getImg(), player2.getX(), player2.getY(), this);//player2 이미지 생성
 		g.drawImage(this.bufferedImage, 0, 0, this);
@@ -70,7 +73,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		// TODO Auto-generated method stub
 		
 	}
-//ㅇㅇㅇㅇㅁㄴㅇ
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
