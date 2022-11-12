@@ -19,10 +19,17 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	public int map_selection;//어떤 맵이 골라졌는지
 	public int[][] map_size;//맵 사이즈 설정을 위한 배열
 	
+	public int[] mapXlocationlist;
+	public int[] mapYlocationlist;
+	public int[][] mapindexlist;
+	
 	private Character player1; //플레이어1 생성
 	private Character player2; //플레이어2 생성
 	WaterBalloon player1WaterBalloon; //플레이어1 물풍선 생성
 	WaterBalloon player2WaterBalloon; //플레이어2 물풍선 생성
+	
+	int p1_x; /*characterin에서 사용*/
+	int p1_y;
 	
 	
 	private Image map_CookieBackground = new ImageIcon("Resources/mapCookie.png").getImage();//쿠키(맵0) 이미지
@@ -41,6 +48,18 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 				this.map_size[i][j] = 0;
 			}
 		}
+		
+		/* mapXlocaionlist와 mapYlocationlist는 맵의 각 타일들의 중심좌표의 x와 y값을 각각 저장*/
+		/*for문을 이용하여 첫 타일은 (10,10)에서 시작해 x와 y 각각 60씩 증가하며 중심좌표들이 저장됨*/
+		this.mapXlocationlist = new int[13];
+		this.mapYlocationlist = new int[13];
+		int locationnum = 10;
+		for(int i=0; i<13;i++) {
+				this.mapXlocationlist[i] = locationnum;
+				this.mapYlocationlist[i] = locationnum;
+				locationnum += 60;
+		}
+		
 		
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {//0.001초 주기로 repaint
@@ -69,8 +88,19 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	}
 	
 	public void characterin() {//캐릭터가 현재 맵의 어느 배열위치에 있는지 확인
-		int p1_x=player1.getX()/50;//이거 나눠서 나오는 값이랑 그림에서 나오게 되는 좌표랑 같게 연동시켜줘야함(김준씨 부탁해요)
-		int p1_y=player1.getY()/50;//이값도 바꿔야됨
+		/* mapXlocaitonlist의 13개의 중심 좌표값을 현재의 플레이어 X좌표와 비교하여 그 차이가 40보다 작으면 인덱스를 해당 중심좌표의 인덱스로 변경함*/
+		for(int i=0; i<13;i++) {
+			if((-(player1.getX()-mapXlocationlist[i])<40) && ((mapXlocationlist[i]-player1.getX())<40)) {
+				p1_x = i;
+			}
+		}
+		/* mapYlocaitonlist의 13개의 중심 좌표값을 현재의 플레이어 Y좌표와 비교하여 그 차이가 40보다 작으면 인덱스를 해당 중심좌표의 인덱스로 변경함*/
+		for(int i=0; i<13;i++) {
+			if((-(player1.getY()-mapYlocationlist[i])<40) && ((mapYlocationlist[i]-player1.getY())<40)) {
+				p1_y = i;
+			}
+		}
+
 		System.out.println("p1의 위치는 : ("+player1.getX()+","+player1.getY()+")"+"p1의 인덱스 위치는 : ("+p1_x+","+p1_y+")");
 	}
 	
