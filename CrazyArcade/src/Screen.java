@@ -16,6 +16,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Graphics bufferGraphics;
 	private Dimension dim;
 	
+	public int map_selection;//어떤 맵이 골라졌는지
 	public int[][] map_size;//맵 사이즈 설정을 위한 배열
 	
 	private Character player1; //플레이어1 생성
@@ -24,14 +25,16 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	WaterBalloon player2WaterBalloon; //플레이어2 물풍선 생성
 	
 	
-	private Image map_Cookie = new ImageIcon("Resources/mapCookie.png").getImage();
+	private Image map_CookieBackground = new ImageIcon("Resources/mapCookie.png").getImage();//쿠키(맵0) 이미지
+	private Image map_PatriotsBackground = new ImageIcon("Resources/mapPatriots.png").getImage();//해적(맵1) 이미지
 	
-	public Screen() {
+	public Screen(int map) {
+		this.map_selection = map; //생성자를 통해 어떤 맵 설정되었는지 받아오기 위함
 		player1 = new Bazzi(this); //플레이어1에 다오 생성
 		player2 = new Bazzi(this); //플레이어2에 다오 생성
 		addKeyListener(this);
 		addComponentListener(this);
-		
+
 		this.map_size = new int[13][13];//맵 사이즈 13*13
 		for(int i=0; i<13;i++) {//맵 0으로 초기화
 			for(int j=0; j<13; j++) {
@@ -54,14 +57,21 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		initBufferd();
 		Dimension dim = getSize();
 		bufferGraphics.clearRect(0, 0, dim.width, dim.height);
-		bufferGraphics.drawImage(map_Cookie,0,0,this);
+		if(map_selection == 0) {//쿠키맵일때 배경
+			bufferGraphics.drawImage(map_CookieBackground,0,0,this);
+		}else if(map_selection == 1) {//해적맵일때 배경
+			bufferGraphics.drawImage(map_PatriotsBackground,0,0,this);
+		}
 		bufferGraphics.drawImage(player1.getImg(), player1.getX(), player1.getY(), this);//player1 이미지 생성
 		bufferGraphics.drawImage(player2.getImg(), player2.getX(), player2.getY(), this);//player2 이미지 생성
 		g.drawImage(this.bufferedImage, 0, 0, this);
+		this.characterin();
 	}
 	
 	public void characterin() {//캐릭터가 현재 맵의 어느 배열위치에 있는지 확인
-		
+		int p1_x=player1.getX()/50;//이거 나눠서 나오는 값이랑 그림에서 나오게 되는 좌표랑 같게 연동시켜줘야함
+		int p1_y=player1.getY()/50;
+		System.out.println("p1의 위치는 : ("+player1.getX()+","+player1.getY()+")"+"p1의 인덱스 위치는 : ("+p1_x+","+p1_y+")");
 	}
 	
 	public void update(Graphics g) {//업데이트 함수
@@ -84,7 +94,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			break;
 		case KeyEvent.VK_DOWN:
-			if(player1.getY()<=800) {
+			if(player1.getY()<=800) {// 창현아 여기 숫자 바꿔서 안나가게 딱 막아줘
 				player1.down();
 			}
 			break;
@@ -94,7 +104,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			break;
 		case KeyEvent.VK_RIGHT:
-			if(player1.getX()<=800) {
+			if(player1.getX()<=800) {// 창현아 여기 숫자 바꿔서 안나가게 딱 막아줘
 				player1.right();
 			}
 			break;
@@ -110,7 +120,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			break;
 		case KeyEvent.VK_S:
-			if(player2.getY()<=800) {
+			if(player2.getY()<=800) {// 창현아 여기 숫자 바꿔서 안나가게 딱 막아줘
 				player2.down();
 			}
 			break;
@@ -120,7 +130,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			break;
 		case KeyEvent.VK_D:
-			if(player2.getX()<=800) {
+			if(player2.getX()<=800) {// 창현아 여기 숫자 바꿔서 안나가게 딱 막아줘
 				player2.right();
 			}
 			break;
