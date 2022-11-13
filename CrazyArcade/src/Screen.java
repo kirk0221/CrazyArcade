@@ -150,7 +150,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 				players[0].right();
 			}
 			break;
-		case KeyEvent.VK_SHIFT:
+		case KeyEvent.VK_0:
 			player1WaterBalloon.makeWaterBalloon(playerIndex_x[0], playerIndex_y[0]);//¹°Ç³¼± ³õ±â
 			break;
 		}

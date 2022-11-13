@@ -10,11 +10,16 @@ public class WaterBalloon {
 	
 	public WaterBalloon(){
 		this.bombSize = 1;
-		this.waterballoonImage = new ImageIcon("Resources/bazzi_front.png").getImage();//물풍선 이미지
+		this.waterballoonImage = new ImageIcon("Resources/waterbomb.png").getImage();//물풍선 이미지
 	}
 	
 	public void makeWaterBalloon(int x, int y) {
 		this.X = x;
 		this.Y = y;
+		
+	}
+	
+	public Image getImg() {//이미지를 스크린에 주기위한 함수
+		return this.waterballoonImage;
 	}
 }
