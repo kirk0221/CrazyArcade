@@ -46,7 +46,9 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		players[1] = player2;
 		addKeyListener(this);
 		addComponentListener(this);
-
+		player1WaterBalloon = new WaterBalloon();
+		player2WaterBalloon = new WaterBalloon();
+		
 		this.map_size = new int[13][13];//맵 사이즈 13*13
 		for(int i=0; i<13;i++) {//맵 0으로 초기화
 			for(int j=0; j<13; j++) {
@@ -90,23 +92,23 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		bufferGraphics.drawImage(players[i].getImg(), players[i].getX(), players[i].getY(), this);//players 이미지 생성
 		}
 		g.drawImage(this.bufferedImage, 0, 0, this);
+		this.characterin();
 	}
 	
 	public void characterin() {//캐릭터가 현재 맵의 어느 배열위치에 있는지 확인
 		/* mapXlocaitonlist의 13개의 중심 좌표값을 현재의 플레이어 X좌표와 비교하여 그 차이가 40보다 작으면 인덱스를 해당 중심좌표의 인덱스로 변경함*/
 		for (int j=0; j<MAX_PLAYER; j++) {
 			for(int i=0; i<13;i++) {
-				if((-(players[i].getX()-mapXlocationlist[i])<40) && ((mapXlocationlist[i]-players[i].getX())<40)) {
+				if((-(players[j].getX()-mapXlocationlist[i])<40) && ((mapXlocationlist[i]-players[j].getX())<40)) {
 					playerIndex_x[j] = i;
 				}
 			}
 			/* mapYlocaitonlist의 13개의 중심 좌표값을 현재의 플레이어 Y좌표와 비교하여 그 차이가 40보다 작으면 인덱스를 해당 중심좌표의 인덱스로 변경함*/
 			for(int i=0; i<13;i++) {
-				if((-(players[i].getY()-mapYlocationlist[i])<40) && ((mapYlocationlist[i]-players[i].getY())<40)) {
+				if((-(players[j].getY()-mapYlocationlist[i])<40) && ((mapYlocationlist[i]-players[j].getY())<40)) {
 					playerIndex_y[j] = i;
 				}
 			}
-			System.out.println("p"+j+1+"의 위치는 : ("+players[j].getX()+","+players[j].getY()+")"+"p1의 인덱스 위치는 : ("+playerIndex_x[j]+","+playerIndex_y[j]+")");
 		}
 	}
 	
@@ -130,7 +132,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			break;
 		case KeyEvent.VK_DOWN:
-			if(players[0].getY()<=800) {// 창현아 여기 숫자 바꿔서 안나가게 딱 막아줘
+			if(players[0].getY()<=700) {
 				players[0].down();
 			}
 			break;
@@ -140,13 +142,12 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			break;
 		case KeyEvent.VK_RIGHT:
-			if(players[0].getX()<=800) {// 창현아 여기 숫자 바꿔서 안나가게 딱 막아줘
+			if(players[0].getX()<=720) {
 				players[0].right();
 			}
 			break;
 		case KeyEvent.VK_SHIFT:
-			player1WaterBalloon = new WaterBalloon();
-			player1WaterBalloon.makeWaterBalloon(players[0].getX(), players[0].getY());//물풍선 놓기
+			player1WaterBalloon.makeWaterBalloon(playerIndex_x[0], playerIndex_y[0]);//물풍선 놓기
 			break;
 		}
 		switch(e.getKeyCode()) {//player2에 대한 움직임
@@ -156,7 +157,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			break;
 		case KeyEvent.VK_S:
-			if(players[1].getY()<=800) {// 창현아 여기 숫자 바꿔서 안나가게 딱 막아줘
+			if(players[1].getY()<=700) {
 				players[1].down();
 			}
 			break;
@@ -166,13 +167,12 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			break;
 		case KeyEvent.VK_D:
-			if(players[1].getX()<=800) {// 창현아 여기 숫자 바꿔서 안나가게 딱 막아줘
+			if(players[1].getX()<=720) {
 				players[1].right();
 			}
 			break;
 		case KeyEvent.VK_SHIFT:
-			player2WaterBalloon = new WaterBalloon();
-			player2WaterBalloon.makeWaterBalloon(players[1].getX(), players[1].getY());//물풍선 놓기
+			player2WaterBalloon.makeWaterBalloon(playerIndex_x[1], playerIndex_y[1]);//물풍선 놓기
 			break;
 		}
 	}
