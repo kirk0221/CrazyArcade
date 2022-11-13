@@ -12,6 +12,10 @@ import java.util.TimerTask;
 import javax.swing.ImageIcon;
 
 public class Screen extends Canvas implements KeyListener, ComponentListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Image bufferedImage;
 	private Graphics bufferGraphics;
 	private Dimension dim;
