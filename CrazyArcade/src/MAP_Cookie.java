@@ -3,6 +3,11 @@ import javax.swing.JFrame;
 
 public class MAP_Cookie extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public MAP_Cookie(){//Cookie 생성자
 		this.setTitle("Cookie");//창 제목
 		this.setSize(796, 817);//창 크기 -> Screen이 780,780으로 그려짐

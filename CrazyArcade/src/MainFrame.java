@@ -3,13 +3,16 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class MainFrame extends JFrame implements ActionListener {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String MAP_COOKIE = "Cookie";
 	private String MAP_PATRIOTS = "Patriots";
 	private JButton[] mapButtons; //¸Ê °ü¸®¿ë ¸â¹öÇÊµå
@@ -51,7 +54,6 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals(MAP_COOKIE)) { //ÄíÅ°(¸Ê0) ¼±ÅÃ½Ã
 			new MAP_Cookie(); //ÄíÅ°(¸Ê0) Ã¢ »ý¼º
 			this.setVisible(false); //ÇöÀç Ã¢ ¼û±â±â
