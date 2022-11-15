@@ -1,23 +1,30 @@
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.ImageIcon;
 
-public class Bazzi extends Character {
+public class Bazzi extends Character implements KeyListener{
 
 	private Image carImg;
 	private int X;
 	private int Y;
 	private int step;
 	public int die;
+	public int playertype;
+	WaterBalloon playerWaterBalloon;
 	
 
-	public Bazzi(Screen screen) {
+	public Bazzi(Screen screen, int playertype) {
 		super(screen);
 		// TODO Auto-generated constructor stub
-		this.carImg = new ImageIcon("Resources/car.png").getImage();
+		this.carImg = new ImageIcon("Resources/bazzi_front.png").getImage();
 		this.X = 400;//초기 X값
 		this.Y = 300;//초기 Y값
 		this.step = 5;//초기 이동 거리
 		this.die = 0;//아직 죽지 않았음
+		this.playertype = playertype;
+		playerWaterBalloon = new WaterBalloon(playertype);
 	}
 	
 	public Image getImg() {//이미지를 스크린에 주기위한 함수
@@ -47,6 +54,77 @@ public class Bazzi extends Character {
 	
 	public void die() { //죽었을 경우
 		this.die = 1;
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if(playertype == 1) {
+			switch(e.getKeyCode()) {//player1에 대한 움직임
+			case KeyEvent.VK_UP:
+				if(this.getY()>=0) {
+					this.up();
+				}
+				break;
+			case KeyEvent.VK_DOWN:
+				if(this.getY()<=700) {
+					this.down();
+				}
+				break;
+			case KeyEvent.VK_LEFT:
+				if(this.getX()>=0) {
+					this.left();
+				}
+				break;
+			case KeyEvent.VK_RIGHT:
+				if(this.getX()<=720) {
+					this.right();
+				}
+				break;
+			case KeyEvent.VK_SHIFT:
+				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY());//물풍선 놓기
+				break;
+			}
+		}else if(playertype == 2) {
+			switch(e.getKeyCode()) {//player2에 대한 움직임
+			case KeyEvent.VK_W:
+				if(this.getY()>=0) {
+					this.up();
+				}
+				break;
+			case KeyEvent.VK_S:
+				if(this.getY()<=700) {
+					this.down();
+				}
+				break;
+			case KeyEvent.VK_A:
+				if(this.getX()>=0) {
+					this.left();
+				}
+				break;
+			case KeyEvent.VK_D:
+				if(this.getX()<=720) {
+					this.right();
+				}
+				break;
+			case KeyEvent.VK_SPACE:
+				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY());//물풍선 놓기
+				break;
+			}
+			
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

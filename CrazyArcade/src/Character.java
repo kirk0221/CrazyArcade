@@ -1,4 +1,5 @@
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 
 public abstract class Character {
 	private Screen screen;
@@ -38,4 +39,5 @@ public abstract class Character {
 	public void die() {
 		die = 1;
 	}
+	public abstract void keyPressed(KeyEvent e);
 }
