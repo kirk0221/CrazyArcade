@@ -20,32 +20,32 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Graphics bufferGraphics;
 	private Dimension dim;
 	
-	public int map_selection;//¾î¶² ¸ÊÀÌ °ñ¶óÁ³´ÂÁö
-	public int[][] map_size;//¸Ê »çÀÌÁî ¼³Á¤À» À§ÇÑ ¹è¿­
+	public int map_selection;//ì–´ë–¤ ë§µì´ ê³¨ë¼ì¡ŒëŠ”ì§€
+	public int[][] map_size;//ë§µ ì‚¬ì´ì¦ˆ ì„¤ì •ì„ ìœ„í•œ ë°°ì—´
 	
 	public int[] mapXlocationlist;
 	public int[] mapYlocationlist;
 	public int[][] mapindexlist;
 	
-	private final int MAX_PLAYER = 2;//MAX ÇÃ·¹ÀÌ¾î
-	private Character[] players; //ÇÃ·¹ÀÌ¾î °ü¸®¸¦ À§ÇÑ ¹è¿­
-	WaterBalloon player1WaterBalloon; //ÇÃ·¹ÀÌ¾î1 ¹°Ç³¼± »ı¼º
-	WaterBalloon player2WaterBalloon; //ÇÃ·¹ÀÌ¾î2 ¹°Ç³¼± »ı¼º
+	private final int MAX_PLAYER = 2;//MAX í”Œë ˆì´ì–´
+	private Character[] players; //í”Œë ˆì´ì–´ ê´€ë¦¬ë¥¼ ìœ„í•œ ë°°ì—´
+	WaterBalloon player1WaterBalloon; //í”Œë ˆì´ì–´1 ë¬¼í’ì„  ìƒì„±
+	WaterBalloon player2WaterBalloon; //í”Œë ˆì´ì–´2 ë¬¼í’ì„  ìƒì„±
 	
-	int[] playerIndex_x; /*characterin¿¡¼­ »ç¿ë*/
+	int[] playerIndex_x; /*characterinì—ì„œ ì‚¬ìš©*/
 	int[] playerIndex_y;
 	
 	
-	private Image map_CookieBackground = new ImageIcon("Resources/mapCookie.png").getImage();//ÄíÅ°(¸Ê0) ÀÌ¹ÌÁö
-	private Image map_PatriotsBackground = new ImageIcon("Resources/mapPatriots.png").getImage();//ÇØÀû(¸Ê1) ÀÌ¹ÌÁö
+	private Image map_CookieBackground = new ImageIcon("Resources/mapCookie.png").getImage();//ì¿ í‚¤(ë§µ0) ì´ë¯¸ì§€
+	private Image map_PatriotsBackground = new ImageIcon("Resources/mapPatriots.png").getImage();//í•´ì (ë§µ1) ì´ë¯¸ì§€
 	
 	public Screen(int map) {
-		this.map_selection = map; //»ı¼ºÀÚ¸¦ ÅëÇØ ¾î¶² ¸Ê ¼³Á¤µÇ¾ú´ÂÁö ¹Ş¾Æ¿À±â À§ÇÔ
+		this.map_selection = map; //ìƒì„±ìë¥¼ í†µí•´ ì–´ë–¤ ë§µ ì„¤ì •ë˜ì—ˆëŠ”ì§€ ë°›ì•„ì˜¤ê¸° ìœ„í•¨
 		players = new Character[MAX_PLAYER];
 		playerIndex_x = new int[MAX_PLAYER];
 		playerIndex_y = new int[MAX_PLAYER];
-		Character player1 = new Bazzi(this); //ÇÃ·¹ÀÌ¾î1¿¡ ¹èÂî »ı¼º
-		Character player2 = new Bazzi(this); //ÇÃ·¹ÀÌ¾î2¿¡ ¹èÂî »ı¼º
+		Character player1 = new Bazzi(this); //í”Œë ˆì´ì–´1ì— ë°°ì°Œ ìƒì„±
+		Character player2 = new Bazzi(this); //í”Œë ˆì´ì–´2ì— ë°°ì°Œ ìƒì„±
 		players[0] = player1;
 		players[1] = player2;
 		addKeyListener(this);
@@ -53,15 +53,15 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		player1WaterBalloon = new WaterBalloon();
 		player2WaterBalloon = new WaterBalloon();
 		
-		this.map_size = new int[13][13];//¸Ê »çÀÌÁî 13*13
-		for(int i=0; i<13;i++) {//¸Ê 0À¸·Î ÃÊ±âÈ­
+		this.map_size = new int[13][13];//ë§µ ì‚¬ì´ì¦ˆ 13*13
+		for(int i=0; i<13;i++) {//ë§µ 0ìœ¼ë¡œ ì´ˆê¸°í™”
 			for(int j=0; j<13; j++) {
 				this.map_size[i][j] = 0;
 			}
 		}
 		
-		/* mapXlocaionlist¿Í mapYlocationlist´Â ¸ÊÀÇ °¢ Å¸ÀÏµéÀÇ Áß½ÉÁÂÇ¥ÀÇ x¿Í y°ªÀ» °¢°¢ ÀúÀå*/
-		/*for¹®À» ÀÌ¿ëÇÏ¿© Ã¹ Å¸ÀÏÀº (10,10)¿¡¼­ ½ÃÀÛÇØ x¿Í y °¢°¢ 60¾¿ Áõ°¡ÇÏ¸ç Áß½ÉÁÂÇ¥µéÀÌ ÀúÀåµÊ*/
+		/* mapXlocaionlistì™€ mapYlocationlistëŠ” ë§µì˜ ê° íƒ€ì¼ë“¤ì˜ ì¤‘ì‹¬ì¢Œí‘œì˜ xì™€ yê°’ì„ ê°ê° ì €ì¥*/
+		/*forë¬¸ì„ ì´ìš©í•˜ì—¬ ì²« íƒ€ì¼ì€ (10,10)ì—ì„œ ì‹œì‘í•´ xì™€ y ê°ê° 60ì”© ì¦ê°€í•˜ë©° ì¤‘ì‹¬ì¢Œí‘œë“¤ì´ ì €ì¥ë¨*/
 		this.mapXlocationlist = new int[13];
 		this.mapYlocationlist = new int[13];
 		int locationnum = 10;
@@ -73,7 +73,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		
 		
 		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {//0.001ÃÊ ÁÖ±â·Î repaint
+		timer.schedule(new TimerTask() {//0.001ì´ˆ ì£¼ê¸°ë¡œ repaint
 			
 			@Override
 			public void run() {
@@ -83,31 +83,31 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		},0, 1);
 	}
 	
-	public void paint(Graphics g) {//½ºÅ©¸°¿¡ ±×¸®´Â ºÎºĞ
+	public void paint(Graphics g) {//ìŠ¤í¬ë¦°ì— ê·¸ë¦¬ëŠ” ë¶€ë¶„
 		initBufferd();
 		Dimension dim = getSize();
 		bufferGraphics.clearRect(0, 0, dim.width, dim.height);
-		if(map_selection == 0) {//ÄíÅ°¸ÊÀÏ¶§ ¹è°æ
+		if(map_selection == 0) {//ì¿ í‚¤ë§µì¼ë•Œ ë°°ê²½
 			bufferGraphics.drawImage(map_CookieBackground,0,0,this);
-		}else if(map_selection == 1) {//ÇØÀû¸ÊÀÏ¶§ ¹è°æ
+		}else if(map_selection == 1) {//í•´ì ë§µì¼ë•Œ ë°°ê²½
 			bufferGraphics.drawImage(map_PatriotsBackground,0,0,this);
 		}
 		for(int i=0; i<MAX_PLAYER; i++) {
-		bufferGraphics.drawImage(players[i].getImg(), players[i].getX(), players[i].getY(), this);//players ÀÌ¹ÌÁö »ı¼º
+		bufferGraphics.drawImage(players[i].getImg(), players[i].getX(), players[i].getY(), this);//players ì´ë¯¸ì§€ ìƒì„±
 		}
 		g.drawImage(this.bufferedImage, 0, 0, this);
 		this.characterin();
 	}
 	
-	public void characterin() {//Ä³¸¯ÅÍ°¡ ÇöÀç ¸ÊÀÇ ¾î´À ¹è¿­À§Ä¡¿¡ ÀÖ´ÂÁö È®ÀÎ
-		/* mapXlocaitonlistÀÇ 13°³ÀÇ Áß½É ÁÂÇ¥°ªÀ» ÇöÀçÀÇ ÇÃ·¹ÀÌ¾î XÁÂÇ¥¿Í ºñ±³ÇÏ¿© ±× Â÷ÀÌ°¡ 40º¸´Ù ÀÛÀ¸¸é ÀÎµ¦½º¸¦ ÇØ´ç Áß½ÉÁÂÇ¥ÀÇ ÀÎµ¦½º·Î º¯°æÇÔ*/
+	public void characterin() {//ìºë¦­í„°ê°€ í˜„ì¬ ë§µì˜ ì–´ëŠ ë°°ì—´ìœ„ì¹˜ì— ìˆëŠ”ì§€ í™•ì¸
+		/* mapXlocaitonlistì˜ 13ê°œì˜ ì¤‘ì‹¬ ì¢Œí‘œê°’ì„ í˜„ì¬ì˜ í”Œë ˆì´ì–´ Xì¢Œí‘œì™€ ë¹„êµí•˜ì—¬ ê·¸ ì°¨ì´ê°€ 40ë³´ë‹¤ ì‘ìœ¼ë©´ ì¸ë±ìŠ¤ë¥¼ í•´ë‹¹ ì¤‘ì‹¬ì¢Œí‘œì˜ ì¸ë±ìŠ¤ë¡œ ë³€ê²½í•¨*/
 		for (int j=0; j<MAX_PLAYER; j++) {
 			for(int i=0; i<13;i++) {
 				if((-(players[j].getX()-mapXlocationlist[i])<40) && ((mapXlocationlist[i]-players[j].getX())<40)) {
 					playerIndex_x[j] = i;
 				}
 			}
-			/* mapYlocaitonlistÀÇ 13°³ÀÇ Áß½É ÁÂÇ¥°ªÀ» ÇöÀçÀÇ ÇÃ·¹ÀÌ¾î YÁÂÇ¥¿Í ºñ±³ÇÏ¿© ±× Â÷ÀÌ°¡ 40º¸´Ù ÀÛÀ¸¸é ÀÎµ¦½º¸¦ ÇØ´ç Áß½ÉÁÂÇ¥ÀÇ ÀÎµ¦½º·Î º¯°æÇÔ*/
+			/* mapYlocaitonlistì˜ 13ê°œì˜ ì¤‘ì‹¬ ì¢Œí‘œê°’ì„ í˜„ì¬ì˜ í”Œë ˆì´ì–´ Yì¢Œí‘œì™€ ë¹„êµí•˜ì—¬ ê·¸ ì°¨ì´ê°€ 40ë³´ë‹¤ ì‘ìœ¼ë©´ ì¸ë±ìŠ¤ë¥¼ í•´ë‹¹ ì¤‘ì‹¬ì¢Œí‘œì˜ ì¸ë±ìŠ¤ë¡œ ë³€ê²½í•¨*/
 			for(int i=0; i<13;i++) {
 				if((-(players[j].getY()-mapYlocationlist[i])<40) && ((mapYlocationlist[i]-players[j].getY())<40)) {
 					playerIndex_y[j] = i;
@@ -116,7 +116,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		}
 	}
 	
-	public void update(Graphics g) {//¾÷µ¥ÀÌÆ® ÇÔ¼ö
+	public void update(Graphics g) {//ì—…ë°ì´íŠ¸ í•¨ìˆ˜
 		paint(g);
 	}
 
@@ -129,7 +129,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		switch(e.getKeyCode()) {//player1¿¡ ´ëÇÑ ¿òÁ÷ÀÓ
+		switch(e.getKeyCode()) {//player1ì— ëŒ€í•œ ì›€ì§ì„
 		case KeyEvent.VK_UP:
 			if(players[0].getY()>=0) {
 				players[0].up();
@@ -151,10 +151,10 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			break;
 		case KeyEvent.VK_0:
-			player1WaterBalloon.makeWaterBalloon(playerIndex_x[0], playerIndex_y[0]);//¹°Ç³¼± ³õ±â
+			player1WaterBalloon.makeWaterBalloon(playerIndex_x[0], playerIndex_y[0]);//ë¬¼í’ì„  ë†“ê¸°
 			break;
 		}
-		switch(e.getKeyCode()) {//player2¿¡ ´ëÇÑ ¿òÁ÷ÀÓ
+		switch(e.getKeyCode()) {//player2ì— ëŒ€í•œ ì›€ì§ì„
 		case KeyEvent.VK_W:
 			if(players[1].getY()>=0) {
 				players[1].up();
@@ -176,7 +176,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			break;
 		case KeyEvent.VK_SHIFT:
-			player2WaterBalloon.makeWaterBalloon(playerIndex_x[1], playerIndex_y[1]);//¹°Ç³¼± ³õ±â
+			player2WaterBalloon.makeWaterBalloon(playerIndex_x[1], playerIndex_y[1]);//ë¬¼í’ì„  ë†“ê¸°
 			break;
 		}
 	}
@@ -187,14 +187,14 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		
 	}
 	
-	private void initBufferd() {//¹öÆÛ ÃÊ±âÈ­
+	private void initBufferd() {//ë²„í¼ ì´ˆê¸°í™”
 		this.dim = getSize();
 		this.bufferedImage = createImage(dim.width, dim.height);
 		this.bufferGraphics = this.bufferedImage.getGraphics();
 	}
 
 	@Override
-	public void componentResized(ComponentEvent e) {//Ã¢ Å©±â°¡ ¹Ù²ğ¶§ ¹öÆÛ ÃÊ±âÈ­
+	public void componentResized(ComponentEvent e) {//ì°½ í¬ê¸°ê°€ ë°”ë€”ë•Œ ë²„í¼ ì´ˆê¸°í™”
 		// TODO Auto-generated method stub
 		initBufferd();
 	}
