@@ -36,7 +36,7 @@ public class MapChoice extends JFrame implements ActionListener{
 		JButton Patriots = new JButton(MAP_PATRIOTS); //해적(맵1)
 		
 		Cookie.setPreferredSize(new Dimension(100,100)); //팡랜드 버튼 크기 100,100 설정
-		Patriots.setPreferredSize(new Dimension(100,100)); //빌리지 버튼 크기 100,100 설정
+		Patriots.setPreferredSize(new Dimension(100,100)); //빌리지 버튼 크기 100,100 설정c
 		
 		//mapButtons에 각 map 추가
 		mapButtons[0] = Cookie;
