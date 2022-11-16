@@ -21,16 +21,16 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Dimension dim;
 	
 	public int map_selection;//어떤 맵이 골라졌는지
-	public int[][] map_size;//맵 사이즈 설정을 위한 배열
+	public static int[][] map_size;//맵 사이즈 설정을 위한 배열
+	/*물풍선에서 조작하기 위해 static으로 변경*/
 	
 	public int[] mapXlocationlist;
 	public int[] mapYlocationlist;
 	public int[][] mapindexlist;
 	
 	private final int MAX_PLAYER = 2;//MAX 플레이어
-	private Character[] players; //플레이어 관리를 위한 배열
-	WaterBalloon player1WaterBalloon; //플레이어1 물풍선 생성
-	WaterBalloon player2WaterBalloon; //플레이어2 물풍선 생성
+	Character[] players; //플레이어 관리를 위한 배열
+
 	
 	int[] playerIndex_x; /*characterin에서 사용*/
 	int[] playerIndex_y;
@@ -44,15 +44,13 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		players = new Character[MAX_PLAYER];
 		playerIndex_x = new int[MAX_PLAYER];
 		playerIndex_y = new int[MAX_PLAYER];
-		Character player1 = new Bazzi(this); //플레이어1에 배찌 생성
-		Character player2 = new Bazzi(this); //플레이어2에 배찌 생성
+		Character player1 = new Bazzi(this,1); //플레이어1에 배찌 생성
+		Character player2 = new Bazzi(this,2); //플레이어2에 배찌 생성
 		players[0] = player1;
 		players[1] = player2;
 		addKeyListener(this);
 		addComponentListener(this);
-		player1WaterBalloon = new WaterBalloon();
-		player2WaterBalloon = new WaterBalloon();
-		
+
 		this.map_size = new int[13][13];//맵 사이즈 13*13
 		for(int i=0; i<13;i++) {//맵 0으로 초기화
 			for(int j=0; j<13; j++) {
@@ -92,8 +90,17 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		}else if(map_selection == 1) {//해적맵일때 배경
 			bufferGraphics.drawImage(map_PatriotsBackground,0,0,this);
 		}
+		for(int i=0;i<players[0].getballonListsize();i++) { /*물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
+			bufferGraphics.drawImage(players[0].getballoonImg(), mapXlocationlist[players[0].getballoonX(i)], mapYlocationlist[players[0].getballoonY(i)], this);
+			/*물풍선 이미지를 그리되, 그리는 위치는 각 타일의 중앙이 되도록 함*/
+		}
+		
+		for(int j=0;j<players[1].getballonListsize();j++) {
+			bufferGraphics.drawImage(players[1].getballoonImg(), mapXlocationlist[players[1].getballoonX(j)], mapYlocationlist[players[1].getballoonY(j)], this);
+		}
+
 		for(int i=0; i<MAX_PLAYER; i++) {
-		bufferGraphics.drawImage(players[i].getImg(), players[i].getX(), players[i].getY(), this);//players 이미지 생성
+			bufferGraphics.drawImage(players[i].getImg(), players[i].getX(), players[i].getY(), this);//players 이미지 생성
 		}
 		g.drawImage(this.bufferedImage, 0, 0, this);
 		this.characterin();
@@ -113,6 +120,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 					playerIndex_y[j] = i;
 				}
 			}
+			map_size[playerIndex_x[j]][playerIndex_y[j]] = 1; /*캐릭터의 위치를 저장*/
 		}
 	}
 	
@@ -129,56 +137,10 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		switch(e.getKeyCode()) {//player1에 대한 움직임
-		case KeyEvent.VK_UP:
-			if(players[0].getY()>=0) {
-				players[0].up();
-			}
-			break;
-		case KeyEvent.VK_DOWN:
-			if(players[0].getY()<=700) {
-				players[0].down();
-			}
-			break;
-		case KeyEvent.VK_LEFT:
-			if(players[0].getX()>=0) {
-				players[0].left();
-			}
-			break;
-		case KeyEvent.VK_RIGHT:
-			if(players[0].getX()<=720) {
-				players[0].right();
-			}
-			break;
-		case KeyEvent.VK_0:
-			player1WaterBalloon.makeWaterBalloon(playerIndex_x[0], playerIndex_y[0]);//물풍선 놓기
-			break;
-		}
-		switch(e.getKeyCode()) {//player2에 대한 움직임
-		case KeyEvent.VK_W:
-			if(players[1].getY()>=0) {
-				players[1].up();
-			}
-			break;
-		case KeyEvent.VK_S:
-			if(players[1].getY()<=700) {
-				players[1].down();
-			}
-			break;
-		case KeyEvent.VK_A:
-			if(players[1].getX()>=0) {
-				players[1].left();
-			}
-			break;
-		case KeyEvent.VK_D:
-			if(players[1].getX()<=720) {
-				players[1].right();
-			}
-			break;
-		case KeyEvent.VK_SHIFT:
-			player2WaterBalloon.makeWaterBalloon(playerIndex_x[1], playerIndex_y[1]);//물풍선 놓기
-			break;
-		}
+		map_size[playerIndex_x[0]][playerIndex_y[0]] = 0;
+		map_size[playerIndex_x[1]][playerIndex_y[1]] = 0; /* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1을 0으로 초기화*/
+		players[0].keyPressed(e);
+		players[1].keyPressed(e);
 	}
 
 	@Override

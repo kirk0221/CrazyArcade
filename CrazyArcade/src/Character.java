@@ -1,4 +1,5 @@
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 
 public abstract class Character {
 	private Screen screen;
@@ -14,6 +15,7 @@ public abstract class Character {
 		return this.screen;
 	}
 	public abstract Image getImg();//이미지 가져오는 함수
+	public abstract Image getballoonImg(); //물풍선 이미지 가져오기
 	
 	public int getX() {// X값 가져오는 함수
 		return this.X;
@@ -38,4 +40,8 @@ public abstract class Character {
 	public void die() {
 		die = 1;
 	}
+	public abstract void keyPressed(KeyEvent e);
+	protected abstract int getballoonY(int i);
+	protected abstract int getballoonX(int i);
+	protected abstract int getballonListsize();
 }
