@@ -25,7 +25,7 @@ public class MapChoice extends JFrame implements ActionListener{
 		this.add(centerPanel(), BorderLayout.NORTH); //창 아래로 들어갈 패널 추가
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //윈도우 창 종료시 프로세스까지 모두 종료
 		this.setLocationRelativeTo(null); //창 가운데 위치
-		this.setVisible(true); //창 보이게 하기c
+		this.setVisible(true); //창 보이게 하기cccc
 	}
 	
 	private JPanel centerPanel() { //창 가운데 들어갈 패널(맵 선택)
