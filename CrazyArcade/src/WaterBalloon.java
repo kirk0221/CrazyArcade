@@ -1,5 +1,4 @@
 import java.awt.Image;
-import java.awt.Point;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;

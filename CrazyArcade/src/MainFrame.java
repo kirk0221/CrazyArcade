@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 public class MainFrame extends JFrame implements ActionListener {
 
 	private JButton[] loginButtons; //시작, 종료 관리용 멤버필드
-	private Image bufferedImage;
 	private Image starteBackground = new ImageIcon("Resources/start.png").getImage();//처음 배경 넣기
 	ImageIcon loginBackground = new ImageIcon("Resources/login.png");//로그인 배경 넣기
 	ImageIcon exitBackground = new ImageIcon("Resources/exit.png");//종료 배경 넣기

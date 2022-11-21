@@ -6,7 +6,6 @@ import javax.swing.ImageIcon;
 
 public class Bazzi extends Character implements KeyListener{
 
-	private Image bazziImg;
 	private int X;
 	private int Y;
 	private int step;
@@ -19,7 +18,6 @@ public class Bazzi extends Character implements KeyListener{
 	public Bazzi(Screen screen, int playertype) { /*플레이어 타입을 전달받아, 해당 타입에 따라 키에 대한 동작이 다르도록 함*/
 		super(screen);
 		// TODO Auto-generated constructor stub
-		this.bazziImg = new ImageIcon("Resources/bazzi_front.png").getImage();
 		this.X = 400;//초기 X값
 		this.Y = 300;//초기 Y값
 		this.step = 5;//초기 이동 거리
