@@ -13,7 +13,8 @@ public class Bazzi extends Character implements KeyListener{
 	public int die;
 	public int playertype;
 	WaterBalloon playerWaterBalloon;
-	
+	private Image[] bazzi_state;
+	private int state;//상태 번호
 
 	public Bazzi(Screen screen, int playertype) { /*플레이어 타입을 전달받아, 해당 타입에 따라 키에 대한 동작이 다르도록 함*/
 		super(screen);
@@ -25,10 +26,20 @@ public class Bazzi extends Character implements KeyListener{
 		this.die = 0;//아직 죽지 않았음
 		this.playertype = playertype;
 		playerWaterBalloon = new WaterBalloon(playertype); /* 물풍선 생성*/
+		this.bazzi_state = new Image[4];
+		Image bazzi_front = new ImageIcon("Resources/bazzi_front.png").getImage();//배찌 정면 이미지
+		Image bazzi_back = new ImageIcon("Resources/bazzi_back.png").getImage();//배찌 후면 이미지
+		Image bazzi_left = new ImageIcon("Resources/bazzi_left.png").getImage();//배찌 좌측면 이미지
+		Image bazzi_right = new ImageIcon("Resources/bazzi_right.png").getImage();//배찌 우측면 이미지
+		this.bazzi_state[0] = bazzi_front;
+		this.bazzi_state[1] = bazzi_back;
+		this.bazzi_state[2] = bazzi_left;
+		this.bazzi_state[3] = bazzi_right;
+		this.state = 0;//초기 정면으로 보고있음
 	}
 	
 	public Image getImg() {//이미지를 스크린에 주기위한 함수
-		return this.bazziImg;
+		return this.bazzi_state[state];
 	}
 	
 	public Image getballoonImg() {//이미지를 스크린에 주기위한 함수
@@ -58,15 +69,19 @@ public class Bazzi extends Character implements KeyListener{
 	}
 	
 	public void up() {//위로 가기
+		this.state  = 1;
 		Y-=step;
 	}
 	public void down() {//아래로 가기
+		this.state  = 0;
 		Y+=step;
 	}
 	public void left() {//왼쪽으로 가기
+		this.state  = 2;
 		X-=step;
 	}
 	public void right() {//오른쪽으로 가기
+		this.state  = 3;
 		X+=step;
 	}
 	
