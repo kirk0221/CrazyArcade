@@ -1,7 +1,5 @@
 import java.awt.Image;
-import java.awt.Point;
 import java.util.LinkedList;
-
 import javax.swing.ImageIcon;
 
 public class WaterBalloon {
@@ -9,7 +7,7 @@ public class WaterBalloon {
 	int Y;
 	int bombSize;
 	int balloontype;
-	int waterballonmax;
+	static int waterballoonmax;
 	
 	public int[] mapXlocationlist;
 	public int[] mapYlocationlist;
@@ -26,7 +24,7 @@ public class WaterBalloon {
 	public WaterBalloon(int balloon){
 		this.bombSize = 1;
 		this.balloontype = balloon;
-		//int waterballonmax = 3;
+		this.waterballoonmax = 3; //물풍선 최대 개수 3개
 		this.mapXlocationlist = new int[13];
 		this.mapYlocationlist = new int[13];
 		int locationnum = 10;
@@ -55,10 +53,10 @@ public class WaterBalloon {
 	
 	
 	public void makeWaterBalloon(int x, int y) {
-		/*if(waterballonmax==0) {
+		if(waterballoonmax==0) {
 			System.out.println("물풍선 횟수 초과");
-		}else {*/
-			//waterballonmax -= 1;
+		}else {
+			waterballoonmax -= 1;
 			this.X = x;
 			this.Y = y;
 			for(int i=0; i<13;i++) {
@@ -76,5 +74,6 @@ public class WaterBalloon {
 			Screen.map_size[balloonXindex][balloonYindex] = 2; /*2로 바꾸어 물풍선 놓기*/
 			/*내부적으로 이용하기 위해 2로 바꾸어줌*/
 			BalloonTimer timer = new BalloonTimer(5000);
+		}
 	}
 }
