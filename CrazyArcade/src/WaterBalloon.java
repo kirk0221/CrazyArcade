@@ -56,7 +56,7 @@ public class WaterBalloon {
 		if(waterballoonmax==0) {
 			System.out.println("물풍선 횟수 초과");
 		}else {
-			waterballoonmax -= 1;
+			waterballoonmax -= 1;//물풍선이 설치되면 물풍선 최대개수를 1 줄여줌
 			this.X = x;
 			this.Y = y;
 			for(int i=0; i<13;i++) {

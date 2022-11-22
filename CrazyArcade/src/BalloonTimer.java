@@ -16,7 +16,7 @@ public class BalloonTimer {
 	    public void run() {
 	    	WaterBalloon.balloonXList.remove(0);
 	    	WaterBalloon.balloonYList.remove(0);
-	    	WaterBalloon.waterballoonmax += 1;
+	    	WaterBalloon.waterballoonmax += 1;;//물풍선이 터질때 물풍선 개수를 다시 1 늘려줌
 	    }
 	};
 }
