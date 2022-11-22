@@ -1,4 +1,5 @@
 import java.awt.Image;
+import java.awt.Point;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
@@ -58,7 +59,6 @@ public class WaterBalloon {
 			System.out.println("물풍선 횟수 초과");
 		}else {*/
 			//waterballonmax -= 1;
-		/*물풍선 가능 개수를 위와 같이 지정하면 아얘 물풍선이 놓아지지 않는 오류 발생*/
 			this.X = x;
 			this.Y = y;
 			for(int i=0; i<13;i++) {
@@ -75,5 +75,6 @@ public class WaterBalloon {
 			balloonYList.add(balloonYindex); /*물풍선 y 좌표 인덱스를 저장하는 링크드 리스트*/
 			Screen.map_size[balloonXindex][balloonYindex] = 2; /*2로 바꾸어 물풍선 놓기*/
 			/*내부적으로 이용하기 위해 2로 바꾸어줌*/
+			BalloonTimer timer = new BalloonTimer(5000);
 	}
 }
