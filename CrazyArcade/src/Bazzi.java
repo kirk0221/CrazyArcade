@@ -25,6 +25,7 @@ public class Bazzi extends Character implements KeyListener{
 		this.die = 0;//아직 죽지 않았음
 		this.playertype = playertype;
 		playerWaterBalloon = new WaterBalloon(playertype); /* 물풍선 생성*/
+		
 	}
 	
 	public Image getImg() {//이미지를 스크린에 주기위한 함수

@@ -50,6 +50,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		players[1] = player2;
 		addKeyListener(this);
 		addComponentListener(this);
+		
+		
 
 		this.map_size = new int[13][13];//∏  ªÁ¿Ã¡Ó 13*13
 		for(int i=0; i<13;i++) {//∏  0¿∏∑Œ √ ±‚»≠
