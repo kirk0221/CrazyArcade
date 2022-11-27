@@ -117,10 +117,18 @@ public class WaterBalloon {
 			BalloonTimer timer = new BalloonTimer(5000);//5초 후 물풍선 터짐
 			for(int i = 0; i<boomballoonXList.size(); i++) {//내부적으로 이용하기 위해 3으로 바꾸어줌
 				Screen.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)] = 3;
+				if(boomballoonXList.get(i)+bombSize<=12) {
 				Screen.map_size[boomballoonXList.get(i)+bombSize][boomballoonYList.get(i)] = 3;
+				}
+				if(boomballoonXList.get(i)-bombSize>=0) {
 				Screen.map_size[boomballoonXList.get(i)-bombSize][boomballoonYList.get(i)] = 3;
+				}
+				if(boomballoonYList.get(i)+bombSize<=12) {
 				Screen.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)+bombSize] = 3;
+				}
+				if(boomballoonYList.get(i)-bombSize>=0) {
 				Screen.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)-bombSize] = 3;
+				}
 			}
 		}
 	}
