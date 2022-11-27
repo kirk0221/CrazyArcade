@@ -16,13 +16,20 @@ public class WaterBalloon {
 	public int balloonYindex;
 	
 	private Image balloonImg;
+	private Image centerImg;
+	private Image leftImg;
+	private Image rightImg;
+	private Image upImg;
+	private Image downImg;
 	
 	static LinkedList<Integer> balloonXList = new LinkedList<>();
 	static LinkedList<Integer> balloonYList = new LinkedList<>();
 	/* 여러 개의 물풍선을 놓기 위해 링크드 리스트 사용*/
 	
+	static LinkedList<Integer> boomballoonXList = new LinkedList<>();
+	static LinkedList<Integer> boomballoonYList = new LinkedList<>();
+	
 	public WaterBalloon(int balloon){
-		this.bombSize = 1;
 		this.balloontype = balloon;
 		this.waterballoonmax = 3; //물풍선 최대 개수 3개
 		this.mapXlocationlist = new int[13];
@@ -35,10 +42,34 @@ public class WaterBalloon {
 		}
 		
 		this.balloonImg = new ImageIcon("Resources/waterbomb.png").getImage();
+		this.centerImg = new ImageIcon("Resources/waterbomb_center.png").getImage();
+		this.leftImg = new ImageIcon("Resources/waterbomb_width.png").getImage();
+		this.rightImg = new ImageIcon("Resources/waterbomb_width2.png").getImage();
+		this.upImg = new ImageIcon("Resources/waterbomb_height2.png").getImage();
+		this.downImg = new ImageIcon("Resources/waterbomb_height.png").getImage();
 	}
 	
 	public Image getImg() {// 물풍선 이미지를 스크린에 주기위한 함수
 		return this.balloonImg;
+	}
+	
+	public Image getcenterImg() {// 터진 물풍선 가운데 이미지를 스크린에 주기위한 함수
+		return this.centerImg;
+	}
+	
+	public Image getleftImg() {// 터진 물풍선 왼쪽 이미지를 스크린에 주기위한 함수
+		return this.leftImg;
+	}
+	
+	public Image getrightImg() {// 터진 물풍선 오른쪽 이미지를 스크린에 주기위한 함수
+		return this.rightImg;
+	}
+	
+	public Image getupImg() {// 터진 물풍선 위 이미지를 스크린에 주기위한 함수
+		return this.upImg;
+	}
+	public Image getdownImg() {// 터진 물풍선 아래 이미지를 스크린에 주기위한 함수
+		return this.downImg;
 	}
 	
 	public int getX(int i) { /*물풍선의 x 값을 스크린에 전달하기 위한 함수, 
@@ -50,9 +81,19 @@ public class WaterBalloon {
 		return balloonYList.get(i);
 	}
 	
+	public int getboomX(int i) { /*터진 물풍선의 x 값을 스크린에 전달하기 위한 함수, 
+	i는 인덱스로 스크린에서 링크드 리스트의 어떤 값을 전달할지 지정받음.*/
+		return boomballoonXList.get(i);
+	}
+	
+	public int getboomY(int i) {
+		return boomballoonYList.get(i);
+	}
 	
 	
-	public void makeWaterBalloon(int x, int y) {
+	
+	public void makeWaterBalloon(int x, int y, int bombSize) {
+		this.bombSize = bombSize;
 		if(waterballoonmax==0) {
 			System.out.println("물풍선 횟수 초과");
 		}else {
@@ -73,7 +114,14 @@ public class WaterBalloon {
 			balloonYList.add(balloonYindex); /*물풍선 y 좌표 인덱스를 저장하는 링크드 리스트*/
 			Screen.map_size[balloonXindex][balloonYindex] = 2; /*2로 바꾸어 물풍선 놓기*/
 			/*내부적으로 이용하기 위해 2로 바꾸어줌*/
-			BalloonTimer timer = new BalloonTimer(5000);
+			BalloonTimer timer = new BalloonTimer(5000);//5초 후 물풍선 터짐
+			for(int i = 0; i<boomballoonXList.size(); i++) {//내부적으로 이용하기 위해 3으로 바꾸어줌
+				Screen.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)] = 3;
+				Screen.map_size[boomballoonXList.get(i)+bombSize][boomballoonYList.get(i)] = 3;
+				Screen.map_size[boomballoonXList.get(i)-bombSize][boomballoonYList.get(i)] = 3;
+				Screen.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)+bombSize] = 3;
+				Screen.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)-bombSize] = 3;
+			}
 		}
 	}
 }
