@@ -153,7 +153,7 @@ public class Bazzi extends Character implements KeyListener{
 					this.right();
 				}
 				break;
-			case KeyEvent.VK_SHIFT:
+			case KeyEvent.VK_SPACE:
 				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize);//¹°Ç³¼± ³õ±â
 				break;
 			}
@@ -179,7 +179,7 @@ public class Bazzi extends Character implements KeyListener{
 					this.right();
 				}
 				break;
-			case KeyEvent.VK_SPACE:
+			case KeyEvent.VK_SHIFT:
 				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize);//¹°Ç³¼± ³õ±â
 				break;
 			}
