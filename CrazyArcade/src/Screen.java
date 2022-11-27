@@ -153,7 +153,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 					playerIndex_y[j] = i;
 				}
 			}
-			map_size[playerIndex_x[j]][playerIndex_y[j]] = 1; /*캐릭터의 위치를 저장*/
+			map_size[playerIndex_x[j]][playerIndex_y[j]] = j+1; /*캐릭터의 위치를 저장*/ //player1은 1로 player2는 2로 저장
 		}
 	}
 	
