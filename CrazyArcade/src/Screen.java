@@ -21,7 +21,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Dimension dim;
 	
 	public int map_selection;//어떤 맵이 골라졌는지
-	public static int[][] map_size;//맵 사이즈 설정을 위한 배열
+	public static int[][] map_size = new int[13][13];//맵 사이즈 13*13
 	/*물풍선에서 조작하기 위해 static으로 변경*/
 	
 	public int[] mapXlocationlist;
@@ -50,12 +50,11 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		players[1] = player2;
 		addKeyListener(this);
 		addComponentListener(this);
-
-		this.map_size = new int[13][13];//맵 사이즈 13*13
-		for(int i=0; i<13;i++) {//맵 0으로 초기화
-			for(int j=0; j<13; j++) {
-				this.map_size[i][j] = 0;
-			}
+		
+		if (map == 0) {
+			Map_Cookie_batch();
+		}else if(map == 1) {
+			Map_Patriots_batch();
 		}
 		
 		/* mapXlocaionlist와 mapYlocationlist는 맵의 각 타일들의 중심좌표의 x와 y값을 각각 저장*/
@@ -210,6 +209,37 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	public void componentHidden(ComponentEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void Map_Cookie_batch() {//쿠키맵 기본 맵 구성
+		this.map_size = new int[][] {{0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0}};
+	}
+	public void Map_Patriots_batch() {//해적맵 기본 맵 구성
+		this.map_size = new int[][] {{0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
+									 {0,0,0,0,0,0,0,0,0,0,0,0,0}};
 	}
 
 }
