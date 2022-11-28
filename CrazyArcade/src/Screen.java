@@ -20,9 +20,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Graphics bufferGraphics;
 	private Dimension dim;
 	
-	public int map_selection;//어떤 맵이 골라졌는지
-	public static int[][] map_size = new int[13][13];//맵 사이즈 13*13
-	/*물풍선에서 조작하기 위해 static으로 변경*/
+	public static int map_selection;//어떤 맵이 골라졌는지
+	
 	
 	public int[] mapXlocationlist;
 	public int[] mapYlocationlist;
@@ -50,12 +49,6 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		players[1] = player2;
 		addKeyListener(this);
 		addComponentListener(this);
-		
-		if (map == 0) {
-			Map_Cookie_batch();
-		}else if(map == 1) {
-			Map_Patriots_batch();
-		}
 		
 		/* mapXlocaionlist와 mapYlocationlist는 맵의 각 타일들의 중심좌표의 x와 y값을 각각 저장*/
 		/*for문을 이용하여 첫 타일은 (10,10)에서 시작해 x와 y 각각 60씩 증가하며 중심좌표들이 저장됨*/
@@ -152,7 +145,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 					playerIndex_y[j] = i;
 				}
 			}
-			map_size[playerIndex_x[j]][playerIndex_y[j]] = j+1; /*캐릭터의 위치를 저장*/ //player1은 1로 player2는 2로 저장
+			BoomJudge.map_size[playerIndex_x[j]][playerIndex_y[j]] = j+1; /*캐릭터의 위치를 저장*/ //player1은 1로 player2는 2로 저장
 		}
 	}
 	
@@ -169,8 +162,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		map_size[playerIndex_x[0]][playerIndex_y[0]] = 0;
-		map_size[playerIndex_x[1]][playerIndex_y[1]] = 0; /* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1을 0으로 초기화*/
+		BoomJudge.map_size[playerIndex_x[0]][playerIndex_y[0]] = 0;
+		BoomJudge.map_size[playerIndex_x[1]][playerIndex_y[1]] = 0; /* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1을 0으로 초기화*/
 		players[0].keyPressed(e);
 		players[1].keyPressed(e);
 	}
@@ -211,35 +204,5 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		
 	}
 	
-	public void Map_Cookie_batch() {//쿠키맵 기본 맵 구성
-		this.map_size = new int[][] {{0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0}};
-	}
-	public void Map_Patriots_batch() {//해적맵 기본 맵 구성
-		this.map_size = new int[][] {{0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0},
-									 {0,0,0,0,0,0,0,0,0,0,0,0,0}};
-	}
 
 }
