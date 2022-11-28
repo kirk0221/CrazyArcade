@@ -152,7 +152,7 @@ public class WaterBalloon {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					for(int i = 0; i<boomballoonXList.size(); i++) {//내부적으로 이용하기 위해 4로 바꾸어줌 -> 수정필요
+					for(int i = 0; i<boomballoonXList.size(); i++) {//내부적으로 이용하기 위해 4로 바꾸어줌
 						Screen.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)] = 0;
 						if(boomballoonXList.get(i)+bombSize<=12) {
 						Screen.map_size[boomballoonXList.get(i)+bombSize][boomballoonYList.get(i)] = 0;
