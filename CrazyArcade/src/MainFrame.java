@@ -36,7 +36,32 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setLocationRelativeTo(null); //창 가운데 위치
 		this.setVisible(true); //창 보이게 하기
 		
+		bgplay(); // 배경 음악
+		
 	}
+	
+	private void bgplay() { // 배경 음악 (프기프 교수님 참조 파일 참고)
+		Player jlPlayer = null;
+        try {
+            FileInputStream fileInputStream = new FileInputStream("Resources/gameReady.mp3");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+            jlPlayer = new Player(bufferedInputStream);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        final Player player = jlPlayer;
+        new Thread() {
+            public void run() {
+                try {
+                	player.play();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }.start();
+    }
+	
 	private JPanel centerPanel() { //창 가운데 들어갈 패널(맵 선택)
 		JPanel centerPanel = new JPanel(); //return할 패널 생성
 		
@@ -68,10 +93,10 @@ public class MainFrame extends JFrame implements ActionListener {
 			this.setVisible(false); //현재 창 숨기기
 		}else if (e.getActionCommand().equals(MAP_PATRIOTS)) { //해적(맵1) 선택시
 			new MAP_Patriots(); //해적(맵1) 창 생성
-			this.setVisible(false); //헌재 창 숨기기
+			this.setVisible(false); //현재 창 숨기기
 		}else if (e.getActionCommand().equals(MAP_FOREST)) { //숲(맵2) 선택시
 			new MAP_FOREST(); // 숲(맵2) 창 생성
-			this.setVisible(false); //헌재 창 숨기기
+			this.setVisible(false); //현재 창 숨기기
 		}
 	}
 }
