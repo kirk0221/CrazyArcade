@@ -20,9 +20,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Graphics bufferGraphics;
 	private Dimension dim;
 	
-	public int map_selection;//어떤 맵이 골라졌는지
-	public static int[][] map_size;//맵 사이즈 설정을 위한 배열
-	/*물풍선에서 조작하기 위해 static으로 변경*/
+	public static int map_selection;//어떤 맵이 골라졌는지
+	
 	
 	public int[] mapXlocationlist;
 	public int[] mapYlocationlist;
@@ -38,7 +37,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	
 	private Image map_CookieBackground = new ImageIcon("Resources/mapCookie.png").getImage();//쿠키(맵0) 이미지
 	private Image map_PatriotsBackground = new ImageIcon("Resources/mapPatriots.png").getImage();//해적(맵1) 이미지
-	private Image map_ForestBackground = new ImageIcon("Resources/mapforest.png").getImage();//숲(맵2) 이미지
+	private Image map_ForestBackground = new ImageIcon("Resources/mapForest.png").getImage();//숲(맵2) 이미지
 	
 	public Screen(int map) {
 		this.map_selection = map; //생성자를 통해 어떤 맵 설정되었는지 받아오기 위함
@@ -51,15 +50,6 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		players[1] = player2;
 		addKeyListener(this);
 		addComponentListener(this);
-		
-		
-
-		this.map_size = new int[13][13];//맵 사이즈 13*13
-		for(int i=0; i<13;i++) {//맵 0으로 초기화
-			for(int j=0; j<13; j++) {
-				this.map_size[i][j] = 0;
-			}
-		}
 		
 		/* mapXlocaionlist와 mapYlocationlist는 맵의 각 타일들의 중심좌표의 x와 y값을 각각 저장*/
 		/*for문을 이용하여 첫 타일은 (10,10)에서 시작해 x와 y 각각 60씩 증가하며 중심좌표들이 저장됨*/
@@ -92,16 +82,50 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			bufferGraphics.drawImage(map_CookieBackground,0,0,this);
 		}else if(map_selection == 1) {//해적맵일때 배경
 			bufferGraphics.drawImage(map_PatriotsBackground,0,0,this);
-		}else if(map_selection == 2) {//해적맵일때 배경
+		}else if(map_selection == 2) {//숲맵일때 배경
 			bufferGraphics.drawImage(map_ForestBackground,0,0,this);
 		}
+		
 		for(int i=0;i<players[0].getballonListsize();i++) { /*물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
 			bufferGraphics.drawImage(players[0].getballoonImg(), mapXlocationlist[players[0].getballoonX(i)], mapYlocationlist[players[0].getballoonY(i)], this);
 			/*물풍선 이미지를 그리되, 그리는 위치는 각 타일의 중앙이 되도록 함*/
 		}
 		
+		for(int i=0;i<players[0].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
+			bufferGraphics.drawImage(players[0].getcenterImg(),mapXlocationlist[players[0].getboomballoonX(i)],mapYlocationlist[players[0].getboomballoonY(i)], this);
+			if(players[0].getboomballoonX(i)-players[0].getbombSize()>=0) {
+			bufferGraphics.drawImage(players[0].getleftImg(),mapXlocationlist[players[0].getboomballoonX(i)-players[0].getbombSize()],mapYlocationlist[players[0].getboomballoonY(i)], this);
+			}
+			if(players[0].getboomballoonX(i)+players[0].getbombSize()<=12) {
+			bufferGraphics.drawImage(players[0].getrightImg(),mapXlocationlist[players[0].getboomballoonX(i)+players[0].getbombSize()],mapYlocationlist[players[0].getboomballoonY(i)], this);
+			}
+			if(players[0].getboomballoonY(i)-players[0].getbombSize()>=0) {
+			bufferGraphics.drawImage(players[0].getupImg(),mapXlocationlist[players[0].getboomballoonX(i)],mapYlocationlist[players[0].getboomballoonY(i)-players[0].getbombSize()], this);
+			}
+			if(players[0].getboomballoonY(i)+players[0].getbombSize()<=12) {
+			bufferGraphics.drawImage(players[0].getdownImg(),mapXlocationlist[players[0].getboomballoonX(i)],mapYlocationlist[players[0].getboomballoonY(i)+players[0].getbombSize()], this);
+			}
+		}
+		
+		
 		for(int j=0;j<players[1].getballonListsize();j++) {
 			bufferGraphics.drawImage(players[1].getballoonImg(), mapXlocationlist[players[1].getballoonX(j)], mapYlocationlist[players[1].getballoonY(j)], this);
+		}
+		
+		for(int i=0;i<players[1].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
+			bufferGraphics.drawImage(players[1].getcenterImg(),mapXlocationlist[players[1].getboomballoonX(i)],mapYlocationlist[players[1].getboomballoonY(i)], this);
+			if(players[1].getboomballoonX(i)-players[1].getbombSize()>=0) {
+			bufferGraphics.drawImage(players[1].getleftImg(),mapXlocationlist[players[1].getboomballoonX(i)-players[1].getbombSize()],mapYlocationlist[players[1].getboomballoonY(i)], this);
+			}
+			if(players[1].getboomballoonX(i)+players[1].getbombSize()<=12) {
+			bufferGraphics.drawImage(players[1].getrightImg(),mapXlocationlist[players[1].getboomballoonX(i)+players[1].getbombSize()],mapYlocationlist[players[1].getboomballoonY(i)], this);
+			}
+			if(players[1].getboomballoonY(i)-players[1].getbombSize()>=0) {
+			bufferGraphics.drawImage(players[1].getupImg(),mapXlocationlist[players[1].getboomballoonX(i)],mapYlocationlist[players[1].getboomballoonY(i)-players[1].getbombSize()], this);
+			}
+			if(players[1].getboomballoonY(i)+players[1].getbombSize()<=12) {
+			bufferGraphics.drawImage(players[1].getdownImg(),mapXlocationlist[players[1].getboomballoonX(i)],mapYlocationlist[players[1].getboomballoonY(i)+players[1].getbombSize()], this);
+			}
 		}
 
 		for(int i=0; i<MAX_PLAYER; i++) {
@@ -125,7 +149,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 					playerIndex_y[j] = i;
 				}
 			}
-			map_size[playerIndex_x[j]][playerIndex_y[j]] = 1; /*캐릭터의 위치를 저장*/
+			BoomJudge.map_size[playerIndex_x[j]][playerIndex_y[j]] = j+1; /*캐릭터의 위치를 저장*/ //player1은 1로 player2는 2로 저장
 		}
 	}
 	
@@ -142,8 +166,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		map_size[playerIndex_x[0]][playerIndex_y[0]] = 0;
-		map_size[playerIndex_x[1]][playerIndex_y[1]] = 0; /* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1을 0으로 초기화*/
+		BoomJudge.map_size[playerIndex_x[0]][playerIndex_y[0]] = 0;
+		BoomJudge.map_size[playerIndex_x[1]][playerIndex_y[1]] = 0; /* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1을 0으로 초기화*/
 		players[0].keyPressed(e);
 		players[1].keyPressed(e);
 	}
@@ -183,5 +207,6 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }
