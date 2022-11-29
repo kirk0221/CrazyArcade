@@ -95,8 +95,41 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			/*물풍선 이미지를 그리되, 그리는 위치는 각 타일의 중앙이 되도록 함*/
 		}
 		
+		for(int i=0;i<players[0].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
+			bufferGraphics.drawImage(players[0].getcenterImg(),mapXlocationlist[players[0].getboomballoonX(i)],mapYlocationlist[players[0].getboomballoonY(i)], this);
+			if(players[0].getboomballoonX(i)-players[0].getbombSize()>=0) {
+			bufferGraphics.drawImage(players[0].getleftImg(),mapXlocationlist[players[0].getboomballoonX(i)-players[0].getbombSize()],mapYlocationlist[players[0].getboomballoonY(i)], this);
+			}
+			if(players[0].getboomballoonX(i)+players[0].getbombSize()<=12) {
+			bufferGraphics.drawImage(players[0].getrightImg(),mapXlocationlist[players[0].getboomballoonX(i)+players[0].getbombSize()],mapYlocationlist[players[0].getboomballoonY(i)], this);
+			}
+			if(players[0].getboomballoonY(i)-players[0].getbombSize()>=0) {
+			bufferGraphics.drawImage(players[0].getupImg(),mapXlocationlist[players[0].getboomballoonX(i)],mapYlocationlist[players[0].getboomballoonY(i)-players[0].getbombSize()], this);
+			}
+			if(players[0].getboomballoonY(i)+players[0].getbombSize()<=12) {
+			bufferGraphics.drawImage(players[0].getdownImg(),mapXlocationlist[players[0].getboomballoonX(i)],mapYlocationlist[players[0].getboomballoonY(i)+players[0].getbombSize()], this);
+			}
+		}
+		
+		
 		for(int j=0;j<players[1].getballonListsize();j++) {
 			bufferGraphics.drawImage(players[1].getballoonImg(), mapXlocationlist[players[1].getballoonX(j)], mapYlocationlist[players[1].getballoonY(j)], this);
+		}
+		
+		for(int i=0;i<players[1].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
+			bufferGraphics.drawImage(players[1].getcenterImg(),mapXlocationlist[players[1].getboomballoonX(i)],mapYlocationlist[players[1].getboomballoonY(i)], this);
+			if(players[1].getboomballoonX(i)-players[1].getbombSize()>=0) {
+			bufferGraphics.drawImage(players[1].getleftImg(),mapXlocationlist[players[1].getboomballoonX(i)-players[1].getbombSize()],mapYlocationlist[players[1].getboomballoonY(i)], this);
+			}
+			if(players[1].getboomballoonX(i)+players[1].getbombSize()<=12) {
+			bufferGraphics.drawImage(players[1].getrightImg(),mapXlocationlist[players[1].getboomballoonX(i)+players[1].getbombSize()],mapYlocationlist[players[1].getboomballoonY(i)], this);
+			}
+			if(players[1].getboomballoonY(i)-players[1].getbombSize()>=0) {
+			bufferGraphics.drawImage(players[1].getupImg(),mapXlocationlist[players[1].getboomballoonX(i)],mapYlocationlist[players[1].getboomballoonY(i)-players[1].getbombSize()], this);
+			}
+			if(players[1].getboomballoonY(i)+players[1].getbombSize()<=12) {
+			bufferGraphics.drawImage(players[1].getdownImg(),mapXlocationlist[players[1].getboomballoonX(i)],mapYlocationlist[players[1].getboomballoonY(i)+players[1].getbombSize()], this);
+			}
 		}
 
 		for(int i=0; i<MAX_PLAYER; i++) {
@@ -120,7 +153,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 					playerIndex_y[j] = i;
 				}
 			}
-			map_size[playerIndex_x[j]][playerIndex_y[j]] = 1; /*캐릭터의 위치를 저장*/
+			map_size[playerIndex_x[j]][playerIndex_y[j]] = j+1; /*캐릭터의 위치를 저장*/ //player1은 1로 player2는 2로 저장
 		}
 	}
 	

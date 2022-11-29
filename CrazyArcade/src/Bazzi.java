@@ -6,11 +6,11 @@ import javax.swing.ImageIcon;
 
 public class Bazzi extends Character implements KeyListener{
 
-	private Image bazziImg;
 	private int X;
 	private int Y;
 	private int step;
 	public int die;
+	public int bombSize;
 	public int playertype;
 	WaterBalloon playerWaterBalloon;
 	private Image[] bazzi_state;
@@ -19,11 +19,11 @@ public class Bazzi extends Character implements KeyListener{
 	public Bazzi(Screen screen, int playertype) { /*플레이어 타입을 전달받아, 해당 타입에 따라 키에 대한 동작이 다르도록 함*/
 		super(screen);
 		// TODO Auto-generated constructor stub
-		this.bazziImg = new ImageIcon("Resources/bazzi_front.png").getImage();
 		this.X = 400;//초기 X값
 		this.Y = 300;//초기 Y값
 		this.step = 5;//초기 이동 거리
 		this.die = 0;//아직 죽지 않았음
+		this.bombSize = 1;//물줄기 크기 1
 		this.playertype = playertype;
 		playerWaterBalloon = new WaterBalloon(playertype); /* 물풍선 생성*/
 		this.bazzi_state = new Image[4];
@@ -46,6 +46,25 @@ public class Bazzi extends Character implements KeyListener{
 		return playerWaterBalloon.getImg();
 	}
 	
+	public Image getcenterImg() {// 터진 물풍선 가운데 이미지를 스크린에 주기위한 함수
+		return playerWaterBalloon.getcenterImg();
+	}
+	
+	public Image getleftImg() {// 터진 물풍선 왼쪽 이미지를 스크린에 주기위한 함수
+		return playerWaterBalloon.getleftImg();
+	}
+	
+	public Image getrightImg() {// 터진 물풍선 오른쪽 이미지를 스크린에 주기위한 함수
+		return playerWaterBalloon.getrightImg();
+	}
+	
+	public Image getupImg() {// 터진 물풍선 위 이미지를 스크린에 주기위한 함수
+		return playerWaterBalloon.getupImg();
+	}
+	public Image getdownImg() {// 터진 물풍선 아래 이미지를 스크린에 주기위한 함수
+		return playerWaterBalloon.getdownImg();
+	}
+	
 	public int getballoonX(int i) {//물풍선 X값을 스크린에 주기위한 함수
 		return playerWaterBalloon.getX(i);
 	}
@@ -53,7 +72,13 @@ public class Bazzi extends Character implements KeyListener{
 	public int getballoonY(int i) {//물풍선 Y값을 스크린에 주기위한 함수
 		return playerWaterBalloon.getY(i);
 	}
+	public int getboomballoonX(int i) {//터진 물풍선 X값을 스크린에 주기위한 함수
+		return playerWaterBalloon.getboomX(i);
+	}
 	
+	public int getboomballoonY(int i) {//터진 물풍선 Y값을 스크린에 주기위한 함수
+		return playerWaterBalloon.getboomY(i);
+	}
 	
 	public int getX() {//X값을 스크린에 주기위한 함수
 		return this.X;
@@ -66,6 +91,14 @@ public class Bazzi extends Character implements KeyListener{
 	public int getballonListsize() {
 		return playerWaterBalloon.balloonXList.size();
 		/*물풍선 객체의 링크드 리스트의 크기를 스크린에 전달하여, 반복문의 반복 휫수를 지정하기 위한 함수*/
+	}
+	public int getboomballonListsize() {
+		return playerWaterBalloon.boomballoonXList.size();
+		/*터진 물풍선 객체의 링크드 리스트의 크기를 스크린에 전달하여, 반복문의 반복 휫수를 지정하기 위한 함수*/
+	}
+	
+	public int getbombSize() {//물풍선 크기값을 스크린에 주기위한 함수
+		return this.bombSize;
 	}
 	
 	public void up() {//위로 가기
@@ -120,8 +153,8 @@ public class Bazzi extends Character implements KeyListener{
 					this.right();
 				}
 				break;
-			case KeyEvent.VK_SHIFT:
-				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY());//물풍선 놓기
+			case KeyEvent.VK_SPACE:
+				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize);//물풍선 놓기
 				break;
 			}
 		}else if(playertype == 2) {
@@ -146,8 +179,8 @@ public class Bazzi extends Character implements KeyListener{
 					this.right();
 				}
 				break;
-			case KeyEvent.VK_SPACE:
-				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY());//물풍선 놓기
+			case KeyEvent.VK_SHIFT:
+				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize);//물풍선 놓기
 				break;
 			}
 			
