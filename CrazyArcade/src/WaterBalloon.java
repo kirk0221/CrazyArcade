@@ -1,13 +1,16 @@
 import java.awt.Image;
 import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.swing.ImageIcon;
 
 public class WaterBalloon {
 	int X;
 	int Y;
 	int bombSize;
-	int balloontype;
-	static int waterballoonmax;
+	int playertype;
+	int waterballoonmax;
 	
 	public int[] mapXlocationlist;
 	public int[] mapYlocationlist;
@@ -29,8 +32,8 @@ public class WaterBalloon {
 	static LinkedList<Integer> boomballoonXList = new LinkedList<>();
 	static LinkedList<Integer> boomballoonYList = new LinkedList<>();
 	
-	public WaterBalloon(int balloon){
-		this.balloontype = balloon;
+	public WaterBalloon(int playertype){
+		this.playertype = playertype;
 		this.waterballoonmax = 3; //물풍선 최대 개수 3개
 		this.mapXlocationlist = new int[13];
 		this.mapYlocationlist = new int[13];
@@ -88,16 +91,21 @@ public class WaterBalloon {
 	
 	public int getboomY(int i) {
 		return boomballoonYList.get(i);
-	}
-	
+	}	
 	
 	
 	public void makeWaterBalloon(int x, int y, int bombSize) {
 		this.bombSize = bombSize;
-		if(waterballoonmax==0) {
-			System.out.println("물풍선 횟수 초과");
+		if(playertype == 1 && waterballoonmax==0) {
+			System.out.println("player1 물풍선 횟수 초과");
+		}else if(playertype == 2 && waterballoonmax==0) {
+			System.out.println("player2 물풍선 횟수 초과");
 		}else {
-			waterballoonmax -= 1;//물풍선이 설치되면 물풍선 최대개수를 1 줄여줌
+			if (playertype == 1) {
+				waterballoonmax -= 1;//물풍선이 설치되면 물풍선 최대개수를 1 줄여줌
+			}else if (playertype == 2) {
+				waterballoonmax -= 1;//물풍선이 설치되면 물풍선 최대개수를 1 줄여줌
+			}
 			this.X = x;
 			this.Y = y;
 			for(int i=0; i<13;i++) {
@@ -112,24 +120,58 @@ public class WaterBalloon {
 			}
 			balloonXList.add(balloonXindex); /*물풍선 x 좌표 인덱스를 저장하는 링크드 리스트*/
 			balloonYList.add(balloonYindex); /*물풍선 y 좌표 인덱스를 저장하는 링크드 리스트*/
-			Screen.map_size[balloonXindex][balloonYindex] = 3; /*3로 바꾸어 물풍선 놓기*/
+			BoomJudge.map_size[balloonXindex][balloonYindex] = 3; /*3로 바꾸어 물풍선 놓기*/
 			/*내부적으로 이용하기 위해 3로 바꾸어줌*/
 			BalloonTimer timer = new BalloonTimer(5000);//5초 후 물풍선 터짐
-			for(int i = 0; i<boomballoonXList.size(); i++) {//내부적으로 이용하기 위해 4로 바꾸어줌
-				Screen.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)] = 4;
-				if(boomballoonXList.get(i)+bombSize<=12) {
-				Screen.map_size[boomballoonXList.get(i)+bombSize][boomballoonYList.get(i)] = 4;
+			Timer boom = new Timer();
+			TimerTask boomtask = new TimerTask() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					for(int i = 0; i<boomballoonXList.size(); i++) {//내부적으로 이용하기 위해 4로 바꾸어줌
+							BoomJudge.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)] = 4;
+						if(boomballoonXList.get(i)+bombSize<=12) {
+							BoomJudge.map_size[boomballoonXList.get(i)+bombSize][boomballoonYList.get(i)] = 4;
+						}
+						if(boomballoonXList.get(i)-bombSize>=0) {
+							BoomJudge.map_size[boomballoonXList.get(i)-bombSize][boomballoonYList.get(i)] = 4;
+						}
+						if(boomballoonYList.get(i)+bombSize<=12) {
+							BoomJudge.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)+bombSize] = 4;
+						}
+						if(boomballoonYList.get(i)-bombSize>=0) {
+							BoomJudge.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)-bombSize] = 4;
+						}
+					}
+					waterballoonmax +=1;
 				}
-				if(boomballoonXList.get(i)-bombSize>=0) {
-				Screen.map_size[boomballoonXList.get(i)-bombSize][boomballoonYList.get(i)] = 4;
+			};
+			TimerTask boomover = new TimerTask() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					for(int i = 0; i<boomballoonXList.size(); i++) {//내부적으로 이용하기 위해 4로 바꾸어줌
+							BoomJudge.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)] = 0;
+						if(boomballoonXList.get(i)+bombSize<=12) {
+							BoomJudge.map_size[boomballoonXList.get(i)+bombSize][boomballoonYList.get(i)] = 0;
+						}
+						if(boomballoonXList.get(i)-bombSize>=0) {
+							BoomJudge.map_size[boomballoonXList.get(i)-bombSize][boomballoonYList.get(i)] = 0;
+						}
+						if(boomballoonYList.get(i)+bombSize<=12) {
+							BoomJudge.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)+bombSize] = 0;
+						}
+						if(boomballoonYList.get(i)-bombSize>=0) {
+							BoomJudge.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)-bombSize] = 0;
+						}
+					}
 				}
-				if(boomballoonYList.get(i)+bombSize<=12) {
-				Screen.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)+bombSize] = 4;
-				}
-				if(boomballoonYList.get(i)-bombSize>=0) {
-				Screen.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)-bombSize] = 4;
-				}
-			}
+			};
+			boom.schedule(boomtask, 5000);
+			boom.schedule(boomover, 6000);
+
 		}
 	}
 }

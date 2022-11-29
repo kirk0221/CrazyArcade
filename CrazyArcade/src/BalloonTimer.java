@@ -1,9 +1,5 @@
-import java.awt.Image;
-import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import javax.swing.ImageIcon;
 
 public class BalloonTimer {
 	public static int count;
@@ -28,7 +24,6 @@ public class BalloonTimer {
 			remember_y = WaterBalloon.balloonYList.get(0);
 	    	WaterBalloon.balloonXList.remove(0);
 	    	WaterBalloon.balloonYList.remove(0);
-	    	WaterBalloon.waterballoonmax += 1;;//물풍선이 터질때 물풍선 개수를 다시 1 늘려줌
 			WaterBalloon.boomballoonXList.add(remember_x); /*물풍선 x 좌표 인덱스를 저장하는 링크드 리스트*/
 			WaterBalloon.boomballoonYList.add(remember_y); /*물풍선 y 좌표 인덱스를 저장하는 링크드 리스트*/
 	    	new BalloonTimer();
