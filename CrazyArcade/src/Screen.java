@@ -34,6 +34,9 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	int[] playerIndex_x; /*characterin에서 사용*/
 	int[] playerIndex_y;
 	
+	int[] previous_Index_x; // 이전 인덱스 저장
+	int[] previous_Index_y;
+	
 	
 	private Image map_CookieBackground = new ImageIcon("Resources/mapCookie.png").getImage();//쿠키(맵0) 이미지
 	private Image map_PatriotsBackground = new ImageIcon("Resources/mapPatriots.png").getImage();//해적(맵1) 이미지
@@ -43,12 +46,18 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		players = new Character[MAX_PLAYER];
 		playerIndex_x = new int[MAX_PLAYER];
 		playerIndex_y = new int[MAX_PLAYER];
+		previous_Index_x = new int[MAX_PLAYER];
+		previous_Index_y = new int[MAX_PLAYER];
 		Character player1 = new Bazzi(this,1); //플레이어1에 배찌 생성
 		Character player2 = new Bazzi(this,2); //플레이어2에 배찌 생성
 		players[0] = player1;
 		players[1] = player2;
 		addKeyListener(this);
 		addComponentListener(this);
+		for(int i =0; i<MAX_PLAYER; i++) {//이전 인덱스 저장 초기화
+			previous_Index_x[i] = 0;
+			previous_Index_y[i] = 0;
+		}
 		
 		/* mapXlocaionlist와 mapYlocationlist는 맵의 각 타일들의 중심좌표의 x와 y값을 각각 저장*/
 		/*for문을 이용하여 첫 타일은 (10,10)에서 시작해 x와 y 각각 60씩 증가하며 중심좌표들이 저장됨*/
@@ -69,12 +78,15 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			public void run() {
 				// TODO Auto-generated method stub
 				repaint();
+				BoomJudge.die(); /*0.001초마다, die 함수를 호출하여
+				캐릭터가 물풍선이 터지는 위치에 들어오는지를 실시간으로 판단함*/
 			}
 		},0, 1);
 	}
 	
 	public void paint(Graphics g) {//스크린에 그리는 부분
 		initBufferd();
+		this.characterin();
 		Dimension dim = getSize();
 		bufferGraphics.clearRect(0, 0, dim.width, dim.height);
 		if(map_selection == 0) {//쿠키맵일때 배경
@@ -82,70 +94,60 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		}else if(map_selection == 1) {//해적맵일때 배경
 			bufferGraphics.drawImage(map_PatriotsBackground,0,0,this);
 		}
-		for(int i=0;i<players[0].getballonListsize();i++) { /*물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
-			bufferGraphics.drawImage(players[0].getballoonImg(), mapXlocationlist[players[0].getballoonX(i)], mapYlocationlist[players[0].getballoonY(i)], this);
-			/*물풍선 이미지를 그리되, 그리는 위치는 각 타일의 중앙이 되도록 함*/
-		}
-		
-		for(int i=0;i<players[0].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
-			bufferGraphics.drawImage(players[0].getcenterImg(),mapXlocationlist[players[0].getboomballoonX(i)],mapYlocationlist[players[0].getboomballoonY(i)], this);
-			if(players[0].getboomballoonX(i)-players[0].getbombSize()>=0) {
-			bufferGraphics.drawImage(players[0].getleftImg(),mapXlocationlist[players[0].getboomballoonX(i)-players[0].getbombSize()],mapYlocationlist[players[0].getboomballoonY(i)], this);
+		for (int playertype = 0; playertype<MAX_PLAYER; playertype++) {
+			for(int i=0;i<players[playertype].getballonListsize();i++) { /*물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
+				bufferGraphics.drawImage(players[playertype].getballoonImg(), mapXlocationlist[players[playertype].getballoonX(i)], mapYlocationlist[players[playertype].getballoonY(i)], this);
+				/*물풍선 이미지를 그리되, 그리는 위치는 각 타일의 중앙이 되도록 함*/
 			}
-			if(players[0].getboomballoonX(i)+players[0].getbombSize()<=12) {
-			bufferGraphics.drawImage(players[0].getrightImg(),mapXlocationlist[players[0].getboomballoonX(i)+players[0].getbombSize()],mapYlocationlist[players[0].getboomballoonY(i)], this);
-			}
-			if(players[0].getboomballoonY(i)-players[0].getbombSize()>=0) {
-			bufferGraphics.drawImage(players[0].getupImg(),mapXlocationlist[players[0].getboomballoonX(i)],mapYlocationlist[players[0].getboomballoonY(i)-players[0].getbombSize()], this);
-			}
-			if(players[0].getboomballoonY(i)+players[0].getbombSize()<=12) {
-			bufferGraphics.drawImage(players[0].getdownImg(),mapXlocationlist[players[0].getboomballoonX(i)],mapYlocationlist[players[0].getboomballoonY(i)+players[0].getbombSize()], this);
-			}
-		}
-		
-		
-		for(int j=0;j<players[1].getballonListsize();j++) {
-			bufferGraphics.drawImage(players[1].getballoonImg(), mapXlocationlist[players[1].getballoonX(j)], mapYlocationlist[players[1].getballoonY(j)], this);
-		}
-		
-		for(int i=0;i<players[1].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
-			bufferGraphics.drawImage(players[1].getcenterImg(),mapXlocationlist[players[1].getboomballoonX(i)],mapYlocationlist[players[1].getboomballoonY(i)], this);
-			if(players[1].getboomballoonX(i)-players[1].getbombSize()>=0) {
-			bufferGraphics.drawImage(players[1].getleftImg(),mapXlocationlist[players[1].getboomballoonX(i)-players[1].getbombSize()],mapYlocationlist[players[1].getboomballoonY(i)], this);
-			}
-			if(players[1].getboomballoonX(i)+players[1].getbombSize()<=12) {
-			bufferGraphics.drawImage(players[1].getrightImg(),mapXlocationlist[players[1].getboomballoonX(i)+players[1].getbombSize()],mapYlocationlist[players[1].getboomballoonY(i)], this);
-			}
-			if(players[1].getboomballoonY(i)-players[1].getbombSize()>=0) {
-			bufferGraphics.drawImage(players[1].getupImg(),mapXlocationlist[players[1].getboomballoonX(i)],mapYlocationlist[players[1].getboomballoonY(i)-players[1].getbombSize()], this);
-			}
-			if(players[1].getboomballoonY(i)+players[1].getbombSize()<=12) {
-			bufferGraphics.drawImage(players[1].getdownImg(),mapXlocationlist[players[1].getboomballoonX(i)],mapYlocationlist[players[1].getboomballoonY(i)+players[1].getbombSize()], this);
+			
+			for(int i=0;i<players[playertype].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
+				bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
+				bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+				if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()<=12) {
+				bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+				if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()>=0) {
+				bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()], this);
+				}
+				if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
+				bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
+				}
 			}
 		}
 
-		for(int i=0; i<MAX_PLAYER; i++) {
-			bufferGraphics.drawImage(players[i].getImg(), players[i].getX(), players[i].getY(), this);//players 이미지 생성
+		for(int playertype=0; playertype<MAX_PLAYER; playertype++) {
+			bufferGraphics.drawImage(players[playertype].getImg(), players[playertype].getX(), players[playertype].getY(), this);//players 이미지 생성
 		}
 		g.drawImage(this.bufferedImage, 0, 0, this);
-		this.characterin();
 	}
 	
 	public void characterin() {//캐릭터가 현재 맵의 어느 배열위치에 있는지 확인
 		/* mapXlocaitonlist의 13개의 중심 좌표값을 현재의 플레이어 X좌표와 비교하여 그 차이가 40보다 작으면 인덱스를 해당 중심좌표의 인덱스로 변경함*/
-		for (int j=0; j<MAX_PLAYER; j++) {
+		for (int playertype=0; playertype<MAX_PLAYER; playertype++) {
+			BoomJudge.map_size[playerIndex_x[playertype]][playerIndex_y[playertype]] = 0;
+			BoomJudge.previous_map_size[playerIndex_x[playertype]][playerIndex_y[playertype]] = 0;/* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1 또는 2를 0으로 초기화*/
 			for(int i=0; i<13;i++) {
-				if((-(players[j].getX()-mapXlocationlist[i])<40) && ((mapXlocationlist[i]-players[j].getX())<40)) {
-					playerIndex_x[j] = i;
+				if((-(players[playertype].getX()-mapXlocationlist[i])<40) && ((mapXlocationlist[i]-players[playertype].getX())<40)) {
+					playerIndex_x[playertype] = i;
+					previous_Index_x[playertype] = i;
 				}
 			}
 			/* mapYlocaitonlist의 13개의 중심 좌표값을 현재의 플레이어 Y좌표와 비교하여 그 차이가 40보다 작으면 인덱스를 해당 중심좌표의 인덱스로 변경함*/
 			for(int i=0; i<13;i++) {
-				if((-(players[j].getY()-mapYlocationlist[i])<40) && ((mapYlocationlist[i]-players[j].getY())<40)) {
-					playerIndex_y[j] = i;
+				if((-(players[playertype].getY()-mapYlocationlist[i])<40) && ((mapYlocationlist[i]-players[playertype].getY())<40)) {
+					playerIndex_y[playertype] = i;
+					previous_Index_y[playertype] = i;
 				}
 			}
-			BoomJudge.map_size[playerIndex_x[j]][playerIndex_y[j]] = j+1; /*캐릭터의 위치를 저장*/ //player1은 1로 player2는 2로 저장
+			BoomJudge.map_size[playerIndex_x[playertype]][playerIndex_y[playertype]] = playertype+1; /*캐릭터의 위치를 저장*/ //player1은 1로 player2는 2로 저장
+			BoomJudge.previous_map_size[previous_Index_x[playertype]][previous_Index_y[playertype]] = 0;
+			BoomJudge.previous_map_size[playerIndex_x[playertype]][playerIndex_y[playertype]] = playertype+1;
+			/*물풍선을 놓고 마지막에 이동한 위치를 저장하고 물풍선이 존재하는 맵과 비교하기 위하여
+			 * previous_map_size를 사용함
+			 * 
+			 */
 		}
 	}
 	
@@ -162,10 +164,9 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		BoomJudge.map_size[playerIndex_x[0]][playerIndex_y[0]] = 0;
-		BoomJudge.map_size[playerIndex_x[1]][playerIndex_y[1]] = 0; /* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1을 0으로 초기화*/
 		players[0].keyPressed(e);
 		players[1].keyPressed(e);
+		characterin(); // 버튼 누를때마다 캐릭터 위치 반영
 	}
 
 	@Override
