@@ -194,7 +194,6 @@ public class WaterBalloon {
 			};
 			boom.schedule(boomtask, 5000);
 			boom.schedule(boomover, 7000);
-			/*이거 주석처리를 안하면 죽는게 안돼요, 왜일까요? 저도 모르겠어요*/
 		}
 	}
 }
