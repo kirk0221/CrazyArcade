@@ -16,6 +16,11 @@ public abstract class Character {
 	}
 	public abstract Image getImg();//이미지 가져오는 함수
 	public abstract Image getballoonImg(); //물풍선 이미지 가져오기
+	public abstract Image getcenterImg(); //물풍선 이미지 가져오기
+	public abstract Image getleftImg(); //물풍선 이미지 가져오기
+	public abstract Image getrightImg(); //물풍선 이미지 가져오기
+	public abstract Image getupImg(); //물풍선 이미지 가져오기
+	public abstract Image getdownImg(); //물풍선 이미지 가져오기
 	
 	public int getX() {// X값 가져오는 함수
 		return this.X;
@@ -43,5 +48,9 @@ public abstract class Character {
 	public abstract void keyPressed(KeyEvent e);
 	protected abstract int getballoonY(int i);
 	protected abstract int getballoonX(int i);
+	protected abstract int getboomballoonY(int i);
+	protected abstract int getboomballoonX(int i);
 	protected abstract int getballonListsize();
+	protected abstract int getboomballonListsize();
+	protected abstract int getbombSize();
 }
