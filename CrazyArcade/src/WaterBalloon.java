@@ -157,7 +157,7 @@ public class WaterBalloon {
 							}
 						}
 					System.out.println("");
-					System.out.println("---------------------");
+					System.out.println("----------지금 상태-----------");
 					for(int i=0;i<13;i++) {
 						System.out.println("");
 						for(int j=0;j<13;j++) {
@@ -165,7 +165,7 @@ public class WaterBalloon {
 							}
 						}
 					System.out.println("");
-					System.out.println("---------------------");
+					System.out.println("----------이전 상태-----------");
 					}
 					
 				
