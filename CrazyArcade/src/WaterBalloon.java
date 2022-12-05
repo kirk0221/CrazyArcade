@@ -147,6 +147,7 @@ public class WaterBalloon {
 						}
 					}
 					waterballoonmax +=1;
+					BoomJudge.die();
 
 					
 					/*¸Ê ÀÎµ¦½º Å×½ºÆ®¿ë*/
