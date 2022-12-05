@@ -74,14 +74,16 @@ public class BoomJudge {
 		for(int i=0;i<13;i++) {
 			for(int j=0;j<13;j++) {
 				if((previous_map_size[i][j] == 1) && (map_size[i][j] == 4)) {
-					JOptionPane.showMessageDialog(null, "플레이어 사망");
-					System.exit(0);
+					//JOptionPane.showMessageDialog(null, "플레이어 사망");
+					//System.exit(0);
+					System.out.print("사망");
 				} /*물풍선이 터지기 직전의 플레이어의 좌표를 가지는 맵 previous_map_size와 
 				물풍선이 터질때의 인덱스 정보를 가지는 map_size를 비교하여 동일한 위치에 1과 4 혹은
 				2와 4가 존재하면 사망처리*/
 				if((previous_map_size[i][j] == 2) && (map_size[i][j] == 4)) {
-					JOptionPane.showMessageDialog(null, "플레이어 사망");
-					System.exit(0);
+					//JOptionPane.showMessageDialog(null, "플레이어 사망");
+					//System.exit(0);
+					System.out.print("사망");
 				}
 			}
 		}

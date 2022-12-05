@@ -142,13 +142,13 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		/* mapXlocaitonlist의 13개의 중심 좌표값을 현재의 플레이어 X좌표와 비교하여 그 차이가 40보다 작으면 인덱스를 해당 중심좌표의 인덱스로 변경함*/
 		for (int j=0; j<MAX_PLAYER; j++) {
 			for(int i=0; i<13;i++) {
-				if((-(players[j].getX()-mapXlocationlist[i])<40) && ((mapXlocationlist[i]-players[j].getX())<40)) {
+				if((-(players[j].getX()-mapXlocationlist[i])<40) || ((mapXlocationlist[i]-players[j].getX())<40)) {
 					playerIndex_x[j] = i;
-				}
+				}/*and 가 아닌 or*/
 			}
 			/* mapYlocaitonlist의 13개의 중심 좌표값을 현재의 플레이어 Y좌표와 비교하여 그 차이가 40보다 작으면 인덱스를 해당 중심좌표의 인덱스로 변경함*/
 			for(int i=0; i<13;i++) {
-				if((-(players[j].getY()-mapYlocationlist[i])<40) && ((mapYlocationlist[i]-players[j].getY())<40)) {
+				if((-(players[j].getY()-mapYlocationlist[i])<40) || ((mapYlocationlist[i]-players[j].getY())<40)) {
 					playerIndex_y[j] = i;
 				}
 			}
@@ -178,6 +178,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		// TODO Auto-generated method stub
 		BoomJudge.map_size[playerIndex_x[0]][playerIndex_y[0]] = 0;
 		BoomJudge.map_size[playerIndex_x[1]][playerIndex_y[1]] = 0; /* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1을 0으로 초기화*/
+		BoomJudge.previous_map_size[playerIndex_x[0]][playerIndex_y[0]] = 0;
+		BoomJudge.previous_map_size[playerIndex_x[1]][playerIndex_y[1]] = 0; /* 캐릭터에 대한 조작 이벤트가 발생시 precious_map_size의 1을 0으로 초기화*/
 		players[0].keyPressed(e);
 		players[1].keyPressed(e);
 		

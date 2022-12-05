@@ -26,7 +26,7 @@ public class BalloonTimer {
 	    	WaterBalloon.balloonYList.remove(0);
 			WaterBalloon.boomballoonXList.add(remember_x); /*물풍선 x 좌표 인덱스를 저장하는 링크드 리스트*/
 			WaterBalloon.boomballoonYList.add(remember_y); /*물풍선 y 좌표 인덱스를 저장하는 링크드 리스트*/
-	    	new BalloonTimer();
+	    	new BalloonTimer(5000);
 	    }
 	};
 	

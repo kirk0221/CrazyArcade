@@ -108,13 +108,13 @@ public class WaterBalloon {
 			}
 			this.X = x;
 			this.Y = y;
-			for(int i=0; i<13;i++) {
-				if((-(X-mapXlocationlist[i])<40) && ((mapXlocationlist[i]-X)<40)) {
+			for(int i=0; i<13;i++) { /*여기서 or을 해야 하는데 and로 줘서 인덱스 오류 발생했었음*/
+				if((-(X-mapXlocationlist[i])<40) || ((mapXlocationlist[i]-X)<40)) {
 					balloonXindex = i;
 				}
 			}
 			for(int i=0; i<13;i++) {
-				if((-(Y-mapYlocationlist[i])<40) && ((mapYlocationlist[i]-Y)<40)) {
+				if((-(Y-mapYlocationlist[i])<40) || ((mapYlocationlist[i]-Y)<40)) {
 					balloonYindex = i;
 				}
 			}
@@ -149,20 +149,21 @@ public class WaterBalloon {
 					waterballoonmax +=1;
 
 					
-					/*맵 인덱스 테스트용*/
+					/*맵 인덱스 테스트용, 맵이 뒤집혀있어서 i, j 순서를 반대로 출력*/
 					for(int i=0;i<13;i++) {
 						System.out.println("");
 						for(int j=0;j<13;j++) {
 
-								System.out.print(BoomJudge.map_size[i][j]+"");
+								System.out.print(BoomJudge.map_size[j][i]+"");
 								
 							}
 						}
+					System.out.println("");
 					for(int i=0;i<13;i++) {
 						System.out.println("");
 						for(int j=0;j<13;j++) {
 
-								System.out.print(BoomJudge.previous_map_size[i][j]+"");
+								System.out.print(BoomJudge.previous_map_size[j][i]+"");
 								
 							}
 						}
@@ -197,7 +198,7 @@ public class WaterBalloon {
 				
 			};
 			boom.schedule(boomtask, 5000);
-			//boom.schedule(boomover, 7000);
+			boom.schedule(boomover, 7000);
 			/*이거 주석처리를 안하면 죽는게 안돼요, 왜일까요? 저도 모르겠어요*/
 		}
 	}
