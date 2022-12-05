@@ -109,12 +109,12 @@ public class WaterBalloon {
 			this.X = x;
 			this.Y = y;
 			for(int i=0; i<13;i++) {
-				if((-(X-mapXlocationlist[i])<40) && ((mapXlocationlist[i]-X)<40)) {
+				if((-(X-mapXlocationlist[i])<40) || ((mapXlocationlist[i]-X)<40)) {
 					balloonXindex = i;
 				}
 			}
 			for(int i=0; i<13;i++) {
-				if((-(Y-mapYlocationlist[i])<40) && ((mapYlocationlist[i]-Y)<40)) {
+				if((-(Y-mapYlocationlist[i])<40) || ((mapYlocationlist[i]-Y)<40)) {
 					balloonYindex = i;
 				}
 			}
@@ -153,7 +153,7 @@ public class WaterBalloon {
 					for(int i=0;i<13;i++) {
 						System.out.println("");
 						for(int j=0;j<13;j++) {
-								System.out.print(BoomJudge.map_size[i][j]+"");
+								System.out.print(BoomJudge.map_size[j][i]+"");
 							}
 						}
 					System.out.println("");
@@ -161,7 +161,7 @@ public class WaterBalloon {
 					for(int i=0;i<13;i++) {
 						System.out.println("");
 						for(int j=0;j<13;j++) {
-								System.out.print(BoomJudge.previous_map_size[i][j]+"");
+								System.out.print(BoomJudge.previous_map_size[j][i]+"");
 							}
 						}
 					System.out.println("");
@@ -177,7 +177,7 @@ public class WaterBalloon {
 				public void run() {
 					// TODO Auto-generated method stub
 					for(int i = 0; i<boomballoonXList.size(); i++) {
-							BoomJudge.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)] = 0;
+						BoomJudge.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)] = 0;
 						if(boomballoonXList.get(i)+bombSize<=12) {
 							BoomJudge.map_size[boomballoonXList.get(i)+bombSize][boomballoonYList.get(i)] = 0;
 						}
@@ -191,6 +191,8 @@ public class WaterBalloon {
 							BoomJudge.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)-bombSize] = 0;
 						}
 					}
+					boomballoonXList.remove(0);
+					boomballoonYList.remove(0);
 				}
 				
 			};
