@@ -149,10 +149,10 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	public void characterin() {//캐릭터가 현재 맵의 어느 배열위치에 있는지 확인
 		/* mapXlocaitonlist의 13개의 중심 좌표값을 현재의 플레이어 X좌표와 비교하여 그 차이가 40보다 작으면 인덱스를 해당 중심좌표의 인덱스로 변경함*/
 		for (int playertype=0; playertype<MAX_PLAYER; playertype++) {
-			if(BoomJudge.map_size[playerIndex_x[playertype]][playerIndex_y[playertype]] != 4) {
-			BoomJudge.map_size[playerIndex_x[playertype]][playerIndex_y[playertype]] = 0;
+			if(BoomJudge.map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] != 4) {
+			BoomJudge.map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = 0;
 			}
-			BoomJudge.previous_map_size[playerIndex_x[playertype]][playerIndex_y[playertype]] = 0;/* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1 또는 2를 0으로 초기화*/
+			BoomJudge.previous_map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = 0;/* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1 또는 2를 0으로 초기화*/
 			for(int i=0; i<13;i++) {
 				if((-(players[playertype].getX()-mapXlocationlist[i])<40) || ((mapXlocationlist[i]-players[playertype].getX())<40)) {
 					playerIndex_x[playertype] = i;
