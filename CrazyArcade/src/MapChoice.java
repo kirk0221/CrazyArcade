@@ -12,6 +12,7 @@ public class MapChoice extends JFrame implements ActionListener{
 	private String MAP_COOKIE = "Cookie";
 	private String MAP_PATRIOTS = "Patriots";
 	private JButton[] mapButtons; //¸Ê °ü¸®¿ë ¸â¹öÇÊµå
+	static int MapNumber=0;
 	public MapChoice(){ //MainFrame »ý¼ºÀÚ
 		this.setTitle("MapChoice"); //Ã¢ Á¦¸ñ
 		this.setSize(800, 600); //Ã¢ Å©±â
@@ -37,7 +38,7 @@ public class MapChoice extends JFrame implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				new MAP_Cookie(); //ÄíÅ°(¸Ê0) Ã¢ »ý¼º
+				MapNumber=1; //ÄíÅ°¸ÊÀº 1¹ø
 				MapChoice.this.setVisible(false); //ÇöÀç Ã¢ ¼û±â±â
 			}
 		});
@@ -45,7 +46,7 @@ public class MapChoice extends JFrame implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				new MAP_Patriots(); //ÇØÀû(¸Ê1) Ã¢ »ý¼º
+				MapNumber=2; //ÇØÀû¸ÊÀº 2¹ø
 				MapChoice.this.setVisible(false); //ÇåÀç Ã¢ ¼û±â±â
 			}
 		});

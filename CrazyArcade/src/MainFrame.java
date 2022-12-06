@@ -52,7 +52,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				new MapChoice();
+				new ReadyFrame();
 				setVisible(false);
 			}
 		});
