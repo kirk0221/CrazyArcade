@@ -136,8 +136,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 				}
 			}
 		}
-
-
+		
 		for(int playertype=0; playertype<MAX_PLAYER; playertype++) {
 			bufferGraphics.drawImage(players[playertype].getImg(), players[playertype].getX(), players[playertype].getY(), this);//players 이미지 생성
 			players[playertype].getPlayerIndex_x(playerIndex_x[playertype]); //x인덱스값 캐릭터에게 주기
