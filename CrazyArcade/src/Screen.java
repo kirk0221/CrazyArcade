@@ -54,10 +54,30 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		playerIndex_y = new int[MAX_PLAYER];
 		previous_Index_x = new int[MAX_PLAYER];
 		previous_Index_y = new int[MAX_PLAYER];
-		Character player1 = new Bazzi(this,1); //플레이어1에 배찌 생성
-		Character player2 = new Bazzi(this,2); //플레이어2에 배찌 생성
-		players[0] = player1;
-		players[1] = player2;
+		if (ReadyFrame.p1chnumber==1) {
+			Character player1 = new Dizini(this,1); //플레이어1에 디즈니 생성
+			players[0] = player1;
+		}
+		else if (ReadyFrame.p1chnumber==2) {
+			Character player1 = new Bazzi(this,1); //플레이어1에 배찌 생성
+			players[0] = player1;
+		}
+		else if (ReadyFrame.p1chnumber==3) {
+			Character player1 = new Uni(this,1); //플레이어1에 우니 생성
+			players[0] = player1;
+		}
+		if (ReadyFrame.p2chnumger==1) {
+			Character player2 = new Dizini(this,2); //플레이어2에 디즈니 생성
+			players[1] = player2;
+		}
+		else if (ReadyFrame.p2chnumger==2) {
+			Character player2 = new Bazzi(this,2); //플레이어2에 배찌 생성
+			players[1] = player2;
+		}
+		else if (ReadyFrame.p2chnumger==3) {
+			Character player2 = new Uni(this,2); //플레이어2에 우니 생성
+			players[1] = player2;
+		}
 		addKeyListener(this);
 		addComponentListener(this);
 		for(int i =0; i<MAX_PLAYER; i++) {//이전 인덱스 저장 초기화

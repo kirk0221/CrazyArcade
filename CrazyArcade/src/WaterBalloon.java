@@ -199,7 +199,7 @@ public class WaterBalloon {
 				}
 			};
 			boom.schedule(boomtask, 5000);
-			boom.schedule(boomover, 7000);
+			boom.schedule(boomover, 6000);
 		}
 	}
 }
