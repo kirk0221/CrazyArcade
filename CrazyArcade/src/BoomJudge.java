@@ -6,10 +6,10 @@ public class BoomJudge {
 	
 	public static int[][] previous_map_size = new int[13][13];//∏  ªÁ¿Ã¡Ó 13*13
 	
-	public BoomJudge() {
-		if (Screen.map_selection == 0) {
+	public BoomJudge(int map) {
+		if (map == 0) {
 			this.Map_Cookie_batch();
-		}else if(Screen.map_selection == 1) {
+		}else if(map == 1) {
 			this.Map_Patriots_batch();
 		}
 	}

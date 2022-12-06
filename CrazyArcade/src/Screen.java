@@ -43,6 +43,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	
 	public Screen(int map) {
 		this.map_selection = map; //생성자를 통해 어떤 맵 설정되었는지 받아오기 위함
+		BoomJudge judge = new BoomJudge(map);
 		players = new Character[MAX_PLAYER];
 		playerIndex_x = new int[MAX_PLAYER];
 		playerIndex_y = new int[MAX_PLAYER];
