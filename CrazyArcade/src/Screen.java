@@ -166,9 +166,9 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 					previous_Index_y[playertype] = i;
 				}
 			}
-			BoomJudge.map_size[playerIndex_x[playertype]][playerIndex_y[playertype]] = playertype+1; /*캐릭터의 위치를 저장*/ //player1은 1로 player2는 2로 저장
-			BoomJudge.previous_map_size[previous_Index_x[playertype]][previous_Index_y[playertype]] = 0;
-			BoomJudge.previous_map_size[playerIndex_x[playertype]][playerIndex_y[playertype]] = playertype+1;
+			BoomJudge.map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = playertype+1; /*캐릭터의 위치를 저장*/ //player1은 1로 player2는 2로 저장
+			BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] = 0;
+			BoomJudge.previous_map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = playertype+1;
 			/*물풍선을 놓고 마지막에 이동한 위치를 저장하고 물풍선이 존재하는 맵과 비교하기 위하여
 			 * previous_map_size를 사용함
 			 * 
