@@ -8,8 +8,9 @@ public class Bazzi extends Character implements KeyListener{
 
 	private int X;
 	private int Y;
+	private int playerIndex_x;
+	private int playerIndex_y;
 	private int step;
-	public int die;
 	public int bombSize;
 	public int playertype;
 	WaterBalloon playerWaterBalloon;
@@ -37,7 +38,6 @@ public class Bazzi extends Character implements KeyListener{
 			}
 		}
 		this.step = 5;//초기 이동 거리
-		this.die = 0;//아직 죽지 않았음
 		this.bombSize = 1;//물줄기 크기 1
 		this.playertype = playertype;
 		playerWaterBalloon = new WaterBalloon(playertype); /* 물풍선 생성*/
@@ -103,6 +103,14 @@ public class Bazzi extends Character implements KeyListener{
 		return this.Y;
 	}
 	
+	public void getPlayerIndex_x(int x) {//스크린에서 x인덱스값 가져오기
+		this.playerIndex_x = x;
+	}
+	
+	public void getPlayerIndex_y(int y) {//스크린에서 y인덱스값 가져오기
+		this.playerIndex_y = y;
+	}
+	
 	public int getballonListsize() {
 		return playerWaterBalloon.balloonXList.size();
 		/*물풍선 객체의 링크드 리스트의 크기를 스크린에 전달하여, 반복문의 반복 휫수를 지정하기 위한 함수*/
@@ -118,23 +126,39 @@ public class Bazzi extends Character implements KeyListener{
 	
 	public void up() {//위로 가기
 		this.state  = 1;
-		Y-=step;
+		if (playerIndex_y == 0) {//인덱스 0일경우 예외처리
+			Y-=step;
+		}
+		else if((BoomJudge.map_size[playerIndex_x][playerIndex_y-1] == 0) || (BoomJudge.map_size[playerIndex_x][playerIndex_y-1] == 1) || (BoomJudge.map_size[playerIndex_x][playerIndex_y-1] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
+			Y-=step;
+		}
 	}
 	public void down() {//아래로 가기
 		this.state  = 0;
-		Y+=step;
+		if (playerIndex_y == 12) {//인덱스 12일경우 예외처리
+			Y+=step;
+		}
+		else if((BoomJudge.map_size[playerIndex_x][playerIndex_y+1] == 0) || (BoomJudge.map_size[playerIndex_x][playerIndex_y+1] == 1) || (BoomJudge.map_size[playerIndex_x][playerIndex_y+1] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
+			Y+=step;
+		}
 	}
 	public void left() {//왼쪽으로 가기
 		this.state  = 2;
-		X-=step;
+		if (playerIndex_x == 0) {//인덱스 0일경우 예외처리
+			X-=step;
+		}
+		else if((BoomJudge.map_size[playerIndex_x-1][playerIndex_y] == 0) || (BoomJudge.map_size[playerIndex_x-1][playerIndex_y] == 1) || (BoomJudge.map_size[playerIndex_x-1][playerIndex_y] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
+			X-=step;
+		}
 	}
 	public void right() {//오른쪽으로 가기
 		this.state  = 3;
-		X+=step;
-	}
-	
-	public void die() { //죽었을 경우
-		this.die = 1;
+		if (playerIndex_x == 12) {//인덱스 12일경우 예외처리
+			X+=step;
+		}
+		else if((BoomJudge.map_size[playerIndex_x+1][playerIndex_y] == 0) || (BoomJudge.map_size[playerIndex_x+1][playerIndex_y] == 1) || (BoomJudge.map_size[playerIndex_x+1][playerIndex_y] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
+			X+=step;
+		}
 	}
 
 	@Override

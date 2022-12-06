@@ -16,12 +16,13 @@ import javax.swing.JPanel;
 public class ReadyFrame extends JFrame implements MouseListener {
 	private JButton[] mapButtons;
 	private JButton[] characterButtons;
-	private Image starteBackground = new ImageIcon("Resources/ready1.png").getImage();//처음 배경 넣기
-	ImageIcon daoBackground = new ImageIcon("Resources/dao.png");//다오 배경 넣기
-	ImageIcon bazziBackground = new ImageIcon("Resources/bazzi.png");//배찌 배경 넣기
-	ImageIcon uniBackground = new ImageIcon("Resources/uni.png");//우니 배경 넣기
+	private Image starteBackground = new ImageIcon("Resources/ready2.png").getImage();//처음 배경 넣기
+	private Image bazziBackground = new ImageIcon("Resources/bazzi.png").getImage();//배찌 배경 넣기
+	private Image uniBackground = new ImageIcon("Resources/uni.png").getImage();//우니 배경 넣기
+	private Image dizniackground = new ImageIcon("Resources/dizni.png").getImage();//디즈니 배경 넣기
 	private int plyaernumber=0; //몇번 플레이어인지 구분하기위한 변수
-	
+	private int chrnumber=0;  //캐릭터그릴때 필요한 변수 디즈니 =1, 배찌 = 2, 우니 =3
+	int count=0;
 	public ReadyFrame(){ //MainFrame 생성자
 		this.setTitle("MapChoice"); //창 제목
 		this.setSize(805, 610); //창 크기
@@ -32,56 +33,32 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		this.setVisible(true); //창 보이게 하기
 		this.addMouseListener(this);
 	}
-	private JPanel mapPanel() { //맵선택 버튼을 만들 패널
-		JPanel mapPanel = new JPanel();
-		mapButtons = new JButton[1];
-		
-		return mapPanel;
-	}
-	private JPanel characterPanel() { //캐릭터 선택할 패널(다우, 배찌, 우니 선택)
-		JPanel characterPanel = new JPanel(); //return할 패널 생성
-		characterButtons = new JButton[3]; //캐릭터는 3개
-		JButton dao = new JButton(daoBackground); 
-		JButton bazzi = new JButton(bazziBackground); 
-		JButton uni = new JButton(uniBackground); 
-		
-		dao.setPreferredSize(new Dimension(160,50)); //dao 버튼 크기 160,50 설정
-		bazzi.setPreferredSize(new Dimension(160,50)); //bazzi 버튼 크기 160,50 설정
-		uni.setPreferredSize(new Dimension(160,50)); //uni 버튼 크기 160,50 설정
-	
-		characterButtons[0] = dao;
-		characterButtons[1] = bazzi;
-		characterButtons[1] = uni;
-		
-		for (int i = 0; i<characterButtons.length; i++) {
-			characterPanel.add(characterButtons[i]); 
-		}
-		dao.addActionListener(new ActionListener() {  //다오 눌렀을때
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-			}
-		});
-		bazzi.addActionListener(new ActionListener() {  //배찌 눌렀을때
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-			}
-		});
-		uni.addActionListener(new ActionListener() {  //우니 눌렀을때
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-			}
-		});
-		
-		return characterPanel;
-	}
-	
-	
+
 	public void paint(Graphics g) {
-		g.drawImage(starteBackground,0,0,null); //처음 배경 넣기
+		if (count ==0) {
+		    g.drawImage(starteBackground,0,0,null); //처음 배경 넣기 한번만 그려져야됨
+		    count=1;
+		}
+		if (plyaernumber==1 && chrnumber==1) { //첫번째 캐릭터 창에 디즈니 사진 띄우기
+			g.drawImage(dizniackground,35,100,null);
+		}
+		else if (plyaernumber==1 && chrnumber==2) { //첫번째 캐릭터 창에 배찌사진 띄우기
+			g.drawImage(bazziBackground,35,100,null);
+		}
+		else if (plyaernumber==1 && chrnumber==3) { //첫번째 캐릭터 창에 우니사진 띄우기
+			g.drawImage(uniBackground,35,100,null);
+		}
+		if (plyaernumber==2 && chrnumber==1) { //두번째 캐릭터 창에 디즈니 사진 띄우기
+			g.drawImage(dizniackground,250,100,null);
+		}
+		else if (plyaernumber==2 && chrnumber==2) { //두번째 캐릭터 창에 배찌사진 띄우기
+			g.drawImage(bazziBackground,250,100,null);
+		}
+		else if (plyaernumber==2 && chrnumber==3) { //두번째 캐릭터 창에 우니사진 띄우기
+			g.drawImage(uniBackground,250,100,null);
+		}
 	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -125,34 +102,22 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		boolean realbazzicheck = realbazzi.contains(e.getPoint());
 		if(realbazzicheck) {
 			System.out.println("배찌!");
-			if (plyaernumber ==1) {
-				//플레이어1 사진변경
-			}
-			else if(plyaernumber ==2) {
-				//플레이어2 사진변경
-			}
+			chrnumber =2;
+			repaint();
 		}
 		Rectangle realdizni = new Rectangle(440, 30, 100, 140); //디지니 선택하면 사진이 바뀜
 		boolean realdiznicheck = realdizni.contains(e.getPoint());
 		if(realdiznicheck) {
 			System.out.println("디지니!");
-			if (plyaernumber ==1) {
-				//플레이어1 사진변경
-			}
-			else if(plyaernumber ==2) {
-				//플레이어2 사진변경
-			}
+			chrnumber =1;
+			repaint();
 		}
 		Rectangle realuni = new Rectangle(690, 30, 100, 140); //우니 선택하면 사진이 바뀜
 		boolean realunicheck = realuni.contains(e.getPoint());
 		if(realunicheck) {
 			System.out.println("우니!");
-			if (plyaernumber ==1) {
-				//플레이어1 사진변경
-			}
-			else if(plyaernumber ==2) {
-				//플레이어2 사진변경
-			}
+			chrnumber =3;
+			repaint();
 		}
 	}
 	@Override

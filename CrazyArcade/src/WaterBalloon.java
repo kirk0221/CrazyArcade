@@ -151,6 +151,8 @@ public class WaterBalloon {
 
 					
 					/*맵 인덱스 테스트용*/
+					System.out.println("");
+					System.out.println("----------지금 상태-----------");
 					for(int i=0;i<13;i++) {
 						System.out.println("");
 						for(int j=0;j<13;j++) {
@@ -158,7 +160,7 @@ public class WaterBalloon {
 							}
 						}
 					System.out.println("");
-					System.out.println("----------지금 상태-----------");
+					System.out.println("----------이전 상태-----------");
 					for(int i=0;i<13;i++) {
 						System.out.println("");
 						for(int j=0;j<13;j++) {
@@ -166,7 +168,6 @@ public class WaterBalloon {
 							}
 						}
 					System.out.println("");
-					System.out.println("----------이전 상태-----------");
 					}
 					
 				
@@ -179,17 +180,22 @@ public class WaterBalloon {
 					// TODO Auto-generated method stub
 					for(int i = 0; i<boomballoonXList.size(); i++) {
 						BoomJudge.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)] = 0;
+						BoomJudge.previous_map_size[boomballoonXList.get(i)][boomballoonYList.get(i)] = 0;
 						if(boomballoonXList.get(i)+bombSize<=12) {
 							BoomJudge.map_size[boomballoonXList.get(i)+bombSize][boomballoonYList.get(i)] = 0;
+							BoomJudge.previous_map_size[boomballoonXList.get(i)+bombSize][boomballoonYList.get(i)] = 0;
 						}
 						if(boomballoonXList.get(i)-bombSize>=0) {
 							BoomJudge.map_size[boomballoonXList.get(i)-bombSize][boomballoonYList.get(i)] = 0;
+							BoomJudge.previous_map_size[boomballoonXList.get(i)-bombSize][boomballoonYList.get(i)] = 0;
 						}
 						if(boomballoonYList.get(i)+bombSize<=12) {
 							BoomJudge.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)+bombSize] = 0;
+							BoomJudge.previous_map_size[boomballoonXList.get(i)][boomballoonYList.get(i)+bombSize] = 0;
 						}
 						if(boomballoonYList.get(i)-bombSize>=0) {
 							BoomJudge.map_size[boomballoonXList.get(i)][boomballoonYList.get(i)-bombSize] = 0;
+							BoomJudge.previous_map_size[boomballoonXList.get(i)][boomballoonYList.get(i)-bombSize] = 0;
 						}
 					}
 					boomballoonXList.remove(0);

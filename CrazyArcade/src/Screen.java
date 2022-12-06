@@ -64,7 +64,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		/*for문을 이용하여 첫 타일은 (10,10)에서 시작해 x와 y 각각 60씩 증가하며 중심좌표들이 저장됨*/
 		this.mapXlocationlist = new int[13];
 		this.mapYlocationlist = new int[13];
-		int locationnum = 10;
+		int locationnum = 0;
 		for(int i=0; i<13;i++) {
 				this.mapXlocationlist[i] = locationnum;
 				this.mapYlocationlist[i] = locationnum;
@@ -120,6 +120,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 
 		for(int playertype=0; playertype<MAX_PLAYER; playertype++) {
 			bufferGraphics.drawImage(players[playertype].getImg(), players[playertype].getX(), players[playertype].getY(), this);//players 이미지 생성
+			players[playertype].getPlayerIndex_x(playerIndex_x[playertype]); //x인덱스값 캐릭터에게 주기
+			players[playertype].getPlayerIndex_y(playerIndex_y[playertype]); //y인덱스값 캐릭터에게 주기
 		}
 		g.drawImage(this.bufferedImage, 0, 0, this);
 	}

@@ -13,7 +13,14 @@ public class BoomJudge {
 			this.Map_Patriots_batch();
 		}
 	}
-	
+	/*숫자별 인덱스 의미
+	 * 0 : 아무것도 없는 그냥 길
+	 * 1 : player1
+	 * 2 : player2
+	 * 3 : 터지지 않은 물풍선
+	 * 4 : 터진 물풍선
+	 * 5 : 벽
+	 * 이후 인덱스 추가시 추가바람*/
 	public void Map_Cookie_batch() {//쿠키맵 기본 맵 구성
 		this.map_size = new int[][] {{ 1, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0 },
 									 { 0, 5, 5, 5, 5, 0, 0, 0, 5, 5, 5, 5, 0 },
