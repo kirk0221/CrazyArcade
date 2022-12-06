@@ -56,7 +56,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		previous_Index_y = new int[MAX_PLAYER];
 
 		if (ReadyFrame.p1chnumber==1) {
-			Character player1 = new Dizni(this,1); //플레이어1에 디즈니 생성
+			Character player1 = new Dizini(this,1); //플레이어1에 디즈니 생성
 			players[0] = player1;
 		}
 		else if (ReadyFrame.p1chnumber==2) {
@@ -68,7 +68,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			players[0] = player1;
 		}
 		if (ReadyFrame.p2chnumger==1) {
-			Character player2 = new Dizni(this,2); //플레이어2에 디즈니 생성
+			Character player2 = new Dizini(this,2); //플레이어2에 디즈니 생성
 			players[1] = player2;
 		}
 		else if (ReadyFrame.p2chnumger==2) {

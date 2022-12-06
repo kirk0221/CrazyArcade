@@ -131,20 +131,18 @@ public class WaterBalloon {
 				public void run() {
 					// TODO Auto-generated method stub
 
-					for(int i = 0; i<boomballoonXList.size(); i++) {//내부적으로 이용하기 위해 4로 바꾸어줌 -> 4로 안바뀜
-						BoomJudge.map_size[balloonYindex][balloonXindex] = 4;
-						if(boomballoonXList.get(i)+bombSize<=12) {
-							BoomJudge.map_size[balloonYindex][balloonXindex+bombSize] = 4;
-						}
-						if(boomballoonXList.get(i)-bombSize>=0) {
-							BoomJudge.map_size[balloonYindex][balloonXindex-bombSize] = 4;
-						}
-						if(boomballoonYList.get(i)+bombSize<=12) {
-							BoomJudge.map_size[balloonYindex+bombSize][balloonXindex] = 4;
-						}
-						if(boomballoonYList.get(i)-bombSize>=0) {
-							BoomJudge.map_size[balloonYindex-bombSize][balloonXindex] = 4;
-						}
+					BoomJudge.map_size[balloonYindex][balloonXindex] = 4;
+					if(boomballoonXList.get(0)+bombSize<=12) {
+						BoomJudge.map_size[balloonYindex][balloonXindex+bombSize] = 4;
+					}
+					if(boomballoonXList.get(0)-bombSize>=0) {
+						BoomJudge.map_size[balloonYindex][balloonXindex-bombSize] = 4;
+					}
+					if(boomballoonYList.get(0)+bombSize<=12) {
+						BoomJudge.map_size[balloonYindex+bombSize][balloonXindex] = 4;
+					}
+					if(boomballoonYList.get(0)-bombSize>=0) {
+						BoomJudge.map_size[balloonYindex-bombSize][balloonXindex] = 4;
 					}
 					waterballoonmax +=1;
 					BoomJudge.die();
@@ -178,30 +176,27 @@ public class WaterBalloon {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					for(int i = 0; i<boomballoonXList.size(); i++) {
-						BoomJudge.map_size[boomballoonYList.get(i)][boomballoonXList.get(i)] = 0;
-						BoomJudge.previous_map_size[boomballoonYList.get(i)][boomballoonXList.get(i)] = 0;
-						if(boomballoonYList.get(i)+bombSize<=12) {
-							BoomJudge.map_size[boomballoonYList.get(i)+bombSize][boomballoonXList.get(i)] = 0;
-							BoomJudge.previous_map_size[boomballoonYList.get(i)+bombSize][boomballoonXList.get(i)] = 0;
+						BoomJudge.map_size[boomballoonYList.get(0)][boomballoonXList.get(0)] = 0;
+						BoomJudge.previous_map_size[boomballoonYList.get(0)][boomballoonXList.get(0)] = 0;
+						if(boomballoonYList.get(0)+bombSize<=12) {
+							BoomJudge.map_size[boomballoonYList.get(0)+bombSize][boomballoonXList.get(0)] = 0;
+							BoomJudge.previous_map_size[boomballoonYList.get(0)+bombSize][boomballoonXList.get(0)] = 0;
 						}
-						if(boomballoonYList.get(i)-bombSize>=0) {
-							BoomJudge.map_size[boomballoonYList.get(i)-bombSize][boomballoonXList.get(i)] = 0;
-							BoomJudge.previous_map_size[boomballoonYList.get(i)-bombSize][boomballoonXList.get(i)] = 0;
+						if(boomballoonYList.get(0)-bombSize>=0) {
+							BoomJudge.map_size[boomballoonYList.get(0)-bombSize][boomballoonXList.get(0)] = 0;
+							BoomJudge.previous_map_size[boomballoonYList.get(0)-bombSize][boomballoonXList.get(0)] = 0;
 						}
-						if(boomballoonXList.get(i)+bombSize<=12) {
-							BoomJudge.map_size[boomballoonYList.get(i)][boomballoonXList.get(i)+bombSize] = 0;
-							BoomJudge.previous_map_size[boomballoonYList.get(i)][boomballoonXList.get(i)+bombSize] = 0;
+						if(boomballoonXList.get(0)+bombSize<=12) {
+							BoomJudge.map_size[boomballoonYList.get(0)][boomballoonXList.get(0)+bombSize] = 0;
+							BoomJudge.previous_map_size[boomballoonYList.get(0)][boomballoonXList.get(0)+bombSize] = 0;
 						}
-						if(boomballoonXList.get(i)-bombSize>=0) {
-							BoomJudge.map_size[boomballoonYList.get(i)][boomballoonXList.get(i)-bombSize] = 0;
-							BoomJudge.previous_map_size[boomballoonYList.get(i)][boomballoonXList.get(i)-bombSize] = 0;
+						if(boomballoonXList.get(0)-bombSize>=0) {
+							BoomJudge.map_size[boomballoonYList.get(0)][boomballoonXList.get(0)-bombSize] = 0;
+							BoomJudge.previous_map_size[boomballoonYList.get(0)][boomballoonXList.get(0)-bombSize] = 0;
 						}
-					}
 					boomballoonXList.remove(0);
 					boomballoonYList.remove(0);
 				}
-				
 			};
 			boom.schedule(boomtask, 5000);
 			boom.schedule(boomover, 6000);

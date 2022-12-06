@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ReadyFrame extends JFrame implements MouseListener {
@@ -79,13 +80,21 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		Rectangle start = new Rectangle(460, 450, 300, 240); // 시작 누르면 시작
 		boolean startcheck = start.contains(e.getPoint());
 		if(startcheck) {
-			if (MapChoice.MapNumber==1) {
+			if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==1) {
 				new MAP_Cookie(); //쿠키맵 시작
 			    ReadyFrame.this.setVisible(false); //현재 창 숨기기
 			}
-			else if (MapChoice.MapNumber==2) {
+			else if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==2) {
 				new MAP_Patriots(); //해적맵 시작
 				ReadyFrame.this.setVisible(false); //현재 창 숨기기
+			}
+			else if(MapChoice.MapNumber==0) {
+				JOptionPane no = new JOptionPane();
+				no.showMessageDialog(null, "맵을 골라주세요.");
+			}
+			else if(p1chnumber ==0 || p2chnumger ==0) {
+				JOptionPane nono = new JOptionPane();
+				nono.showMessageDialog(null, "캐릭터를 골라주세요.");
 			}
 		}
 		
