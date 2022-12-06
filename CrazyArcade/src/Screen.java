@@ -39,7 +39,12 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	
 	
 	private Image map_CookieBackground = new ImageIcon("Resources/mapCookie.png").getImage();//쿠키(맵0) 이미지
+	private Image map_CookieBox1 = new ImageIcon("Resources/boxcookie1.png").getImage();
+	private Image map_CookieBox2 = new ImageIcon("Resources/boxcookie2.png").getImage();
 	private Image map_PatriotsBackground = new ImageIcon("Resources/mapPatriots.png").getImage();//해적(맵1) 이미지
+	private Image map_PatriotsBox1 = new ImageIcon("Resources/box1.png").getImage();
+	private Image map_PatriotsBox2 = new ImageIcon("Resources/box2.png").getImage();
+	private Image map_PatriotsBox3 = new ImageIcon("Resources/box3.png").getImage();
 	
 	public Screen(int map) {
 		this.map_selection = map; //생성자를 통해 어떤 맵 설정되었는지 받아오기 위함
@@ -92,8 +97,22 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		bufferGraphics.clearRect(0, 0, dim.width, dim.height);
 		if(map_selection == 0) {//쿠키맵일때 배경
 			bufferGraphics.drawImage(map_CookieBackground,0,0,this);
+			for(int map_y=0; map_y<BoomJudge.map_size.length; map_y++) {
+				for(int map_x=0; map_x<BoomJudge.map_size.length; map_x++) {
+					if(BoomJudge.map_size[map_y][map_x] == 5) {
+						bufferGraphics.drawImage(map_CookieBox1, mapXlocationlist[map_x], mapYlocationlist[map_y],this);
+					}
+				}
+			}
 		}else if(map_selection == 1) {//해적맵일때 배경
 			bufferGraphics.drawImage(map_PatriotsBackground,0,0,this);
+			for(int map_y=0; map_y<BoomJudge.map_size.length; map_y++) {
+				for(int map_x=0; map_x<BoomJudge.map_size.length; map_x++) {
+					if(BoomJudge.map_size[map_y][map_x] == 5) {
+						bufferGraphics.drawImage(map_PatriotsBox1, mapXlocationlist[map_x], mapYlocationlist[map_y],this);
+					}
+				}
+			}
 		}
 		for (int playertype = 0; playertype<MAX_PLAYER; playertype++) {
 			for(int i=0;i<players[playertype].getballonListsize();i++) { /*물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
@@ -117,6 +136,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 				}
 			}
 		}
+
 
 		for(int playertype=0; playertype<MAX_PLAYER; playertype++) {
 			bufferGraphics.drawImage(players[playertype].getImg(), players[playertype].getX(), players[playertype].getY(), this);//players 이미지 생성
