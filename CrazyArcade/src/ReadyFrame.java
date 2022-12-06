@@ -132,6 +132,28 @@ public class ReadyFrame extends JFrame implements MouseListener {
 				//플레이어2 사진변경
 			}
 		}
+		Rectangle realdizni = new Rectangle(440, 30, 100, 140); //디지니 선택하면 사진이 바뀜
+		boolean realdiznicheck = realdizni.contains(e.getPoint());
+		if(realdiznicheck) {
+			System.out.println("디지니!");
+			if (plyaernumber ==1) {
+				//플레이어1 사진변경
+			}
+			else if(plyaernumber ==2) {
+				//플레이어2 사진변경
+			}
+		}
+		Rectangle realuni = new Rectangle(690, 30, 100, 140); //우니 선택하면 사진이 바뀜
+		boolean realunicheck = realuni.contains(e.getPoint());
+		if(realunicheck) {
+			System.out.println("우니!");
+			if (plyaernumber ==1) {
+				//플레이어1 사진변경
+			}
+			else if(plyaernumber ==2) {
+				//플레이어2 사진변경
+			}
+		}
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {

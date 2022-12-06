@@ -20,11 +20,21 @@ public class Bazzi extends Character implements KeyListener{
 		super(screen);
 		// TODO Auto-generated constructor stub
 		if(playertype == 1) {
-			this.X = 400;//초기 X값
-			this.Y = 300;//초기 Y값
+			if (Screen.map_selection == 0) {//쿠키맵일때
+				this.X = 0;//초기 X값
+				this.Y = 0;//초기 Y값
+			}else if (Screen.map_selection == 1) {//해적맵일때
+				this.X = 60;//초기 X값
+				this.Y = 60;//초기 Y값
+			}
 		}else if(playertype == 2) {
-			this.X = 300;//초기 X값
-			this.Y = 400;//초기 Y값
+			if (Screen.map_selection == 0) {
+				this.X = 720;//초기 X값
+				this.Y = 720;//초기 Y값
+			}else if (Screen.map_selection == 1) {
+				this.X = 660;//초기 X값
+				this.Y = 660;//초기 Y값
+			}
 		}
 		this.step = 5;//초기 이동 거리
 		this.die = 0;//아직 죽지 않았음
