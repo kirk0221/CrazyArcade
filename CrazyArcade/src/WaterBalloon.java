@@ -120,7 +120,7 @@ public class WaterBalloon {
 			}
 			balloonXList.add(balloonXindex); /*물풍선 x 좌표 인덱스를 저장하는 링크드 리스트*/
 			balloonYList.add(balloonYindex); /*물풍선 y 좌표 인덱스를 저장하는 링크드 리스트*/
-			BoomJudge.map_size[balloonXindex][balloonYindex] = 3; /*3로 바꾸어 물풍선 놓기*/
+			BoomJudge.map_size[balloonYindex][balloonXindex] = 3; /*3로 바꾸어 물풍선 놓기*/
 			BoomJudge.die();
 			/*내부적으로 이용하기 위해 3로 바꾸어줌*/
 			BalloonTimer timer = new BalloonTimer(5000);//5초 후 물풍선 터짐
