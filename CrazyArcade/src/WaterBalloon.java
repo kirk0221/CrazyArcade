@@ -156,7 +156,7 @@ public class WaterBalloon {
 					for(int i=0;i<13;i++) {
 						System.out.println("");
 						for(int j=0;j<13;j++) {
-								System.out.print(BoomJudge.map_size[j][i]+"");
+								System.out.print(BoomJudge.map_size[i][j]+"");
 							}
 						}
 					System.out.println("");
@@ -164,7 +164,7 @@ public class WaterBalloon {
 					for(int i=0;i<13;i++) {
 						System.out.println("");
 						for(int j=0;j<13;j++) {
-								System.out.print(BoomJudge.previous_map_size[j][i]+"");
+								System.out.print(BoomJudge.previous_map_size[i][j]+"");
 							}
 						}
 					System.out.println("");
