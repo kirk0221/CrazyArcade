@@ -132,7 +132,7 @@ public class Uni extends Character implements KeyListener{
 		else if((BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 1) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
 			Y-=step;
 		}
-		else if((playerIndex_y)*60<this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
+		else if((playerIndex_y)*60.45<this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			Y-=step;
 		}
 	}
@@ -144,7 +144,7 @@ public class Uni extends Character implements KeyListener{
 		else if((BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 1) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
 			Y+=step;
 		}
-		else if((playerIndex_y)*60>this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
+		else if((playerIndex_y)*60.45>this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			Y+=step;
 		}
 	}
@@ -156,7 +156,7 @@ public class Uni extends Character implements KeyListener{
 		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 1) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
 			X-=step;
 		}
-		else if((playerIndex_x)*60<this.getX()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
+		else if((playerIndex_x)*60.45<this.getX()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			X-=step;
 		}
 	}
@@ -168,7 +168,7 @@ public class Uni extends Character implements KeyListener{
 		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 1) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
 			X+=step;
 		}
-		else if((playerIndex_x)*60>this.getX()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
+		else if((playerIndex_x)*60.45>this.getX()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			X+=step;
 		}
 	}

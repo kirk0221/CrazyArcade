@@ -73,7 +73,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		for(int i=0; i<13;i++) {
 				this.mapXlocationlist[i] = locationnum;
 				this.mapYlocationlist[i] = locationnum;
-				locationnum += 60;
+				locationnum += 60.45;
 		}
 		
 		
@@ -100,7 +100,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			for(int map_y=0; map_y<BoomJudge.map_size.length; map_y++) {
 				for(int map_x=0; map_x<BoomJudge.map_size.length; map_x++) {
 					if(BoomJudge.map_size[map_y][map_x] == 5) {
-						bufferGraphics.drawImage(map_CookieBox1, mapXlocationlist[map_x], mapYlocationlist[map_y],this);
+						bufferGraphics.drawImage(map_CookieBox1, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
 				}
 			}
@@ -109,7 +109,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			for(int map_y=0; map_y<BoomJudge.map_size.length; map_y++) {
 				for(int map_x=0; map_x<BoomJudge.map_size.length; map_x++) {
 					if(BoomJudge.map_size[map_y][map_x] == 5) {
-						bufferGraphics.drawImage(map_PatriotsBox1, mapXlocationlist[map_x], mapYlocationlist[map_y],this);
+						bufferGraphics.drawImage(map_PatriotsBox1, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
 				}
 			}
