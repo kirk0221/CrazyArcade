@@ -20,8 +20,10 @@ public class ReadyFrame extends JFrame implements MouseListener {
 	private Image bazziBackground = new ImageIcon("Resources/bazzi.png").getImage();//배찌 배경 넣기
 	private Image uniBackground = new ImageIcon("Resources/uni.png").getImage();//우니 배경 넣기
 	private Image dizniackground = new ImageIcon("Resources/dizni.png").getImage();//디즈니 배경 넣기
-	private int plyaernumber=0; //몇번 플레이어인지 구분하기위한 변수
-	private int chrnumber=0;  //캐릭터그릴때 필요한 변수 디즈니 =1, 배찌 = 2, 우니 =3
+	static int plyaernumber=0; //몇번 플레이어인지 구분하기위한 변수
+	static int chrnumber=0;  //캐릭터그릴때 필요한 변수 디즈니 =1, 배찌 = 2, 우니 =3
+	static int p1chnumber=0; //p1의 캐릭터
+	static int p2chnumger=0; //p2의 캐릭터
 	int count=0;
 	public ReadyFrame(){ //MainFrame 생성자
 		this.setTitle("MapChoice"); //창 제목
@@ -41,21 +43,27 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		}
 		if (plyaernumber==1 && chrnumber==1) { //첫번째 캐릭터 창에 디즈니 사진 띄우기
 			g.drawImage(dizniackground,35,100,null);
+			p1chnumber=1;
 		}
 		else if (plyaernumber==1 && chrnumber==2) { //첫번째 캐릭터 창에 배찌사진 띄우기
 			g.drawImage(bazziBackground,35,100,null);
+			p1chnumber=2;
 		}
 		else if (plyaernumber==1 && chrnumber==3) { //첫번째 캐릭터 창에 우니사진 띄우기
 			g.drawImage(uniBackground,35,100,null);
+			p1chnumber=3;
 		}
 		if (plyaernumber==2 && chrnumber==1) { //두번째 캐릭터 창에 디즈니 사진 띄우기
 			g.drawImage(dizniackground,250,100,null);
+			p2chnumger=1;
 		}
 		else if (plyaernumber==2 && chrnumber==2) { //두번째 캐릭터 창에 배찌사진 띄우기
 			g.drawImage(bazziBackground,250,100,null);
+			p2chnumger=2;
 		}
 		else if (plyaernumber==2 && chrnumber==3) { //두번째 캐릭터 창에 우니사진 띄우기
 			g.drawImage(uniBackground,250,100,null);
+			p2chnumger=3;
 		}
 	}
 
