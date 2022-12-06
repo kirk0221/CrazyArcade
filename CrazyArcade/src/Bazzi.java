@@ -132,6 +132,9 @@ public class Bazzi extends Character implements KeyListener{
 		else if((BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 1) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
 			Y-=step;
 		}
+		else if((playerIndex_y)*60<this.getY()) {
+			Y-=step;
+		}
 	}
 	public void down() {//아래로 가기
 		this.state  = 0;
@@ -139,6 +142,9 @@ public class Bazzi extends Character implements KeyListener{
 			Y+=step;
 		}
 		else if((BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 1) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
+			Y+=step;
+		}
+		else if((playerIndex_y)*60>this.getY()) {
 			Y+=step;
 		}
 	}
@@ -150,6 +156,9 @@ public class Bazzi extends Character implements KeyListener{
 		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 1) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
 			X-=step;
 		}
+		else if((playerIndex_x)*60<this.getX()) {
+			X-=step;
+		}
 	}
 	public void right() {//오른쪽으로 가기
 		this.state  = 3;
@@ -157,6 +166,9 @@ public class Bazzi extends Character implements KeyListener{
 			X+=step;
 		}
 		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 1) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
+			X+=step;
+		}
+		else if((playerIndex_x)*60>this.getX()) {
 			X+=step;
 		}
 	}
