@@ -66,7 +66,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		}
 		
 		/* mapXlocaionlist와 mapYlocationlist는 맵의 각 타일들의 중심좌표의 x와 y값을 각각 저장*/
-		/*for문을 이용하여 첫 타일은 (10,10)에서 시작해 x와 y 각각 60씩 증가하며 중심좌표들이 저장됨*/
+		/*for문을 이용하여 첫 타일은 (0,0)에서 시작해 x와 y 각각 60씩 증가하며 중심좌표들이 저장됨*/
 		this.mapXlocationlist = new int[13];
 		this.mapYlocationlist = new int[13];
 		int locationnum = 0;
