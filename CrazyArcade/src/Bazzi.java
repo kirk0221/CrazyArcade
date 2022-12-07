@@ -112,11 +112,11 @@ public class Bazzi extends Character implements KeyListener{
 	}
 	
 	public int getballonListsize() {
-		return playerWaterBalloon.balloonXList.size();
+		return playerWaterBalloon.balloonXqueue.size();
 		/*물풍선 객체의 링크드 리스트의 크기를 스크린에 전달하여, 반복문의 반복 휫수를 지정하기 위한 함수*/
 	}
 	public int getboomballonListsize() {
-		return playerWaterBalloon.boomballoonXList.size();
+		return playerWaterBalloon.boomballoonXqueue.size();
 		/*터진 물풍선 객체의 링크드 리스트의 크기를 스크린에 전달하여, 반복문의 반복 휫수를 지정하기 위한 함수*/
 	}
 	

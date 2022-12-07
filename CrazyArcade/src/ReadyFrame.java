@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ReadyFrame extends JFrame implements MouseListener {
@@ -19,9 +20,9 @@ public class ReadyFrame extends JFrame implements MouseListener {
 	private Image starteBackground = new ImageIcon("Resources/ready2.png").getImage();//처음 배경 넣기
 	private Image bazziBackground = new ImageIcon("Resources/bazzi.png").getImage();//배찌 배경 넣기
 	private Image uniBackground = new ImageIcon("Resources/uni.png").getImage();//우니 배경 넣기
-	private Image dizniackground = new ImageIcon("Resources/dizni.png").getImage();//디지니 배경 넣기
+	private Image dizniackground = new ImageIcon("Resources/dizni.png").getImage();//디즈니 배경 넣기
 	static int plyaernumber=0; //몇번 플레이어인지 구분하기위한 변수
-	static int chrnumber=0;  //캐릭터그릴때 필요한 변수 디지니 =1, 배찌 = 2, 우니 =3
+	static int chrnumber=0;  //캐릭터그릴때 필요한 변수 디즈니 =1, 배찌 = 2, 우니 =3
 	static int p1chnumber=0; //p1의 캐릭터
 	static int p2chnumger=0; //p2의 캐릭터
 	int count=0;
@@ -53,7 +54,7 @@ public class ReadyFrame extends JFrame implements MouseListener {
 			g.drawImage(uniBackground,35,100,null);
 			p1chnumber=3;
 		}
-		if (plyaernumber==2 && chrnumber==1) { //두번째 캐릭터 창에 디지니 사진 띄우기
+		if (plyaernumber==2 && chrnumber==1) { //두번째 캐릭터 창에 디즈니 사진 띄우기
 			g.drawImage(dizniackground,250,100,null);
 			p2chnumger=1;
 		}
@@ -79,13 +80,21 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		Rectangle start = new Rectangle(460, 450, 300, 240); // 시작 누르면 시작
 		boolean startcheck = start.contains(e.getPoint());
 		if(startcheck) {
-			if (MapChoice.MapNumber==1) {
+			if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==1) {
 				new MAP_Cookie(); //쿠키맵 시작
 			    ReadyFrame.this.setVisible(false); //현재 창 숨기기
 			}
-			else if (MapChoice.MapNumber==2) {
+			else if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==2) {
 				new MAP_Patriots(); //해적맵 시작
 				ReadyFrame.this.setVisible(false); //현재 창 숨기기
+			}
+			else if(MapChoice.MapNumber==0) {
+				JOptionPane no = new JOptionPane();
+				no.showMessageDialog(null, "맵을 골라주세요.");
+			}
+			else if(p1chnumber ==0 || p2chnumger ==0) {
+				JOptionPane nono = new JOptionPane();
+				nono.showMessageDialog(null, "캐릭터를 골라주세요.");
 			}
 		}
 		

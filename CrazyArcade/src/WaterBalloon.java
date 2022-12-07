@@ -1,5 +1,6 @@
 import java.awt.Image;
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,6 +12,7 @@ public class WaterBalloon {
 	int bombSize;
 	int playertype;
 	int waterballoonmax;
+	
 	
 	public int[] mapXlocationlist;
 	public int[] mapYlocationlist;
@@ -25,12 +27,16 @@ public class WaterBalloon {
 	private Image upImg;
 	private Image downImg;
 	
-	static LinkedList<Integer> balloonXList = new LinkedList<>();
-	static LinkedList<Integer> balloonYList = new LinkedList<>();
+	Queue<Integer> balloonXqueue = new LinkedList<>();
+	Queue<Integer> balloonYqueue = new LinkedList<>();
+	LinkedList<Integer> balloonXList = new LinkedList<>();
+	LinkedList<Integer> balloonYList = new LinkedList<>();
 	/* 여러 개의 물풍선을 놓기 위해 링크드 리스트 사용*/
 	
-	static LinkedList<Integer> boomballoonXList = new LinkedList<>();
-	static LinkedList<Integer> boomballoonYList = new LinkedList<>();
+	Queue<Integer> boomballoonXqueue = new LinkedList<>();
+	Queue<Integer> boomballoonYqueue = new LinkedList<>();
+	LinkedList<Integer> boomballoonXList = new LinkedList<>();
+	LinkedList<Integer> boomballoonYList = new LinkedList<>();
 	
 	public WaterBalloon(int playertype){
 		this.playertype = playertype;
@@ -118,30 +124,47 @@ public class WaterBalloon {
 					balloonYindex = i;
 				}
 			}
-			balloonXList.add(balloonXindex); /*물풍선 x 좌표 인덱스를 저장하는 링크드 리스트*/
+			balloonXqueue.add(balloonXindex); /*물풍선 x 좌표 인덱스를 저장하는 큐*/
+			balloonYqueue.add(balloonYindex); /*물풍선 y 좌표 인덱스를 저장하는 큐*/
+			balloonXList.add(balloonXindex); /*물풍선 x 좌표 인덱스를 저장하는 큐*/
 			balloonYList.add(balloonYindex); /*물풍선 y 좌표 인덱스를 저장하는 링크드 리스트*/
 			BoomJudge.map_size[balloonYindex][balloonXindex] = 3; /*3로 바꾸어 물풍선 놓기*/
 			BoomJudge.die();
 			/*내부적으로 이용하기 위해 3로 바꾸어줌*/
-			BalloonTimer timer = new BalloonTimer(5000);//5초 후 물풍선 터짐
-			Timer boom = new Timer();
+			
+			TimerTask task = new TimerTask() {
+				@Override
+			    public void run() {
+					int remember_x = balloonXqueue.peek();
+					int remember_y = balloonYqueue.peek();
+			    	balloonXqueue.remove();
+			    	balloonYqueue.remove();
+			    	balloonXList.remove(0);
+			    	balloonYList.remove(0);
+					boomballoonXqueue.add(remember_x); /*물풍선 x 좌표 인덱스를 저장하는 큐*/
+					boomballoonYqueue.add(remember_y); /*물풍선 y 좌표 인덱스를 저장하는 큐*/
+					boomballoonXList.add(remember_x); /*물풍선 x 좌표 인덱스를 저장하는 링크드 리스트*/
+					boomballoonYList.add(remember_y); /*물풍선 y 좌표 인덱스를 저장하는 링크드 리스트*/
+			    }
+			};
+			
 			TimerTask boomtask = new TimerTask() {
 				
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-
+					
 					BoomJudge.map_size[balloonYindex][balloonXindex] = 4;
-					if(boomballoonXList.get(0)+bombSize<=12) {
+					if(boomballoonXqueue.peek()+bombSize<=12) {
 						BoomJudge.map_size[balloonYindex][balloonXindex+bombSize] = 4;
 					}
-					if(boomballoonXList.get(0)-bombSize>=0) {
+					if(boomballoonXqueue.peek()-bombSize>=0) {
 						BoomJudge.map_size[balloonYindex][balloonXindex-bombSize] = 4;
 					}
-					if(boomballoonYList.get(0)+bombSize<=12) {
+					if(boomballoonYqueue.peek()+bombSize<=12) {
 						BoomJudge.map_size[balloonYindex+bombSize][balloonXindex] = 4;
 					}
-					if(boomballoonYList.get(0)-bombSize>=0) {
+					if(boomballoonYqueue.peek()-bombSize>=0) {
 						BoomJudge.map_size[balloonYindex-bombSize][balloonXindex] = 4;
 					}
 					waterballoonmax +=1;
@@ -176,28 +199,36 @@ public class WaterBalloon {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-						BoomJudge.map_size[boomballoonYList.get(0)][boomballoonXList.get(0)] = 0;
-						BoomJudge.previous_map_size[boomballoonYList.get(0)][boomballoonXList.get(0)] = 0;
-						if(boomballoonYList.get(0)+bombSize<=12) {
-							BoomJudge.map_size[boomballoonYList.get(0)+bombSize][boomballoonXList.get(0)] = 0;
-							BoomJudge.previous_map_size[boomballoonYList.get(0)+bombSize][boomballoonXList.get(0)] = 0;
+						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
+						BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
+						if(boomballoonYqueue.peek()+bombSize<=12) {
+							BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 0;
+							BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 0;
 						}
-						if(boomballoonYList.get(0)-bombSize>=0) {
-							BoomJudge.map_size[boomballoonYList.get(0)-bombSize][boomballoonXList.get(0)] = 0;
-							BoomJudge.previous_map_size[boomballoonYList.get(0)-bombSize][boomballoonXList.get(0)] = 0;
+						if(boomballoonYqueue.peek()-bombSize>=0) {
+							BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 0;
+							BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 0;
 						}
-						if(boomballoonXList.get(0)+bombSize<=12) {
-							BoomJudge.map_size[boomballoonYList.get(0)][boomballoonXList.get(0)+bombSize] = 0;
-							BoomJudge.previous_map_size[boomballoonYList.get(0)][boomballoonXList.get(0)+bombSize] = 0;
+						if(boomballoonXqueue.peek()+bombSize<=12) {
+							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 0;
+							BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 0;
 						}
-						if(boomballoonXList.get(0)-bombSize>=0) {
-							BoomJudge.map_size[boomballoonYList.get(0)][boomballoonXList.get(0)-bombSize] = 0;
-							BoomJudge.previous_map_size[boomballoonYList.get(0)][boomballoonXList.get(0)-bombSize] = 0;
+						if(boomballoonXqueue.peek()-bombSize>=0) {
+							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 0;
+							BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 0;
 						}
+					boomballoonXqueue.remove();
+					boomballoonYqueue.remove();
 					boomballoonXList.remove(0);
 					boomballoonYList.remove(0);
+					System.out.println();
+					System.out.println(boomballoonXqueue);
+					System.out.println(boomballoonXList);
+					System.out.println();
 				}
 			};
+			Timer boom = new Timer();
+			boom.schedule(task, 4999);
 			boom.schedule(boomtask, 5000);
 			boom.schedule(boomover, 6000);
 		}
