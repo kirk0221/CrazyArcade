@@ -54,9 +54,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		playerIndex_y = new int[MAX_PLAYER];
 		previous_Index_x = new int[MAX_PLAYER];
 		previous_Index_y = new int[MAX_PLAYER];
-
 		if (ReadyFrame.p1chnumber==1) {
-			Character player1 = new Dizini(this,1); //플레이어1에 디즈니 생성
+			Character player1 = new Dizini(this,1); //플레이어1에 디지니 생성
 			players[0] = player1;
 		}
 		else if (ReadyFrame.p1chnumber==2) {
@@ -68,7 +67,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			players[0] = player1;
 		}
 		if (ReadyFrame.p2chnumger==1) {
-			Character player2 = new Dizini(this,2); //플레이어2에 디즈니 생성
+			Character player2 = new Dizini(this,2); //플레이어2에 디지니 생성
 			players[1] = player2;
 		}
 		else if (ReadyFrame.p2chnumger==2) {
@@ -79,11 +78,6 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			Character player2 = new Uni(this,2); //플레이어2에 우니 생성
 			players[1] = player2;
 		}
-		
-		
-		
-		
-		
 		addKeyListener(this);
 		addComponentListener(this);
 		for(int i =0; i<MAX_PLAYER; i++) {//이전 인덱스 저장 초기화
@@ -99,7 +93,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		for(int i=0; i<13;i++) {
 				this.mapXlocationlist[i] = locationnum;
 				this.mapYlocationlist[i] = locationnum;
-				locationnum += 60;
+				locationnum += 60.45;
 		}
 		
 		
@@ -126,7 +120,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			for(int map_y=0; map_y<BoomJudge.map_size.length; map_y++) {
 				for(int map_x=0; map_x<BoomJudge.map_size.length; map_x++) {
 					if(BoomJudge.map_size[map_y][map_x] == 5) {
-						bufferGraphics.drawImage(map_CookieBox1, mapXlocationlist[map_x], mapYlocationlist[map_y],this);
+						bufferGraphics.drawImage(map_CookieBox1, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
 				}
 			}
@@ -135,7 +129,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			for(int map_y=0; map_y<BoomJudge.map_size.length; map_y++) {
 				for(int map_x=0; map_x<BoomJudge.map_size.length; map_x++) {
 					if(BoomJudge.map_size[map_y][map_x] == 5) {
-						bufferGraphics.drawImage(map_PatriotsBox1, mapXlocationlist[map_x], mapYlocationlist[map_y],this);
+						bufferGraphics.drawImage(map_PatriotsBox1, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
 				}
 			}

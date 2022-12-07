@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +23,11 @@ public class ReadyFrame extends JFrame implements MouseListener {
 	private Image bazziBackground = new ImageIcon("Resources/bazzi.png").getImage();//배찌 배경 넣기
 	private Image uniBackground = new ImageIcon("Resources/uni.png").getImage();//우니 배경 넣기
 	private Image dizniackground = new ImageIcon("Resources/dizni.png").getImage();//디즈니 배경 넣기
+	private Image FactoryBackground = new ImageIcon("Resources/Factorymap.png").getImage();//팩토리 배경 넣기
+	private Image CookieBackground = new ImageIcon("Resources/Cookiemap.png").getImage();//쿠키 배경
+	private Image FactorylevelBackground = new ImageIcon("Resources/factorylevel.png").getImage();//팩토리 난이도 넣기
+	private Image CookielevelBackground = new ImageIcon("Resources/Cookielevel.png").getImage();//쿠키 난이도
+	
 	static int plyaernumber=0; //몇번 플레이어인지 구분하기위한 변수
 	static int chrnumber=0;  //캐릭터그릴때 필요한 변수 디즈니 =1, 배찌 = 2, 우니 =3
 	static int p1chnumber=0; //p1의 캐릭터
@@ -35,6 +42,15 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		this.setLocationRelativeTo(null); //창 가운데 위치
 		this.setVisible(true); //창 보이게 하기
 		this.addMouseListener(this);
+		
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {//0.001초 주기로 repaint
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				repaint();
+			}
+		},0, 1);
 	}
 
 	public void paint(Graphics g) {
@@ -66,6 +82,15 @@ public class ReadyFrame extends JFrame implements MouseListener {
 			g.drawImage(uniBackground,250,100,null);
 			p2chnumger=3;
 		}
+		if (MapChoice.MapNumber==2){
+			g.drawImage(FactoryBackground,440 ,200, null);
+			g.drawImage(FactorylevelBackground, 625,190, null);
+		}
+		else if (MapChoice.MapNumber==1){
+			g.drawImage(CookieBackground,440 ,200, null);
+			g.drawImage(CookielevelBackground,625 ,190, null);
+		}
+		
 	}
 
 	@Override
@@ -120,21 +145,18 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		if(realbazzicheck) {
 			System.out.println("배찌!");
 			chrnumber =2;
-			repaint();
 		}
 		Rectangle realdizni = new Rectangle(440, 30, 100, 140); //디지니 선택하면 사진이 바뀜
 		boolean realdiznicheck = realdizni.contains(e.getPoint());
 		if(realdiznicheck) {
 			System.out.println("디지니!");
 			chrnumber =1;
-			repaint();
 		}
 		Rectangle realuni = new Rectangle(690, 30, 100, 140); //우니 선택하면 사진이 바뀜
 		boolean realunicheck = realuni.contains(e.getPoint());
 		if(realunicheck) {
 			System.out.println("우니!");
 			chrnumber =3;
-			repaint();
 		}
 	}
 	@Override
