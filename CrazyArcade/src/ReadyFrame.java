@@ -58,29 +58,23 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		    g.drawImage(starteBackground,0,0,null); //처음 배경 넣기 한번만 그려져야됨
 		    count=1;
 		}
-		if (plyaernumber==1 && chrnumber==1) { //첫번째 캐릭터 창에 디즈니 사진 띄우기
+		if (plyaernumber==1 && p1chnumber==1) { //첫번째 캐릭터 창에 디즈니 사진 띄우기
 			g.drawImage(dizniackground,35,100,null);
-			p1chnumber=1;
 		}
-		else if (plyaernumber==1 && chrnumber==2) { //첫번째 캐릭터 창에 배찌사진 띄우기
+		else if (plyaernumber==1 && p1chnumber==2) { //첫번째 캐릭터 창에 배찌사진 띄우기
 			g.drawImage(bazziBackground,35,100,null);
-			p1chnumber=2;
 		}
-		else if (plyaernumber==1 && chrnumber==3) { //첫번째 캐릭터 창에 우니사진 띄우기
+		else if (plyaernumber==1 && p1chnumber==3) { //첫번째 캐릭터 창에 우니사진 띄우기
 			g.drawImage(uniBackground,35,100,null);
-			p1chnumber=3;
 		}
-		if (plyaernumber==2 && chrnumber==1) { //두번째 캐릭터 창에 디즈니 사진 띄우기
+		if (plyaernumber==2 && p2chnumger==1) { //두번째 캐릭터 창에 디즈니 사진 띄우기
 			g.drawImage(dizniackground,250,100,null);
-			p2chnumger=1;
 		}
-		else if (plyaernumber==2 && chrnumber==2) { //두번째 캐릭터 창에 배찌사진 띄우기
+		else if (plyaernumber==2 && p2chnumger==2) { //두번째 캐릭터 창에 배찌사진 띄우기
 			g.drawImage(bazziBackground,250,100,null);
-			p2chnumger=2;
 		}
-		else if (plyaernumber==2 && chrnumber==3) { //두번째 캐릭터 창에 우니사진 띄우기
+		else if (plyaernumber==2 && p2chnumger==3) { //두번째 캐릭터 창에 우니사진 띄우기
 			g.drawImage(uniBackground,250,100,null);
-			p2chnumger=3;
 		}
 		if (MapChoice.MapNumber==2){
 			g.drawImage(FactoryBackground,440 ,200, null);
@@ -144,19 +138,34 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		boolean realbazzicheck = realbazzi.contains(e.getPoint());
 		if(realbazzicheck) {
 			System.out.println("배찌!");
-			chrnumber =2;
+			if (plyaernumber==1) {
+				p1chnumber=2;
+			}
+			else if(plyaernumber==2) {
+				p2chnumger=2;
+			}
 		}
 		Rectangle realdizni = new Rectangle(440, 30, 100, 140); //디지니 선택하면 사진이 바뀜
 		boolean realdiznicheck = realdizni.contains(e.getPoint());
 		if(realdiznicheck) {
 			System.out.println("디지니!");
-			chrnumber =1;
+			if (plyaernumber==1) {
+				p1chnumber=1;
+			}
+			else if(plyaernumber==2) {
+				p2chnumger=1;
+			}
 		}
 		Rectangle realuni = new Rectangle(690, 30, 100, 140); //우니 선택하면 사진이 바뀜
 		boolean realunicheck = realuni.contains(e.getPoint());
 		if(realunicheck) {
 			System.out.println("우니!");
-			chrnumber =3;
+			if (plyaernumber==1) {
+				p1chnumber=3;
+			}
+			else if(plyaernumber==2) {
+				p2chnumger=3;
+			}
 		}
 	}
 	@Override
