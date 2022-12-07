@@ -18,8 +18,11 @@ public class MapChoice extends JFrame implements MouseListener{
 	private String MAP_COOKIE = "Cookie";
 	private String MAP_PATRIOTS = "Patriots";
 	private JButton[] mapButtons; //맵 관리용 멤버필드
+	private int num=0;
 	static int MapNumber=0;
 	private Image MapChoiceBackground = new ImageIcon("Resources/MapChoice.png").getImage();//처음 배경 넣기
+	
+	
 	public MapChoice(){ //MainFrame 생성자
 		this.setTitle("MapChoice"); //창 제목
 		this.setSize(800, 610); //창 크기
@@ -29,12 +32,16 @@ public class MapChoice extends JFrame implements MouseListener{
 		this.setLocationRelativeTo(null); //창 가운데 위치
 		this.setVisible(true); //창 보이게 하기
 		this.addMouseListener(this);
-	}
-	
+	}	
 
 	public void paint(Graphics g) {
-		g.drawImage(MapChoiceBackground,0,0,null); //처음 배경 넣기
+		if (num ==0) {
+		   g.drawImage(MapChoiceBackground,0,0,null); //처음 배경 넣기
+		   num=1;
+		}
+		
 	}
+		
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
