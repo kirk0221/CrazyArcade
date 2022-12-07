@@ -108,10 +108,12 @@ public class ReadyFrame extends JFrame implements MouseListener {
 			if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==1) {
 				new MAP_Cookie(); //쿠키맵 시작
 			    ReadyFrame.this.setVisible(false); //현재 창 숨기기
+			    MainFrame.music.stop();
 			}
 			else if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==2) {
 				new MAP_Patriots(); //해적맵 시작
 				ReadyFrame.this.setVisible(false); //현재 창 숨기기
+				MainFrame.music.stop();
 			}
 			else if(MapChoice.MapNumber==0) {
 				JOptionPane no = new JOptionPane();
