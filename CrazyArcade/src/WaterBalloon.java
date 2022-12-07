@@ -12,6 +12,7 @@ public class WaterBalloon {
 	int bombSize;
 	int playertype;
 	int waterballoonmax;
+	int waterballoonmax_plus;
 	
 	public int[] mapXlocationlist;
 	public int[] mapYlocationlist;
@@ -40,6 +41,7 @@ public class WaterBalloon {
 	public WaterBalloon(int playertype){
 		this.playertype = playertype;
 		this.waterballoonmax = 3; //물풍선 최대 개수 3개
+		this.waterballoonmax_plus = 0; //추가 물풍선 개수 0개
 		this.mapXlocationlist = new int[13];
 		this.mapYlocationlist = new int[13];
 		int locationnum = 0;
@@ -98,8 +100,12 @@ public class WaterBalloon {
 		return boomballoonYList.get(i);
 	}	
 	
-	public void makeWaterBalloon(int x, int y, int bombSize) {
+	public void makeWaterBalloon(int x, int y, int bombSize, int waterballoonmax_plus) {
 		this.bombSize = bombSize;
+		if (this.waterballoonmax_plus != waterballoonmax_plus) {
+			this.waterballoonmax += 1;
+		}
+		this.waterballoonmax_plus = waterballoonmax_plus;
 		if(playertype == 1 && waterballoonmax==0) {
 			System.out.println("player1 물풍선 횟수 초과");
 		}else if(playertype == 2 && waterballoonmax==0) {
@@ -136,13 +142,6 @@ public class WaterBalloon {
 					int remember_x = balloonXqueue.peek();
 					int remember_y = balloonYqueue.peek();
 					
-					System.out.println();
-					System.out.println(balloonXqueue);
-					System.out.println(balloonXList);
-					System.out.println();
-					
-//			    	balloonXqueue.remove();
-//			    	balloonYqueue.remove();
 			    	balloonXList.remove(0);
 			    	balloonYList.remove(0);
 					boomballoonXqueue.add(balloonXqueue.poll()); /*물풍선 x 좌표 인덱스를 저장하는 큐*/
@@ -164,8 +163,6 @@ public class WaterBalloon {
 						BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 4;
 					}
 					waterballoonmax +=1;
-					BoomJudge.die();
-					
 					/*맵 인덱스 테스트용*/
 					System.out.println("");
 					System.out.println("----------지금 상태-----------");
@@ -184,13 +181,8 @@ public class WaterBalloon {
 							}
 						}
 					System.out.println("");
-					
-					System.out.println();
-					System.out.println(balloonXqueue);
-					System.out.println(balloonXList);
-					System.out.println(boomballoonXqueue);
-					System.out.println(boomballoonXList);
-					System.out.println();
+					System.out.println(waterballoonmax);
+					System.out.println("");
 			    }
 			};
 			
@@ -199,32 +191,62 @@ public class WaterBalloon {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
+					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
+						BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
+						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
+					}
+					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
+						BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 9;
+						BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 9;
+					}
+					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
+						BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 9;
+						BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 9;
+					}
+					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] == 4)) {//물풍선 개수 늘려주는 아이템
+						BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 9;
+						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 9;
+					}
+					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] == 4)) {//물풍선 개수 늘려주는 아이템
+						BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 9;
+						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 9;
+					}
+//					else if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 8) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
+//					BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
+//					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
+//					}
+					if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 9)) {
 						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
 						BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
-						if(boomballoonYqueue.peek()+bombSize<=12) {
+					}
+					if(boomballoonYqueue.peek()+bombSize<=12) {
+						if((BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] != 9)) {
 							BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 0;
 							BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 0;
 						}
+					}
+					if((BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] != 9)) {
 						if(boomballoonYqueue.peek()-bombSize>=0) {
 							BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 0;
 							BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 0;
 						}
-						if(boomballoonXqueue.peek()+bombSize<=12) {
+					}
+					if(boomballoonXqueue.peek()+bombSize<=12) {
+						if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] != 9)) {
 							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 0;
 							BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 0;
 						}
-						if(boomballoonXqueue.peek()-bombSize>=0) {
+					}
+					if(boomballoonXqueue.peek()-bombSize>=0) {
+						if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] != 9)) {
 							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 0;
 							BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 0;
 						}
+					}
 					boomballoonXqueue.remove();
 					boomballoonYqueue.remove();
 					boomballoonXList.remove(0);
 					boomballoonYList.remove(0);
-					System.out.println();
-					System.out.println(boomballoonXqueue);
-					System.out.println(boomballoonXList);
-					System.out.println();
 				}
 			};
 			Timer boom = new Timer();
