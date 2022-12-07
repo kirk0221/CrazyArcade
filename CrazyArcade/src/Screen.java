@@ -82,10 +82,6 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		}
 		addKeyListener(this);
 		addComponentListener(this);
-		for(int i =0; i<MAX_PLAYER; i++) {//이전 인덱스 저장 초기화
-			previous_Index_x[i] = 0;
-			previous_Index_y[i] = 0;
-		}
 		
 		/* mapXlocaionlist와 mapYlocationlist는 맵의 각 타일들의 중심좌표의 x와 y값을 각각 저장*/
 		/*for문을 이용하여 첫 타일은 (0,0)에서 시작해 x와 y 각각 60씩 증가하며 중심좌표들이 저장됨*/
