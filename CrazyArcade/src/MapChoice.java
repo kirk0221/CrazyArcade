@@ -42,7 +42,6 @@ public class MapChoice extends JFrame implements MouseListener{
 		}
 		
 	}
-		
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
