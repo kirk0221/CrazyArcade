@@ -13,7 +13,6 @@ public class WaterBalloon {
 	int playertype;
 	int waterballoonmax;
 	
-	
 	public int[] mapXlocationlist;
 	public int[] mapYlocationlist;
 	
@@ -43,11 +42,11 @@ public class WaterBalloon {
 		this.waterballoonmax = 3; //¹°Ç³¼± ÃÖ´ë °³¼ö 3°³
 		this.mapXlocationlist = new int[13];
 		this.mapYlocationlist = new int[13];
-		int locationnum = 10;
+		int locationnum = 0;
 		for(int i=0; i<13;i++) {
 				this.mapXlocationlist[i] = locationnum;
 				this.mapYlocationlist[i] = locationnum;
-				locationnum += 60;
+				locationnum += 60.45;
 		}
 		
 		this.balloonImg = new ImageIcon("Resources/waterbomb.png").getImage();
@@ -99,7 +98,6 @@ public class WaterBalloon {
 		return boomballoonYList.get(i);
 	}	
 	
-	
 	public void makeWaterBalloon(int x, int y, int bombSize) {
 		this.bombSize = bombSize;
 		if(playertype == 1 && waterballoonmax==0) {
@@ -137,39 +135,36 @@ public class WaterBalloon {
 			    public void run() {
 					int remember_x = balloonXqueue.peek();
 					int remember_y = balloonYqueue.peek();
-			    	balloonXqueue.remove();
-			    	balloonYqueue.remove();
+					
+					System.out.println();
+					System.out.println(balloonXqueue);
+					System.out.println(balloonXList);
+					System.out.println();
+					
+//			    	balloonXqueue.remove();
+//			    	balloonYqueue.remove();
 			    	balloonXList.remove(0);
 			    	balloonYList.remove(0);
-					boomballoonXqueue.add(remember_x); /*¹°Ç³¼± x ÁÂÇ¥ ÀÎµ¦½º¸¦ ÀúÀåÇÏ´Â Å¥*/
-					boomballoonYqueue.add(remember_y); /*¹°Ç³¼± y ÁÂÇ¥ ÀÎµ¦½º¸¦ ÀúÀåÇÏ´Â Å¥*/
+					boomballoonXqueue.add(balloonXqueue.poll()); /*¹°Ç³¼± x ÁÂÇ¥ ÀÎµ¦½º¸¦ ÀúÀåÇÏ´Â Å¥*/
+					boomballoonYqueue.add(balloonYqueue.poll()); /*¹°Ç³¼± y ÁÂÇ¥ ÀÎµ¦½º¸¦ ÀúÀåÇÏ´Â Å¥*/
 					boomballoonXList.add(remember_x); /*¹°Ç³¼± x ÁÂÇ¥ ÀÎµ¦½º¸¦ ÀúÀåÇÏ´Â ¸µÅ©µå ¸®½ºÆ®*/
 					boomballoonYList.add(remember_y); /*¹°Ç³¼± y ÁÂÇ¥ ÀÎµ¦½º¸¦ ÀúÀåÇÏ´Â ¸µÅ©µå ¸®½ºÆ®*/
-			    }
-			};
-			
-			TimerTask boomtask = new TimerTask() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
 					
-					BoomJudge.map_size[balloonYindex][balloonXindex] = 4;
+					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 4;
 					if(boomballoonXqueue.peek()+bombSize<=12) {
-						BoomJudge.map_size[balloonYindex][balloonXindex+bombSize] = 4;
+						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 4;
 					}
 					if(boomballoonXqueue.peek()-bombSize>=0) {
-						BoomJudge.map_size[balloonYindex][balloonXindex-bombSize] = 4;
+						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 4;
 					}
 					if(boomballoonYqueue.peek()+bombSize<=12) {
-						BoomJudge.map_size[balloonYindex+bombSize][balloonXindex] = 4;
+						BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 4;
 					}
 					if(boomballoonYqueue.peek()-bombSize>=0) {
-						BoomJudge.map_size[balloonYindex-bombSize][balloonXindex] = 4;
+						BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 4;
 					}
 					waterballoonmax +=1;
 					BoomJudge.die();
-
 					
 					/*¸Ê ÀÎµ¦½º Å×½ºÆ®¿ë*/
 					System.out.println("");
@@ -189,11 +184,16 @@ public class WaterBalloon {
 							}
 						}
 					System.out.println("");
-					}
 					
-				
-				
+					System.out.println();
+					System.out.println(balloonXqueue);
+					System.out.println(balloonXList);
+					System.out.println(boomballoonXqueue);
+					System.out.println(boomballoonXList);
+					System.out.println();
+			    }
 			};
+			
 			TimerTask boomover = new TimerTask() {
 				
 				@Override
@@ -228,8 +228,7 @@ public class WaterBalloon {
 				}
 			};
 			Timer boom = new Timer();
-			boom.schedule(task, 4999);
-			boom.schedule(boomtask, 5000);
+			boom.schedule(task, 5000);
 			boom.schedule(boomover, 6000);
 		}
 	}
