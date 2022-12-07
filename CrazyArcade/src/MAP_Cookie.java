@@ -25,7 +25,7 @@ public class MAP_Cookie extends JFrame{
 		this.setLocationRelativeTo(null); //창 가운데 위치
 		this.setVisible(true); //창 보이게 하기
 		
-		bgplay(); // 배경 음악
+		bgplay();
 	}
 	
 	private void bgplay() { // 배경 음악 (프기프 교수님 참조 파일 참고)
@@ -48,6 +48,5 @@ public class MAP_Cookie extends JFrame{
                 }
             }
         }.start();
-    }
-
+	}	
 }
