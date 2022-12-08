@@ -46,7 +46,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Image map_PatriotsBox2 = new ImageIcon("Resources/box2.png").getImage();
 	private Image map_PatriotsBox3 = new ImageIcon("Resources/box3.png").getImage();
 	
-	private Image item_waterbomb = new ImageIcon("Resources/item_waterbomb.png").getImage();
+	private Image item_waterbomb = new ImageIcon("Resources/item_waterbombplus.png").getImage();
 	
 	public Screen(int map) {
 		this.map_selection = map; //생성자를 통해 어떤 맵 설정되었는지 받아오기 위함

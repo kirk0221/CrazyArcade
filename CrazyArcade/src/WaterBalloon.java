@@ -191,15 +191,16 @@ public class WaterBalloon {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
+					//7번인덱스
 					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
 						BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
 						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
 					}
-					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
+					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
 						BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 9;
 						BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 9;
 					}
-					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
+					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
 						BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 9;
 						BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 9;
 					}
@@ -211,10 +212,28 @@ public class WaterBalloon {
 						BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 9;
 						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 9;
 					}
-//					else if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 8) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
-//					BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
-//					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
-//					}
+					//8번 인덱스
+					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 8) && (BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
+					BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 9;
+					BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 9;
+					}
+					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 8) && (BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
+					BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 9;
+					BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 9;
+					}
+					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] == 8) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] == 4)) {//물풍선 개수 늘려주는 아이템
+					BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 9;
+					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 9;
+					}
+					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] == 8) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] == 4)) {//물풍선 개수 늘려주는 아이템
+					BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 9;
+					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 9;
+					}
+					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 8) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
+					BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
+					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
+					}
+					//기존 인덱스
 					if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 9)) {
 						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
 						BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
