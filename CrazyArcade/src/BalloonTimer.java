@@ -14,9 +14,6 @@ public class BalloonTimer {
 		timer.schedule(task,i);
 
 	}
-	public BalloonTimer() {
-		timer.schedule(boom, 1000);
-	}
 	TimerTask task = new TimerTask() {
 		@Override
 	    public void run() {
@@ -26,15 +23,6 @@ public class BalloonTimer {
 	    	WaterBalloon.balloonYList.remove(0);
 			WaterBalloon.boomballoonXList.add(remember_x); /*물풍선 x 좌표 인덱스를 저장하는 링크드 리스트*/
 			WaterBalloon.boomballoonYList.add(remember_y); /*물풍선 y 좌표 인덱스를 저장하는 링크드 리스트*/
-	    	new BalloonTimer(5000);
-	    }
-	};
-	
-	TimerTask boom = new TimerTask() {
-		@Override
-	    public void run() {
-	    	WaterBalloon.boomballoonXList.remove(0);
-	    	WaterBalloon.boomballoonYList.remove(0);
 	    }
 	};
 }

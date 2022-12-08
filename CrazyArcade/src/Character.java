@@ -3,10 +3,11 @@ import java.awt.event.KeyEvent;
 
 public abstract class Character {
 	private Screen screen;
-	private static int X;
-	private static int Y;
+	private int X;
+	private int Y;
+	private int playerIndex_x;
+	private int playerIndex_y;
 	private static int step;
-	public int die;
 	
 	public Character(Screen screen) {//스크린 불러오기
 		this.screen = screen;
@@ -30,21 +31,10 @@ public abstract class Character {
 		return this.Y;
 	}
 	
-	public void up() {//위로 가기
-		Y-=step;
-	}
-	public void down() {//아래로 가기
-		Y+=step;
-	}
-	public void left() {//왼쪽으로 가기
-		X-=step;
-	}
-	public void right() {//오른쪽으로 가기
-		X+=step;
-	}
-	public void die() {
-		die = 1;
-	}
+	public abstract void up(int step);
+	public abstract void down(int step);
+	public abstract void left(int step);
+	public abstract void right(int step);
 	public abstract void keyPressed(KeyEvent e);
 	protected abstract int getballoonY(int i);
 	protected abstract int getballoonX(int i);
@@ -53,4 +43,6 @@ public abstract class Character {
 	protected abstract int getballonListsize();
 	protected abstract int getboomballonListsize();
 	protected abstract int getbombSize();
+	protected abstract void getPlayerIndex_x(int x);
+	protected abstract void getPlayerIndex_y(int y);
 }

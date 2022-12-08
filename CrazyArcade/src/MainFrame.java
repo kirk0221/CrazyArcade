@@ -4,11 +4,15 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import javazoom.jl.player.Player;
 
 public class MainFrame extends JFrame implements ActionListener {
 
@@ -16,6 +20,8 @@ public class MainFrame extends JFrame implements ActionListener {
 	private Image starteBackground = new ImageIcon("Resources/start.png").getImage();//처음 배경 넣기
 	ImageIcon loginBackground = new ImageIcon("Resources/login.png");//로그인 배경 넣기
 	ImageIcon exitBackground = new ImageIcon("Resources/exit.png");//종료 배경 넣기
+	
+	public static Thread music;
 	
 	public MainFrame(){ //MainFrame 생성자
 		this.setTitle("CrazyArcade"); //창 제목
@@ -29,7 +35,34 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setLocationRelativeTo(null); //창 가운데 위치
 		this.setVisible(true); //창 보이게 하기
 		
+		bgplay();
+		music.start();
 	}
+
+	private void bgplay() { // 배경 음악 (프기프 교수님 참조 파일 참고)
+		Player jlPlayer = null;
+        try {
+            FileInputStream fileInputStream = new FileInputStream("Resources/gameReady.mp3");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+            jlPlayer = new Player(bufferedInputStream);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        final Player player = jlPlayer;
+        music = new Thread() {
+            public void run() {
+                try {
+                	while(!Thread.currentThread().isInterrupted()) {
+                		player.play();
+                	}
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        };
+    }
+	
 	public void paint(Graphics g) {
 		g.drawImage(starteBackground,0,0,null); //처음 배경 넣기
 	}
@@ -52,7 +85,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				new MapChoice();
+				new ReadyFrame();
 				setVisible(false);
 			}
 		});

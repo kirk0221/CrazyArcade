@@ -8,8 +8,10 @@ public class Bazzi extends Character implements KeyListener{
 
 	private int X;
 	private int Y;
+	private int playerIndex_x;
+	private int playerIndex_y;
 	private int step;
-	public int die;
+	private int step_plus;
 	public int bombSize;
 	public int playertype;
 	WaterBalloon playerWaterBalloon;
@@ -20,14 +22,24 @@ public class Bazzi extends Character implements KeyListener{
 		super(screen);
 		// TODO Auto-generated constructor stub
 		if(playertype == 1) {
-			this.X = 400;//초기 X값
-			this.Y = 300;//초기 Y값
+			if (Screen.map_selection == 0) {//쿠키맵일때
+				this.X = 0;//초기 X값
+				this.Y = 0;//초기 Y값
+			}else if (Screen.map_selection == 1) {//해적맵일때
+				this.X = 60;//초기 X값
+				this.Y = 60;//초기 Y값
+			}
 		}else if(playertype == 2) {
-			this.X = 300;//초기 X값
-			this.Y = 400;//초기 Y값
+			if (Screen.map_selection == 0) {
+				this.X = 720;//초기 X값
+				this.Y = 720;//초기 Y값
+			}else if (Screen.map_selection == 1) {
+				this.X = 660;//초기 X값
+				this.Y = 660;//초기 Y값
+			}
 		}
 		this.step = 5;//초기 이동 거리
-		this.die = 0;//아직 죽지 않았음
+		this.step_plus = 0;//이동 속도 증가율
 		this.bombSize = 1;//물줄기 크기 1
 		this.playertype = playertype;
 		playerWaterBalloon = new WaterBalloon(playertype); /* 물풍선 생성*/
@@ -93,12 +105,20 @@ public class Bazzi extends Character implements KeyListener{
 		return this.Y;
 	}
 	
+	public void getPlayerIndex_x(int x) {//스크린에서 x인덱스값 가져오기
+		this.playerIndex_x = x;
+	}
+	
+	public void getPlayerIndex_y(int y) {//스크린에서 y인덱스값 가져오기
+		this.playerIndex_y = y;
+	}
+	
 	public int getballonListsize() {
-		return playerWaterBalloon.balloonXList.size();
+		return playerWaterBalloon.balloonXqueue.size();
 		/*물풍선 객체의 링크드 리스트의 크기를 스크린에 전달하여, 반복문의 반복 휫수를 지정하기 위한 함수*/
 	}
 	public int getboomballonListsize() {
-		return playerWaterBalloon.boomballoonXList.size();
+		return playerWaterBalloon.boomballoonXqueue.size();
 		/*터진 물풍선 객체의 링크드 리스트의 크기를 스크린에 전달하여, 반복문의 반복 휫수를 지정하기 위한 함수*/
 	}
 	
@@ -106,26 +126,67 @@ public class Bazzi extends Character implements KeyListener{
 		return this.bombSize;
 	}
 	
-	public void up() {//위로 가기
+	public void up(int step) {//위로 가기
 		this.state  = 1;
-		Y-=step;
+		if (playerIndex_y == 0) {//인덱스 0일경우 예외처리
+			Y-=step;
+		}
+		else if((BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 1) ||
+				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 2) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 9) || 
+				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 12) ||  (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 15)){
+			//다음 이동위치 인덱스 0,1,2,9,12일 경우에만 이동가능
+			Y-=step;
+		}
+		else if((playerIndex_y)*60.45<this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
+			Y-=step;
+		}
 	}
-	public void down() {//아래로 가기
+	public void down(int step) {//아래로 가기
 		this.state  = 0;
-		Y+=step;
+		if (playerIndex_y == 12) {//인덱스 12일경우 예외처리
+			Y+=step;
+		}
+		else if((BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 1) || 
+				(BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 2) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 9) || 
+				(BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 12) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 15)) {
+			//다음 이동위치의 인덱스 0,1,2,9,12일 경우에만 이동가능
+			Y+=step;
+		}
+		else if((playerIndex_y)*60.45>this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
+			Y+=step;
+		}
 	}
-	public void left() {//왼쪽으로 가기
+	public void left(int step) {//왼쪽으로 가기
 		this.state  = 2;
-		X-=step;
+		if (playerIndex_x == 0) {//인덱스 0일경우 예외처리
+			X-=step;
+		}
+		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 1) || 
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 2) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 9) || 
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 12) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 15)) {
+			//다음 이동위치의 인덱스 0,1,2,9,12일 경우에만 이동가능
+			X-=step;
+		}
+		else if((playerIndex_x)*60.45<this.getX()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
+			X-=step;
+		}
 	}
-	public void right() {//오른쪽으로 가기
+	public void right(int step) {//오른쪽으로 가기
 		this.state  = 3;
-		X+=step;
+		if (playerIndex_x == 12) {//인덱스 12일경우 예외처리
+			X+=step;
+		}
+		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 1) || 
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 2) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 9) || 
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 12) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 15)) {
+			//다음 이동위치의 인덱스 0,1,2,9,12일 경우에만 이동가능
+			X+=step;
+		}
+		else if((playerIndex_x)*60.45>this.getX()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
+			X+=step;
+		}
 	}
-	
-	public void die() { //죽었을 경우
-		this.die = 1;
-	}
+
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -137,55 +198,63 @@ public class Bazzi extends Character implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(playertype == 1) {
+			if(BoomJudge.character1_speedup != step_plus) {
+				this.step_plus = BoomJudge.character1_speedup;
+				this.step += 3;
+			}
 			switch(e.getKeyCode()) {//player1에 대한 움직임
 			case KeyEvent.VK_UP:
 				if(this.getY()>=0) {
-					this.up();
+					this.up(this.step);
 				}
 				break;
 			case KeyEvent.VK_DOWN:
 				if(this.getY()<=700) {
-					this.down();
+					this.down(this.step);
 				}
 				break;
 			case KeyEvent.VK_LEFT:
 				if(this.getX()>=0) {
-					this.left();
+					this.left(this.step);
 				}
 				break;
 			case KeyEvent.VK_RIGHT:
 				if(this.getX()<=720) {
-					this.right();
+					this.right(this.step);
 				}
 				break;
 			case KeyEvent.VK_SPACE:
-				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize);//물풍선 놓기
+				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character1_bombsizeup);//물풍선 놓기
 				break;
 			}
 		}else if(playertype == 2) {
+			if(BoomJudge.character2_speedup != step_plus) {
+				this.step_plus = BoomJudge.character2_speedup;
+				this.step += 3;
+			}
 			switch(e.getKeyCode()) {//player2에 대한 움직임
 			case KeyEvent.VK_W:
 				if(this.getY()>=0) {
-					this.up();
+					this.up(this.step);
 				}
 				break;
 			case KeyEvent.VK_S:
 				if(this.getY()<=700) {
-					this.down();
+					this.down(this.step);
 				}
 				break;
 			case KeyEvent.VK_A:
 				if(this.getX()>=0) {
-					this.left();
+					this.left(this.step);
 				}
 				break;
 			case KeyEvent.VK_D:
 				if(this.getX()<=720) {
-					this.right();
+					this.right(this.step);
 				}
 				break;
 			case KeyEvent.VK_SHIFT:
-				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize);//물풍선 놓기
+				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character2_bombsizeup);//물풍선 놓기
 				break;
 			}
 			
