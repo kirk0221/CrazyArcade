@@ -5,6 +5,8 @@ public class BoomJudge {
 	/*물풍선에서 조작하기 위해 static으로 변경*/
 	public static int character1_bombsizeup;
 	public static int character2_bombsizeup;
+	public static int character1_speedup;
+	public static int character2_speedup;
 	
 	public static int[][] previous_map_size = new int[13][13];//맵 사이즈 13*13
 	
@@ -16,6 +18,8 @@ public class BoomJudge {
 		}
 		character1_bombsizeup = 0;
 		character2_bombsizeup = 0;
+		character1_speedup = 0;
+		character2_speedup = 0;
 	}
 	/*숫자별 인덱스 의미
 	 * 0 : 아무것도 없는 그냥 길
@@ -24,8 +28,10 @@ public class BoomJudge {
 	 * 3 : 터지지 않은 물풍선
 	 * 4 : 터진 물풍선
 	 * 5, 6 : 벽(인덱스별로 벽 색이 다름)
-	 * 7, 8 : 아이템이 있는 벽(인덱스별로 벽 색이 다름)
+	 * 7, 8 : 물풍선 최대개수 추가 아이템이 있는 벽(인덱스별로 벽 색이 다름)
 	 * 9 : 물풍선 최대개수 추가 아이템
+	 * 10, 11 : 속도 증가 아이템이 있는 벽(인덱스별로 벽 색이 다름)
+	 * 12 : 속도 증가 아이템
 	 * 이후 인덱스 추가시 추가바람*/
 	public void Map_Cookie_batch() {//쿠키맵 기본 맵 구성
 		this.map_size = new int[][] {{ 1, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0 },
@@ -56,7 +62,7 @@ public class BoomJudge {
 											  { 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 2 }};
 	}
 	public void Map_Patriots_batch() {//해적맵 기본 맵 구성
-		this.map_size = new int[][] {{ 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6 },
+		this.map_size = new int[][] {{ 6, 5, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6 },
 									 { 5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5 },
 									 { 5, 0, 8, 0, 0, 5, 0, 5, 0, 0, 6, 0, 5 },
 									 { 5, 0, 0, 6, 0, 0, 0, 0, 0, 6, 0, 0, 5 },
@@ -69,7 +75,7 @@ public class BoomJudge {
 									 { 5, 0, 6, 0, 0, 5, 0, 5, 0, 0, 6, 0, 5 },
 									 { 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5 },
 									 { 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6 }};
-		this.previous_map_size = new int[][] {{ 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6 },
+		this.previous_map_size = new int[][] {{ 6, 5, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6 },
 											  { 5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5 },
 											  { 5, 0, 8, 0, 0, 5, 0, 5, 0, 0, 6, 0, 5 },
 											  { 5, 0, 0, 6, 0, 0, 0, 0, 0, 6, 0, 0, 5 },
@@ -104,15 +110,25 @@ public class BoomJudge {
 	public static void item_check() { //추가 및 체크 함수
 		for(int map_y=0;map_y<13;map_y++) {
 			for(int map_x=0;map_x<13;map_x++) {
-				if((previous_map_size[map_y][map_x] == 9) && (map_size[map_y][map_x] == 1)) {//아이템 흭득 경우
+				if((previous_map_size[map_y][map_x] == 9) && (map_size[map_y][map_x] == 1)) {//player1 물풍선 추가 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 1;
 					map_size[map_y][map_x] = 1;
 					character1_bombsizeup+=1;
 				}
-				if((previous_map_size[map_y][map_x] == 9) && (map_size[map_y][map_x] == 2)) {//아이템 흭득 경우
+				if((previous_map_size[map_y][map_x] == 9) && (map_size[map_y][map_x] == 2)) {//player2 물풍선 추가 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 2;
 					map_size[map_y][map_x] = 2;
 					character2_bombsizeup+=1;
+				}
+				if((previous_map_size[map_y][map_x] == 10) && (map_size[map_y][map_x] == 1)) {//player1 속도 증가 아이템 흭득 경우
+					previous_map_size[map_y][map_x] = 1;
+					map_size[map_y][map_x] = 1;
+					character1_speedup+=1;
+				}
+				if((previous_map_size[map_y][map_x] == 10) && (map_size[map_y][map_x] == 2)) {//player2 속도 증가 아이템 흭득 경우
+					previous_map_size[map_y][map_x] = 2;
+					map_size[map_y][map_x] = 2;
+					character2_speedup+=1;
 				}
 			}
 		}

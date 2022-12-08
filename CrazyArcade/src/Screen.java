@@ -47,6 +47,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Image map_PatriotsBox3 = new ImageIcon("Resources/box3.png").getImage();
 	
 	private Image item_waterbomb = new ImageIcon("Resources/item_waterbombplus.png").getImage();
+	private Image item_speed = new ImageIcon("Resources/item_Speed.png").getImage();
 	
 	public Screen(int map) {
 		this.map_selection = map; //생성자를 통해 어떤 맵 설정되었는지 받아오기 위함
@@ -118,14 +119,17 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			bufferGraphics.drawImage(map_CookieBackground,0,0,this);
 			for(int map_y=0; map_y<BoomJudge.map_size.length; map_y++) {
 				for(int map_x=0; map_x<BoomJudge.map_size.length; map_x++) {
-					if((BoomJudge.map_size[map_y][map_x] == 5) || (BoomJudge.map_size[map_y][map_x] == 7)) {
+					if((BoomJudge.map_size[map_y][map_x] == 5) || (BoomJudge.map_size[map_y][map_x] == 7) || (BoomJudge.map_size[map_y][map_x] == 10)) {
 						bufferGraphics.drawImage(map_CookieBox1, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
-					if((BoomJudge.map_size[map_y][map_x] == 6) || (BoomJudge.map_size[map_y][map_x] == 8)) {
+					if((BoomJudge.map_size[map_y][map_x] == 6) || (BoomJudge.map_size[map_y][map_x] == 8) || (BoomJudge.map_size[map_y][map_x] == 11)) {
 						bufferGraphics.drawImage(map_CookieBox2, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
 					if(BoomJudge.map_size[map_y][map_x] == 9) {
 						bufferGraphics.drawImage(item_waterbomb, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//물풍선 늘려주는 아이템 이미지 생성
+					}
+					if(BoomJudge.map_size[map_y][map_x] == 12) {
+						bufferGraphics.drawImage(item_speed, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//속도증가 아이템 이미지 생성
 					}
 				}
 			}
@@ -133,14 +137,17 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			bufferGraphics.drawImage(map_PatriotsBackground,0,0,this);
 			for(int map_y=0; map_y<BoomJudge.map_size.length; map_y++) {
 				for(int map_x=0; map_x<BoomJudge.map_size.length; map_x++) {
-					if((BoomJudge.map_size[map_y][map_x] == 5) || (BoomJudge.map_size[map_y][map_x] == 7)) {
+					if((BoomJudge.map_size[map_y][map_x] == 5) || (BoomJudge.map_size[map_y][map_x] == 7) || (BoomJudge.map_size[map_y][map_x] == 10)) {
 						bufferGraphics.drawImage(map_PatriotsBox2, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
-					if((BoomJudge.map_size[map_y][map_x] == 6) || (BoomJudge.map_size[map_y][map_x] == 8)) {
+					if((BoomJudge.map_size[map_y][map_x] == 6) || (BoomJudge.map_size[map_y][map_x] == 8) || (BoomJudge.map_size[map_y][map_x] == 11)) {
 						bufferGraphics.drawImage(map_PatriotsBox3, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
 					if(BoomJudge.map_size[map_y][map_x] == 9) {
 						bufferGraphics.drawImage(item_waterbomb, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//물풍선 늘려주는 아이템 이미지 생성
+					}
+					if(BoomJudge.map_size[map_y][map_x] == 12) {
+						bufferGraphics.drawImage(item_speed, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//속도증가 아이템 이미지 생성
 					}
 				}
 			}

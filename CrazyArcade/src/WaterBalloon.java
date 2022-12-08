@@ -38,12 +38,15 @@ public class WaterBalloon {
 	LinkedList<Integer> boomballoonXList = new LinkedList<>();
 	LinkedList<Integer> boomballoonYList = new LinkedList<>();
 	
+	private Make_Item_Index item;
+	
 	public WaterBalloon(int playertype){
 		this.playertype = playertype;
 		this.waterballoonmax = 3; //물풍선 최대 개수 3개
 		this.waterballoonmax_plus = 0; //추가 물풍선 개수 0개
 		this.mapXlocationlist = new int[13];
 		this.mapYlocationlist = new int[13];
+		this.item = new Make_Item_Index();
 		int locationnum = 0;
 		for(int i=0; i<13;i++) {
 				this.mapXlocationlist[i] = locationnum;
@@ -192,72 +195,38 @@ public class WaterBalloon {
 				public void run() {
 					// TODO Auto-generated method stub
 					//7번인덱스
-					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
-						BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
-						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
-					}
-					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
-						BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 9;
-						BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 9;
-					}
-					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
-						BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 9;
-						BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 9;
-					}
-					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] == 4)) {//물풍선 개수 늘려주는 아이템
-						BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 9;
-						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 9;
-					}
-					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 7) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] == 4)) {//물풍선 개수 늘려주는 아이템
-						BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 9;
-						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 9;
-					}
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, 7, 9);
 					//8번 인덱스
-					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 8) && (BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
-					BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 9;
-					BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 9;
-					}
-					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 8) && (BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
-					BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 9;
-					BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 9;
-					}
-					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] == 8) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] == 4)) {//물풍선 개수 늘려주는 아이템
-					BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 9;
-					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 9;
-					}
-					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] == 8) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] == 4)) {//물풍선 개수 늘려주는 아이템
-					BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 9;
-					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 9;
-					}
-					if((BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 8) && (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] == 4)) {//물풍선 개수 늘려주는 아이템
-					BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
-					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 9;
-					}
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, 8, 9);
+					//10번 인덱스
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, 10, 12);
+					//11번 인덱스
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, 11, 12);
 					//기존 인덱스
-					if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 9)) {
+					if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 9) || (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 12)) {
 						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
 						BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
 					}
 					if(boomballoonYqueue.peek()+bombSize<=12) {
-						if((BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] != 9)) {
+						if((BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] != 9) || (BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] != 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] != 12)) {
 							BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 0;
 							BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 0;
 						}
 					}
-					if((BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] != 9)) {
+					if((BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] != 9) || (BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] != 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] != 12)) {
 						if(boomballoonYqueue.peek()-bombSize>=0) {
 							BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 0;
 							BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 0;
 						}
 					}
 					if(boomballoonXqueue.peek()+bombSize<=12) {
-						if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] != 9)) {
+						if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] != 9) || (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] != 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] != 12)) {
 							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 0;
 							BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 0;
 						}
 					}
 					if(boomballoonXqueue.peek()-bombSize>=0) {
-						if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] != 9)) {
+						if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] != 9) || (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] != 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] != 12)) {
 							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 0;
 							BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 0;
 						}

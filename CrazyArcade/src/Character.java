@@ -31,18 +31,10 @@ public abstract class Character {
 		return this.Y;
 	}
 	
-	public void up() {//위로 가기
-		Y-=step;
-	}
-	public void down() {//아래로 가기
-		Y+=step;
-	}
-	public void left() {//왼쪽으로 가기
-		X-=step;
-	}
-	public void right() {//오른쪽으로 가기
-		X+=step;
-	}
+	public abstract void up(int step);
+	public abstract void down(int step);
+	public abstract void left(int step);
+	public abstract void right(int step);
 	public abstract void keyPressed(KeyEvent e);
 	protected abstract int getballoonY(int i);
 	protected abstract int getballoonX(int i);
