@@ -129,7 +129,7 @@ public class Dizini extends Character implements KeyListener{
 		if (playerIndex_y == 0) {//인덱스 0일경우 예외처리
 			Y-=step;
 		}
-		else if((BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 1) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
+		else if((BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 1) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 2) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 9)) {//다음 이동위치 인덱스 0,1,2,9일 경우에만 이동가능
 			Y-=step;
 		}
 		else if((playerIndex_y)*60.45<this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
@@ -141,7 +141,7 @@ public class Dizini extends Character implements KeyListener{
 		if (playerIndex_y == 12) {//인덱스 12일경우 예외처리
 			Y+=step;
 		}
-		else if((BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 1) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
+		else if((BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 1) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 2) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 9)) {//다음 이동위치 인덱스 0,1,2,9일 경우에만 이동가능
 			Y+=step;
 		}
 		else if((playerIndex_y)*60.45>this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
@@ -153,7 +153,7 @@ public class Dizini extends Character implements KeyListener{
 		if (playerIndex_x == 0) {//인덱스 0일경우 예외처리
 			X-=step;
 		}
-		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 1) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
+		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 1) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 2) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 9)) {//다음 이동위치 인덱스 0,1,2,9일 경우에만 이동가능
 			X-=step;
 		}
 		else if((playerIndex_x)*60.45<this.getX()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
@@ -165,13 +165,14 @@ public class Dizini extends Character implements KeyListener{
 		if (playerIndex_x == 12) {//인덱스 12일경우 예외처리
 			X+=step;
 		}
-		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 1) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 2)) {//다음 이동위치 인덱스 0,1,2일 경우에만 이동가능
+		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 1) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 2) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 9)) {//다음 이동위치 인덱스 0,1,2,9일 경우에만 이동가능
 			X+=step;
 		}
 		else if((playerIndex_x)*60.45>this.getX()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			X+=step;
 		}
 	}
+
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -205,7 +206,7 @@ public class Dizini extends Character implements KeyListener{
 				}
 				break;
 			case KeyEvent.VK_SPACE:
-				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize);//물풍선 놓기
+				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character1_bombsizeup);//물풍선 놓기
 				break;
 			}
 		}else if(playertype == 2) {
@@ -231,7 +232,7 @@ public class Dizini extends Character implements KeyListener{
 				}
 				break;
 			case KeyEvent.VK_SHIFT:
-				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize);//물풍선 놓기
+				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character2_bombsizeup);//물풍선 놓기
 				break;
 			}
 			

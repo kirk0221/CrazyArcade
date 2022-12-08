@@ -21,6 +21,8 @@ public class MainFrame extends JFrame implements ActionListener {
 	ImageIcon loginBackground = new ImageIcon("Resources/login.png");//로그인 배경 넣기
 	ImageIcon exitBackground = new ImageIcon("Resources/exit.png");//종료 배경 넣기
 	
+	public static Thread music;
+	
 	public MainFrame(){ //MainFrame 생성자
 		this.setTitle("CrazyArcade"); //창 제목
 		this.setSize(800, 600); //창 크기
@@ -34,7 +36,9 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setVisible(true); //창 보이게 하기
 		
 		bgplay();
+		music.start();
 	}
+
 	private void bgplay() { // 배경 음악 (프기프 교수님 참조 파일 참고)
 		Player jlPlayer = null;
         try {
@@ -46,17 +50,19 @@ public class MainFrame extends JFrame implements ActionListener {
         }
         
         final Player player = jlPlayer;
-        new Thread() {
+        music = new Thread() {
             public void run() {
                 try {
-                	player.play();
+                	while(!Thread.currentThread().isInterrupted()) {
+                		player.play();
+                	}
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
             }
-            
-        }.start();
-    }	
+        };
+    }
+	
 	public void paint(Graphics g) {
 		g.drawImage(starteBackground,0,0,null); //처음 배경 넣기
 	}
