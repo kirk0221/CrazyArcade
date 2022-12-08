@@ -172,7 +172,7 @@ public class WaterBalloon {
 					for(int i=0;i<13;i++) {
 						System.out.println("");
 						for(int j=0;j<13;j++) {
-								System.out.print(BoomJudge.map_size[i][j]+"");
+								System.out.print(BoomJudge.map_size[i][j]+" ");
 							}
 						}
 					System.out.println("");
@@ -180,7 +180,7 @@ public class WaterBalloon {
 					for(int i=0;i<13;i++) {
 						System.out.println("");
 						for(int j=0;j<13;j++) {
-								System.out.print(BoomJudge.previous_map_size[i][j]+"");
+								System.out.print(BoomJudge.previous_map_size[i][j]+" ");
 							}
 						}
 					System.out.println("");
@@ -202,31 +202,76 @@ public class WaterBalloon {
 					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, 10, 12);
 					//11번 인덱스
 					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, 11, 12);
+					
+					/*맵 인덱스 테스트용*/
+					System.out.println("");
+					System.out.println("----------지금 상태-----------");
+					for(int i=0;i<13;i++) {
+						System.out.println("");
+						for(int j=0;j<13;j++) {
+								System.out.print(BoomJudge.map_size[i][j]+" ");
+							}
+						}
+					System.out.println("");
+					System.out.println("----------이전 상태-----------");
+					for(int i=0;i<13;i++) {
+						System.out.println("");
+						for(int j=0;j<13;j++) {
+								System.out.print(BoomJudge.previous_map_size[i][j]+" ");
+							}
+						}
+					System.out.println("");
+					System.out.println(waterballoonmax);
+					System.out.println("");
+					
 					//기존 인덱스
-					if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 9) || (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] != 12)) {
-						BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
-						BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
-					}
+					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
+					BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
 					if(boomballoonYqueue.peek()+bombSize<=12) {
-						if((BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] != 9) || (BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] != 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] != 12)) {
+						if((BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 9)) {
+							BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 9;
+							BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 9;
+						}
+						else if((BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] == 12)) {
+							BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 12;
+							BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 12;
+						}else{
 							BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 0;
 							BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 0;
 						}
 					}
-					if((BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] != 9) || (BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] != 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] != 12)) {
-						if(boomballoonYqueue.peek()-bombSize>=0) {
-							BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 0;
-							BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 0;
+					if(boomballoonYqueue.peek()-bombSize>=0) {
+						if((BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 9)) {
+							BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 9;
+							BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 9;
+						}else if((BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] == 12)) {
+							BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 12;
+							BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 12;
+						}else{
+							BoomJudge.map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 0;
+							BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize][boomballoonXqueue.peek()] = 0;
 						}
 					}
 					if(boomballoonXqueue.peek()+bombSize<=12) {
-						if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] != 9) || (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] != 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] != 12)) {
+						if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] == 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] == 9)) {
+							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 9;
+							BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 9;
+						}else if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] == 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] == 12)) {
+							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 12;
+							BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 12;
+						}else{
 							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 0;
 							BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize] = 0;
 						}
 					}
 					if(boomballoonXqueue.peek()-bombSize>=0) {
-						if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] != 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] != 9) || (BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] != 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] != 12)) {
+						if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] == 9) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] == 9)) {
+							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 9;
+							BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 9;
+						}else if((BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] == 12) || (BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] == 12)) {
+							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 12;
+							BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 12;
+						}else{
 							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 0;
 							BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize] = 0;
 						}

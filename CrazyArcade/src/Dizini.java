@@ -192,7 +192,7 @@ public class Dizini extends Character implements KeyListener{
 		if(playertype == 1) {
 			if(BoomJudge.character1_speedup != step_plus) {
 				this.step_plus = BoomJudge.character1_speedup;
-				this.step += 1;
+				this.step += 3;
 			}
 			switch(e.getKeyCode()) {//player1에 대한 움직임
 			case KeyEvent.VK_UP:
@@ -222,7 +222,7 @@ public class Dizini extends Character implements KeyListener{
 		}else if(playertype == 2) {
 			if(BoomJudge.character2_speedup != step_plus) {
 				this.step_plus = BoomJudge.character2_speedup;
-				this.step += 1;
+				this.step += 3;
 			}
 			switch(e.getKeyCode()) {//player2에 대한 움직임
 			case KeyEvent.VK_W:

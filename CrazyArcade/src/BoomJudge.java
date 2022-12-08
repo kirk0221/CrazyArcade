@@ -120,12 +120,12 @@ public class BoomJudge {
 					map_size[map_y][map_x] = 2;
 					character2_bombsizeup+=1;
 				}
-				if((previous_map_size[map_y][map_x] == 10) && (map_size[map_y][map_x] == 1)) {//player1 속도 증가 아이템 흭득 경우
+				if((previous_map_size[map_y][map_x] == 12) && (map_size[map_y][map_x] == 1)) {//player1 속도 증가 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 1;
 					map_size[map_y][map_x] = 1;
 					character1_speedup+=1;
 				}
-				if((previous_map_size[map_y][map_x] == 10) && (map_size[map_y][map_x] == 2)) {//player2 속도 증가 아이템 흭득 경우
+				if((previous_map_size[map_y][map_x] == 12) && (map_size[map_y][map_x] == 2)) {//player2 속도 증가 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 2;
 					map_size[map_y][map_x] = 2;
 					character2_speedup+=1;
