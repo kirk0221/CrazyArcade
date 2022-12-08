@@ -27,12 +27,19 @@ public class ReadyFrame extends JFrame implements MouseListener {
 	private Image CookieBackground = new ImageIcon("Resources/Cookiemap.png").getImage();//쿠키 배경
 	private Image FactorylevelBackground = new ImageIcon("Resources/factorylevel.png").getImage();//팩토리 난이도 넣기
 	private Image CookielevelBackground = new ImageIcon("Resources/Cookielevel.png").getImage();//쿠키 난이도
+	private Image ReadyBackground = new ImageIcon("Resources/Readyy.png").getImage();//준비 그림
+	private Image NoreadyBackground = new ImageIcon("Resources/Noready.png").getImage();//준비 취소 그림
 	
 	static int plyaernumber=0; //몇번 플레이어인지 구분하기위한 변수
 	static int chrnumber=0;  //캐릭터그릴때 필요한 변수 디즈니 =1, 배찌 = 2, 우니 =3
 	static int p1chnumber=0; //p1의 캐릭터
 	static int p2chnumger=0; //p2의 캐릭터
 	int count=0;
+	private int p1ready=0;
+	private int p2ready=0;
+	private int p1chrcheck=0; //플레이어1의 캐릭터를 골랐는지 체크하는 변수
+	private int p2chrcheck=0; //플레이어2의 캐릭터를 골랐는지 체크하는 변수
+	
 	public ReadyFrame(){ //MainFrame 생성자
 		this.setTitle("MapChoice"); //창 제목
 		this.setSize(805, 610); //창 크기
@@ -84,7 +91,18 @@ public class ReadyFrame extends JFrame implements MouseListener {
 			g.drawImage(CookieBackground,440 ,200, null);
 			g.drawImage(CookielevelBackground,625 ,190, null);
 		}
-		
+		if (p1chrcheck==1 && p1ready == 1) {
+			g.drawImage(ReadyBackground, 12 , 520, null);
+		}
+		else if (p1chrcheck==1 && p1ready == 0) {
+			g.drawImage(NoreadyBackground, 12 , 520, null);
+		}
+		if (p2chrcheck==1 && p2ready == 1) {
+			g.drawImage(ReadyBackground, 230 , 520, null);
+		}
+		else if (p2chrcheck==1 && p2ready == 0) {
+			g.drawImage(NoreadyBackground, 228 , 520, null);
+		}
 	}
 
 	@Override
@@ -100,14 +118,16 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		boolean startcheck = start.contains(e.getPoint());
 		if(startcheck) {
 			if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==1) {
-				new MAP_Cookie(); //쿠키맵 시작
-			    ReadyFrame.this.setVisible(false); //현재 창 숨기기
-			    MainFrame.music.stop();//노래 종료
+				if (p1ready ==1 && p2ready==1) {
+					new MAP_Cookie(); //쿠키맵 시작
+				    ReadyFrame.this.setVisible(false); //현재 창 숨기기
+				}
 			}
 			else if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==2) {
-				new MAP_Patriots(); //해적맵 시작
-				ReadyFrame.this.setVisible(false); //현재 창 숨기기
-				MainFrame.music.stop();//노래 종료
+				if (p1ready ==1 && p2ready==1) {
+					new MAP_Patriots(); //해적맵 시작
+					ReadyFrame.this.setVisible(false); //현재 창 숨기기
+				}
 			}
 			else if(MapChoice.MapNumber==0) {
 				JOptionPane no = new JOptionPane();
@@ -132,6 +152,32 @@ public class ReadyFrame extends JFrame implements MouseListener {
 			System.out.println("두번째 캐릭터");
 		}
 		
+		// pready가 1번이면 준비된거고 0번이면 준비가 안된거임
+		Rectangle ready1 = new Rectangle(5, 520, 200, 70); //1 플레이어 준비
+		boolean ready1check = ready1.contains(e.getPoint());
+		if(ready1check) {
+			if (p1chrcheck == 1 && p1ready ==0) {
+				p1ready =1; //준비상태가 아닐때 준비를 누르면 1번 플레이어가 레디가됨
+				System.out.println("1플레이어 준비완료");
+			}
+			else if(p1ready == 1) {
+				p1ready =0; //준비상태일 때 준비를 누르면 1번 플레이어 레디가 사라짐
+				System.out.println("1플레이어 준비취소");
+			}
+		}
+		Rectangle ready2 = new Rectangle(230, 520, 200, 70); //2 플레이어 준비
+		boolean ready2check = ready2.contains(e.getPoint());
+		if(ready2check) {
+			if (p2chrcheck == 1 && p2ready ==0) {
+				p2ready =1; //준비상태가 아닐때 준비를 누르면 2번 플레이어가 레디가됨
+				System.out.println("2플레이어 준비완료");
+			}
+			else if(p2ready == 1) {
+				p2ready =0; //준비상태일 때 준비를 누르면 2번 플레이어 레디가 사라짐
+				System.out.println("2플레이어 준비취소");
+			}
+		}
+		
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -142,9 +188,11 @@ public class ReadyFrame extends JFrame implements MouseListener {
 			System.out.println("배찌!");
 			if (plyaernumber==1) {
 				p1chnumber=2;
+				p1chrcheck=1;
 			}
 			else if(plyaernumber==2) {
 				p2chnumger=2;
+				p2chrcheck=1;
 			}
 		}
 		Rectangle realdizni = new Rectangle(440, 30, 100, 140); //디지니 선택하면 사진이 바뀜
@@ -153,9 +201,11 @@ public class ReadyFrame extends JFrame implements MouseListener {
 			System.out.println("디지니!");
 			if (plyaernumber==1) {
 				p1chnumber=1;
+				p1chrcheck=1;
 			}
 			else if(plyaernumber==2) {
 				p2chnumger=1;
+				p2chrcheck=1;
 			}
 		}
 		Rectangle realuni = new Rectangle(690, 30, 100, 140); //우니 선택하면 사진이 바뀜
@@ -164,9 +214,11 @@ public class ReadyFrame extends JFrame implements MouseListener {
 			System.out.println("우니!");
 			if (plyaernumber==1) {
 				p1chnumber=3;
+				p1chrcheck=1;
 			}
 			else if(plyaernumber==2) {
 				p2chnumger=3;
+				p2chrcheck=1;
 			}
 		}
 	}
