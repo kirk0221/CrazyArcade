@@ -4,7 +4,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 
-public class Bazzi extends Character implements KeyListener{
+public class Dizini extends Character implements KeyListener{
 
 	private int X;
 	private int Y;
@@ -18,7 +18,7 @@ public class Bazzi extends Character implements KeyListener{
 	private Image[] bazzi_state;
 	private int state;//상태 번호
 
-	public Bazzi(Screen screen, int playertype) { /*플레이어 타입을 전달받아, 해당 타입에 따라 키에 대한 동작이 다르도록 함*/
+	public Dizini(Screen screen, int playertype) { /*플레이어 타입을 전달받아, 해당 타입에 따라 키에 대한 동작이 다르도록 함*/
 		super(screen);
 		// TODO Auto-generated constructor stub
 		if(playertype == 1) {
@@ -44,14 +44,14 @@ public class Bazzi extends Character implements KeyListener{
 		this.playertype = playertype;
 		playerWaterBalloon = new WaterBalloon(playertype); /* 물풍선 생성*/
 		this.bazzi_state = new Image[4];
-		Image bazzi_front = new ImageIcon("Resources/bazzi_front.png").getImage();//배찌 정면 이미지
-		Image bazzi_back = new ImageIcon("Resources/bazzi_back.png").getImage();//배찌 후면 이미지
-		Image bazzi_left = new ImageIcon("Resources/bazzi_left.png").getImage();//배찌 좌측면 이미지
-		Image bazzi_right = new ImageIcon("Resources/bazzi_right.png").getImage();//배찌 우측면 이미지
-		this.bazzi_state[0] = bazzi_front;
-		this.bazzi_state[1] = bazzi_back;
-		this.bazzi_state[2] = bazzi_left;
-		this.bazzi_state[3] = bazzi_right;
+		Image dizini_front = new ImageIcon("Resources/Dizini_front.png").getImage();//디지니 정면 이미지
+		Image dizini_back = new ImageIcon("Resources/Dizini_back.png").getImage();//디지니 후면 이미지
+		Image dizini_left = new ImageIcon("Resources/Dizini_left.png").getImage();//디지니 좌측면 이미지
+		Image dizini_right = new ImageIcon("Resources/Dizini_right.png").getImage();//디지니 우측면 이미지
+		this.bazzi_state[0] = dizini_front;
+		this.bazzi_state[1] = dizini_back;
+		this.bazzi_state[2] = dizini_left;
+		this.bazzi_state[3] = dizini_right;
 		this.state = 0;//초기 정면으로 보고있음
 	}
 	
@@ -133,7 +133,7 @@ public class Bazzi extends Character implements KeyListener{
 		}
 		else if((BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 1) ||
 				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 2) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 9) || 
-				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 12) ||  (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 15)){
+				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 12) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 15)){
 			//다음 이동위치 인덱스 0,1,2,9,12일 경우에만 이동가능
 			Y-=step;
 		}
@@ -187,7 +187,6 @@ public class Bazzi extends Character implements KeyListener{
 		}
 	}
 
-
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -226,7 +225,7 @@ public class Bazzi extends Character implements KeyListener{
 			   playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character1_bombsizeup);//물풍선 놓기
 		    }
 			
-		}else if(playertype == 2) {
+		}else if(playertype == 2) { 
 			if(BoomJudge.character2_speedup != step_plus) {
 				this.step_plus = BoomJudge.character2_speedup;
 				this.step += 3;
