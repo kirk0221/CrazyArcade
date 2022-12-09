@@ -12,7 +12,7 @@ public class Make_Item_Index {
 		}
 		for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
 			if(y+bombSize+plusbombsize<=12) {
-				if((BoomJudge.previous_map_size[y+bombSize+plusbombsize][x] == box_index) && (BoomJudge.map_size[y-bombSize+plusbombsize][x] == 4)) {//물풍선 놓인 자리 아래
+				if((BoomJudge.previous_map_size[y+bombSize+plusbombsize][x] == box_index) && (BoomJudge.map_size[y+bombSize+plusbombsize][x] == 4)) {//물풍선 놓인 자리 아래
 				BoomJudge.previous_map_size[y+bombSize+plusbombsize][x] = item_index;
 				BoomJudge.map_size[y+bombSize+plusbombsize][x] = item_index;
 				}
@@ -30,7 +30,7 @@ public class Make_Item_Index {
 				}
 			}
 			if(x-bombSize-plusbombsize>=0) {
-				if((BoomJudge.previous_map_size[y][x-bombSize-plusbombsize] == box_index) && (BoomJudge.map_size[y][x-bombSize] == 4)) {//물풍선 놓인 자리 왼쪽
+				if((BoomJudge.previous_map_size[y][x-bombSize-plusbombsize] == box_index) && (BoomJudge.map_size[y][x-bombSize-plusbombsize] == 4)) {//물풍선 놓인 자리 왼쪽
 				BoomJudge.previous_map_size[y][x-bombSize-plusbombsize] = item_index;
 				BoomJudge.map_size[y][x-bombSize-plusbombsize] = item_index;
 				}

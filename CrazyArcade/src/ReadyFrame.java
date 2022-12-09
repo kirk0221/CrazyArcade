@@ -125,7 +125,7 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		if(startcheck) {
 			if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==1) {
 				if (p1ready ==1 && p2ready==1) {
-					new MAP_Village(); //ÄíÅ°¸Ê ½ÃÀÛ
+					new MAP_Cookie(); //ÄíÅ°¸Ê ½ÃÀÛ
 					MainFrame.music.stop();
 				    ReadyFrame.this.setVisible(false); //ÇöÀç Ã¢ ¼û±â±â
 				}
