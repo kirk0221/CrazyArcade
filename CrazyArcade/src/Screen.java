@@ -42,10 +42,23 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Image map_CookieBox1 = new ImageIcon("Resources/boxcookie1.png").getImage();
 	private Image map_CookieBox2 = new ImageIcon("Resources/boxcookie2.png").getImage();
 	private Image map_PatriotsBackground = new ImageIcon("Resources/mapPatriots.png").getImage();//해적(맵1) 이미지
-	private Image map_PatriotsBox1 = new ImageIcon("Resources/box1.png").getImage();
+	private Image map_PatriotsBox1 = new ImageIcon("Resources/box1.png").getImage(); // 이거 아마 안쓸듯 이미지가 2랑 똑같은데 작은거임
 	private Image map_PatriotsBox2 = new ImageIcon("Resources/box2.png").getImage();
 	private Image map_PatriotsBox3 = new ImageIcon("Resources/box3.png").getImage();
 	
+	private Image item_waterbomb = new ImageIcon("Resources/item_waterbombplus.png").getImage();
+	private Image item_speed = new ImageIcon("Resources/item_Speed.png").getImage();
+	private Image item_Reddevil = new ImageIcon("Resources/item_Reddevil.png").getImage();
+	private Image item_Pupledevil = new ImageIcon("Resources/item_Pupledevil.png").getImage();
+	private Image item_stream = new ImageIcon("Resources/item_waterstream.png").getImage();
+	
+	
+	
+	
+	private Image boombmiddleup = new ImageIcon("Resources/waterbomb_link1.png").getImage();
+	private Image boombmiddledown = new ImageIcon("Resources/waterbomb_link2.png").getImage();
+	private Image boombmiddleleft = new ImageIcon("Resources/waterbomb_link3.png").getImage();
+	private Image boombmiddleright = new ImageIcon("Resources/waterbomb_link4.png").getImage();
 	public Screen(int map) {
 		this.map_selection = map; //생성자를 통해 어떤 맵 설정되었는지 받아오기 위함
 		BoomJudge judge = new BoomJudge(map); //맵 배치 받아오기 위해서 사용
@@ -80,13 +93,9 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		}
 		addKeyListener(this);
 		addComponentListener(this);
-		for(int i =0; i<MAX_PLAYER; i++) {//이전 인덱스 저장 초기화
-			previous_Index_x[i] = 0;
-			previous_Index_y[i] = 0;
-		}
 		
 		/* mapXlocaionlist와 mapYlocationlist는 맵의 각 타일들의 중심좌표의 x와 y값을 각각 저장*/
-		/*for문을 이용하여 첫 타일은 (0,0)에서 시작해 x와 y 각각 60씩 증가하며 중심좌표들이 저장됨*/
+		/*for문을 이용하여 첫 타일은 (0,0)에서 시작해 x와 y 각각 60.45씩 증가하며 중심좌표들이 저장됨*/
 		this.mapXlocationlist = new int[13];
 		this.mapYlocationlist = new int[13];
 		int locationnum = 0;
@@ -106,6 +115,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 				repaint();
 				BoomJudge.die(); /*0.001초마다, die 함수를 호출하여
 				캐릭터가 물풍선이 터지는 위치에 들어오는지를 실시간으로 판단함*/
+				BoomJudge.item_check();
 			}
 		},0, 1);
 	}
@@ -119,18 +129,58 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			bufferGraphics.drawImage(map_CookieBackground,0,0,this);
 			for(int map_y=0; map_y<BoomJudge.map_size.length; map_y++) {
 				for(int map_x=0; map_x<BoomJudge.map_size.length; map_x++) {
-					if(BoomJudge.map_size[map_y][map_x] == 5) {
+					if((BoomJudge.map_size[map_y][map_x] == 5) || (BoomJudge.map_size[map_y][map_x] == 7) || 
+							(BoomJudge.map_size[map_y][map_x] == 10) || (BoomJudge.map_size[map_y][map_x] == 13)) {
 						bufferGraphics.drawImage(map_CookieBox1, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
+					if((BoomJudge.map_size[map_y][map_x] == 6) || (BoomJudge.map_size[map_y][map_x] == 8) || 
+							(BoomJudge.map_size[map_y][map_x] == 11) || (BoomJudge.map_size[map_y][map_x] == 14)) {
+						bufferGraphics.drawImage(map_CookieBox2, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
+					}
+					if(BoomJudge.map_size[map_y][map_x] == 9) {
+						bufferGraphics.drawImage(item_waterbomb, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//물풍선 늘려주는 아이템 이미지 생성
+					}
+					if(BoomJudge.map_size[map_y][map_x] == 12) {
+						bufferGraphics.drawImage(item_speed, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//속도증가 아이템 이미지 생성
+					}
+					if(BoomJudge.map_size[map_y][map_x] == 15) {
+						bufferGraphics.drawImage(item_stream, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//물풍선 범위증가 아이템 이미지 생성
+					}
+					if(BoomJudge.map_size[map_y][map_x] == 18) {
+						bufferGraphics.drawImage(item_Reddevil, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//속도증가 아이템(레드데빌) 이미지 생성
+					}
+					if(BoomJudge.map_size[map_y][map_x] == 20) {
+						bufferGraphics.drawImage(item_Pupledevil, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//속도감소 아이템(퍼플데빌) 이미지 생성
+					}							
 				}
 			}
 		}else if(map_selection == 1) {//해적맵일때 배경
 			bufferGraphics.drawImage(map_PatriotsBackground,0,0,this);
 			for(int map_y=0; map_y<BoomJudge.map_size.length; map_y++) {
 				for(int map_x=0; map_x<BoomJudge.map_size.length; map_x++) {
-					if(BoomJudge.map_size[map_y][map_x] == 5) {
-						bufferGraphics.drawImage(map_PatriotsBox1, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
+					if((BoomJudge.map_size[map_y][map_x] == 5) || (BoomJudge.map_size[map_y][map_x] == 7) || 
+							(BoomJudge.map_size[map_y][map_x] == 10) || (BoomJudge.map_size[map_y][map_x] == 13)) {
+						bufferGraphics.drawImage(map_PatriotsBox2, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
+					if((BoomJudge.map_size[map_y][map_x] == 6) || (BoomJudge.map_size[map_y][map_x] == 8) || 
+							(BoomJudge.map_size[map_y][map_x] == 11) || (BoomJudge.map_size[map_y][map_x] == 14)) {
+						bufferGraphics.drawImage(map_PatriotsBox3, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
+					}
+					if(BoomJudge.map_size[map_y][map_x] == 9) {
+						bufferGraphics.drawImage(item_waterbomb, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//물풍선 늘려주는 아이템 이미지 생성
+					}
+					if(BoomJudge.map_size[map_y][map_x] == 12) {
+						bufferGraphics.drawImage(item_speed, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//속도증가 아이템 이미지 생성
+					}
+					if(BoomJudge.map_size[map_y][map_x] == 15) {
+						bufferGraphics.drawImage(item_stream, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//물풍선 범위증가 아이템 이미지 생성
+					}
+					if(BoomJudge.map_size[map_y][map_x] == 18) {
+						bufferGraphics.drawImage(item_Reddevil, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//속도증가 아이템(레드데빌) 이미지 생성
+					}
+					if(BoomJudge.map_size[map_y][map_x] == 20) {
+						bufferGraphics.drawImage(item_Pupledevil, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//속도감소 아이템(퍼플데빌) 이미지 생성
+					}					
 				}
 			}
 		}
@@ -141,21 +191,51 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			
 			for(int i=0;i<players[playertype].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
+			/*stream을 체크하고 확장된 물풍선 터지는 이미지를 그린다.*/
+			if((BoomJudge.character1_stream!=0) || (BoomJudge.character2_stream!=0)) {
+				bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+					   if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
+						bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+						}
+						if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()<=12) {
+						bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+						}
+						if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()>=0) {
+						bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()], this);
+						}
+						if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
+						bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
+						}
+						if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()-1>=0) {
+							bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()-1],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+						}
+						if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()+1<=12) {
+						bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()+1],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+						}
+						if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()-1>=0) {
+						bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()-1], this);
+						}
+						if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()+1<=12) {
+						bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()+1], this);
+						}
+			}else { /*일반적인 물풍선 그리기*/
 				bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
 				if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
-				bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				}
-				if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()<=12) {
-				bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				}
-				if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()>=0) {
-				bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()], this);
-				}
-				if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
-				bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
-				}
+					bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+					}
+					if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()<=12) {
+					bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+					}
+					if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()>=0) {
+					bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()], this);
+					}
+					if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
+					bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
+					}
 			}
+				
 		}
+	}
 		
 		for(int playertype=0; playertype<MAX_PLAYER; playertype++) {
 			bufferGraphics.drawImage(players[playertype].getImg(), players[playertype].getX(), players[playertype].getY(), this);//players 이미지 생성
@@ -171,7 +251,9 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			if(BoomJudge.map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] != 4) {
 			BoomJudge.map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = 0;
 			}
-			BoomJudge.previous_map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = 0;/* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1 또는 2를 0으로 초기화*/
+			if((BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 9) &&(BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 15)){
+				BoomJudge.previous_map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = 0;/* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1 또는 2를 0으로 초기화*/
+			}
 			for(int i=0; i<13;i++) {
 				if((-(players[playertype].getX()-mapXlocationlist[i])<40) || ((mapXlocationlist[i]-players[playertype].getX())<40)) {
 					playerIndex_x[playertype] = i;
@@ -186,8 +268,10 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 				}
 			}
 			BoomJudge.map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = playertype+1; /*캐릭터의 위치를 저장*/ //player1은 1로 player2는 2로 저장
-			BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] = 0;
-			BoomJudge.previous_map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = playertype+1;
+			if((BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 9)&&(BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 15)) {
+				BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] = 0;
+				BoomJudge.previous_map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = playertype+1;
+			}
 			/*물풍선을 놓고 마지막에 이동한 위치를 저장하고 물풍선이 존재하는 맵과 비교하기 위하여
 			 * previous_map_size를 사용함
 			 * 

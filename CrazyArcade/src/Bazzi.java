@@ -11,167 +11,182 @@ public class Bazzi extends Character implements KeyListener{
 	private int playerIndex_x;
 	private int playerIndex_y;
 	private int step;
+	private int step_plus;
 	public int bombSize;
 	public int playertype;
 	WaterBalloon playerWaterBalloon;
 	private Image[] bazzi_state;
-	private int state;//»óÅÂ ¹øÈ£
+	private int state;//ìƒíƒœ ë²ˆí˜¸
 
-	public Bazzi(Screen screen, int playertype) { /*ÇÃ·¹ÀÌ¾î Å¸ÀÔÀ» Àü´Ş¹Ş¾Æ, ÇØ´ç Å¸ÀÔ¿¡ µû¶ó Å°¿¡ ´ëÇÑ µ¿ÀÛÀÌ ´Ù¸£µµ·Ï ÇÔ*/
+	public Bazzi(Screen screen, int playertype) { /*í”Œë ˆì´ì–´ íƒ€ì…ì„ ì „ë‹¬ë°›ì•„, í•´ë‹¹ íƒ€ì…ì— ë”°ë¼ í‚¤ì— ëŒ€í•œ ë™ì‘ì´ ë‹¤ë¥´ë„ë¡ í•¨*/
 		super(screen);
 		// TODO Auto-generated constructor stub
 		if(playertype == 1) {
-			if (Screen.map_selection == 0) {//ÄíÅ°¸ÊÀÏ¶§
-				this.X = 0;//ÃÊ±â X°ª
-				this.Y = 0;//ÃÊ±â Y°ª
-			}else if (Screen.map_selection == 1) {//ÇØÀû¸ÊÀÏ¶§
-				this.X = 60;//ÃÊ±â X°ª
-				this.Y = 60;//ÃÊ±â Y°ª
+			if (Screen.map_selection == 0) {//ì¿ í‚¤ë§µì¼ë•Œ
+				this.X = 0;//ì´ˆê¸° Xê°’
+				this.Y = 0;//ì´ˆê¸° Yê°’
+			}else if (Screen.map_selection == 1) {//í•´ì ë§µì¼ë•Œ
+				this.X = 60;//ì´ˆê¸° Xê°’
+				this.Y = 60;//ì´ˆê¸° Yê°’
 			}
 		}else if(playertype == 2) {
 			if (Screen.map_selection == 0) {
-				this.X = 720;//ÃÊ±â X°ª
-				this.Y = 720;//ÃÊ±â Y°ª
+				this.X = 720;//ì´ˆê¸° Xê°’
+				this.Y = 720;//ì´ˆê¸° Yê°’
 			}else if (Screen.map_selection == 1) {
-				this.X = 660;//ÃÊ±â X°ª
-				this.Y = 660;//ÃÊ±â Y°ª
+				this.X = 660;//ì´ˆê¸° Xê°’
+				this.Y = 660;//ì´ˆê¸° Yê°’
 			}
 		}
-		this.step = 5;//ÃÊ±â ÀÌµ¿ °Å¸®
-		this.bombSize = 1;//¹°ÁÙ±â Å©±â 1
+		this.step = 5;//ì´ˆê¸° ì´ë™ ê±°ë¦¬
+		this.step_plus = 0;//ì´ë™ ì†ë„ ì¦ê°€ìœ¨
+		this.bombSize = 1;//ë¬¼ì¤„ê¸° í¬ê¸° 1
 		this.playertype = playertype;
-		playerWaterBalloon = new WaterBalloon(playertype); /* ¹°Ç³¼± »ı¼º*/
+		playerWaterBalloon = new WaterBalloon(playertype); /* ë¬¼í’ì„  ìƒì„±*/
 		this.bazzi_state = new Image[4];
-		Image bazzi_front = new ImageIcon("Resources/bazzi_front.png").getImage();//¹èÂî Á¤¸é ÀÌ¹ÌÁö
-		Image bazzi_back = new ImageIcon("Resources/bazzi_back.png").getImage();//¹èÂî ÈÄ¸é ÀÌ¹ÌÁö
-		Image bazzi_left = new ImageIcon("Resources/bazzi_left.png").getImage();//¹èÂî ÁÂÃø¸é ÀÌ¹ÌÁö
-		Image bazzi_right = new ImageIcon("Resources/bazzi_right.png").getImage();//¹èÂî ¿ìÃø¸é ÀÌ¹ÌÁö
+		Image bazzi_front = new ImageIcon("Resources/bazzi_front.png").getImage();//ë°°ì°Œ ì •ë©´ ì´ë¯¸ì§€
+		Image bazzi_back = new ImageIcon("Resources/bazzi_back.png").getImage();//ë°°ì°Œ í›„ë©´ ì´ë¯¸ì§€
+		Image bazzi_left = new ImageIcon("Resources/bazzi_left.png").getImage();//ë°°ì°Œ ì¢Œì¸¡ë©´ ì´ë¯¸ì§€
+		Image bazzi_right = new ImageIcon("Resources/bazzi_right.png").getImage();//ë°°ì°Œ ìš°ì¸¡ë©´ ì´ë¯¸ì§€
 		this.bazzi_state[0] = bazzi_front;
 		this.bazzi_state[1] = bazzi_back;
 		this.bazzi_state[2] = bazzi_left;
 		this.bazzi_state[3] = bazzi_right;
-		this.state = 0;//ÃÊ±â Á¤¸éÀ¸·Î º¸°íÀÖÀ½
+		this.state = 0;//ì´ˆê¸° ì •ë©´ìœ¼ë¡œ ë³´ê³ ìˆìŒ
 	}
 	
-	public Image getImg() {//ÀÌ¹ÌÁö¸¦ ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public Image getImg() {//ì´ë¯¸ì§€ë¥¼ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return this.bazzi_state[state];
 	}
 	
-	public Image getballoonImg() {//ÀÌ¹ÌÁö¸¦ ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public Image getballoonImg() {//ì´ë¯¸ì§€ë¥¼ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return playerWaterBalloon.getImg();
 	}
 	
-	public Image getcenterImg() {// ÅÍÁø ¹°Ç³¼± °¡¿îµ¥ ÀÌ¹ÌÁö¸¦ ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public Image getcenterImg() {// í„°ì§„ ë¬¼í’ì„  ê°€ìš´ë° ì´ë¯¸ì§€ë¥¼ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return playerWaterBalloon.getcenterImg();
 	}
 	
-	public Image getleftImg() {// ÅÍÁø ¹°Ç³¼± ¿ŞÂÊ ÀÌ¹ÌÁö¸¦ ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public Image getleftImg() {// í„°ì§„ ë¬¼í’ì„  ì™¼ìª½ ì´ë¯¸ì§€ë¥¼ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return playerWaterBalloon.getleftImg();
 	}
 	
-	public Image getrightImg() {// ÅÍÁø ¹°Ç³¼± ¿À¸¥ÂÊ ÀÌ¹ÌÁö¸¦ ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public Image getrightImg() {// í„°ì§„ ë¬¼í’ì„  ì˜¤ë¥¸ìª½ ì´ë¯¸ì§€ë¥¼ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return playerWaterBalloon.getrightImg();
 	}
 	
-	public Image getupImg() {// ÅÍÁø ¹°Ç³¼± À§ ÀÌ¹ÌÁö¸¦ ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public Image getupImg() {// í„°ì§„ ë¬¼í’ì„  ìœ„ ì´ë¯¸ì§€ë¥¼ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return playerWaterBalloon.getupImg();
 	}
-	public Image getdownImg() {// ÅÍÁø ¹°Ç³¼± ¾Æ·¡ ÀÌ¹ÌÁö¸¦ ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public Image getdownImg() {// í„°ì§„ ë¬¼í’ì„  ì•„ë˜ ì´ë¯¸ì§€ë¥¼ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return playerWaterBalloon.getdownImg();
 	}
 	
-	public int getballoonX(int i) {//¹°Ç³¼± X°ªÀ» ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public int getballoonX(int i) {//ë¬¼í’ì„  Xê°’ì„ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return playerWaterBalloon.getX(i);
 	}
 	
-	public int getballoonY(int i) {//¹°Ç³¼± Y°ªÀ» ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public int getballoonY(int i) {//ë¬¼í’ì„  Yê°’ì„ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return playerWaterBalloon.getY(i);
 	}
-	public int getboomballoonX(int i) {//ÅÍÁø ¹°Ç³¼± X°ªÀ» ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public int getboomballoonX(int i) {//í„°ì§„ ë¬¼í’ì„  Xê°’ì„ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return playerWaterBalloon.getboomX(i);
 	}
 	
-	public int getboomballoonY(int i) {//ÅÍÁø ¹°Ç³¼± Y°ªÀ» ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public int getboomballoonY(int i) {//í„°ì§„ ë¬¼í’ì„  Yê°’ì„ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return playerWaterBalloon.getboomY(i);
 	}
 	
-	public int getX() {//X°ªÀ» ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public int getX() {//Xê°’ì„ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return this.X;
 	}
 	
-	public int getY() {//Y°ªÀ» ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public int getY() {//Yê°’ì„ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return this.Y;
 	}
 	
-	public void getPlayerIndex_x(int x) {//½ºÅ©¸°¿¡¼­ xÀÎµ¦½º°ª °¡Á®¿À±â
+	public void getPlayerIndex_x(int x) {//ìŠ¤í¬ë¦°ì—ì„œ xì¸ë±ìŠ¤ê°’ ê°€ì ¸ì˜¤ê¸°
 		this.playerIndex_x = x;
 	}
 	
-	public void getPlayerIndex_y(int y) {//½ºÅ©¸°¿¡¼­ yÀÎµ¦½º°ª °¡Á®¿À±â
+	public void getPlayerIndex_y(int y) {//ìŠ¤í¬ë¦°ì—ì„œ yì¸ë±ìŠ¤ê°’ ê°€ì ¸ì˜¤ê¸°
 		this.playerIndex_y = y;
 	}
 	
 	public int getballonListsize() {
-		return playerWaterBalloon.balloonXList.size();
-		/*¹°Ç³¼± °´Ã¼ÀÇ ¸µÅ©µå ¸®½ºÆ®ÀÇ Å©±â¸¦ ½ºÅ©¸°¿¡ Àü´ŞÇÏ¿©, ¹İº¹¹®ÀÇ ¹İº¹ ÈÜ¼ö¸¦ ÁöÁ¤ÇÏ±â À§ÇÑ ÇÔ¼ö*/
+		return playerWaterBalloon.balloonXqueue.size();
+		/*ë¬¼í’ì„  ê°ì²´ì˜ ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì˜ í¬ê¸°ë¥¼ ìŠ¤í¬ë¦°ì— ì „ë‹¬í•˜ì—¬, ë°˜ë³µë¬¸ì˜ ë°˜ë³µ íœ«ìˆ˜ë¥¼ ì§€ì •í•˜ê¸° ìœ„í•œ í•¨ìˆ˜*/
 	}
 	public int getboomballonListsize() {
-		return playerWaterBalloon.boomballoonXList.size();
-		/*ÅÍÁø ¹°Ç³¼± °´Ã¼ÀÇ ¸µÅ©µå ¸®½ºÆ®ÀÇ Å©±â¸¦ ½ºÅ©¸°¿¡ Àü´ŞÇÏ¿©, ¹İº¹¹®ÀÇ ¹İº¹ ÈÜ¼ö¸¦ ÁöÁ¤ÇÏ±â À§ÇÑ ÇÔ¼ö*/
+		return playerWaterBalloon.boomballoonXqueue.size();
+		/*í„°ì§„ ë¬¼í’ì„  ê°ì²´ì˜ ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì˜ í¬ê¸°ë¥¼ ìŠ¤í¬ë¦°ì— ì „ë‹¬í•˜ì—¬, ë°˜ë³µë¬¸ì˜ ë°˜ë³µ íœ«ìˆ˜ë¥¼ ì§€ì •í•˜ê¸° ìœ„í•œ í•¨ìˆ˜*/
 	}
 	
-	public int getbombSize() {//¹°Ç³¼± Å©±â°ªÀ» ½ºÅ©¸°¿¡ ÁÖ±âÀ§ÇÑ ÇÔ¼ö
+	public int getbombSize() {//ë¬¼í’ì„  í¬ê¸°ê°’ì„ ìŠ¤í¬ë¦°ì— ì£¼ê¸°ìœ„í•œ í•¨ìˆ˜
 		return this.bombSize;
 	}
 	
-	public void up() {//À§·Î °¡±â
+	public void up(int step) {//ìœ„ë¡œ ê°€ê¸°
 		this.state  = 1;
-		if (playerIndex_y == 0) {//ÀÎµ¦½º 0ÀÏ°æ¿ì ¿¹¿ÜÃ³¸®
+		if (playerIndex_y == 0) {//ì¸ë±ìŠ¤ 0ì¼ê²½ìš° ì˜ˆì™¸ì²˜ë¦¬
 			Y-=step;
 		}
-		else if((BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 1) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 2)) {//´ÙÀ½ ÀÌµ¿À§Ä¡ ÀÎµ¦½º 0,1,2ÀÏ °æ¿ì¿¡¸¸ ÀÌµ¿°¡´É
+		else if((BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 1) ||
+				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 2) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 9) || 
+				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 12) ||  (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 15)){
+			//ë‹¤ìŒ ì´ë™ìœ„ì¹˜ ì¸ë±ìŠ¤ 0,1,2,9,12ì¼ ê²½ìš°ì—ë§Œ ì´ë™ê°€ëŠ¥
 			Y-=step;
 		}
-		else if((playerIndex_y)*60.45<this.getY()) {//±×·¡µµ Ä³¸¯ÅÍ°¡ º®¿·ÀÇ ºóÄ­À¸·Î ¾È³Ñ¾î°¡Á®¼­ º®À» ³ÑÁö ¾ÊÀ» Á¤µµ±îÁö¸¸ ÀÌµ¿
+		else if((playerIndex_y)*60.45<this.getY()) {//ê·¸ë˜ë„ ìºë¦­í„°ê°€ ë²½ì˜†ì˜ ë¹ˆì¹¸ìœ¼ë¡œ ì•ˆë„˜ì–´ê°€ì ¸ì„œ ë²½ì„ ë„˜ì§€ ì•Šì„ ì •ë„ê¹Œì§€ë§Œ ì´ë™
 			Y-=step;
 		}
 	}
-	public void down() {//¾Æ·¡·Î °¡±â
+	public void down(int step) {//ì•„ë˜ë¡œ ê°€ê¸°
 		this.state  = 0;
-		if (playerIndex_y == 12) {//ÀÎµ¦½º 12ÀÏ°æ¿ì ¿¹¿ÜÃ³¸®
+		if (playerIndex_y == 12) {//ì¸ë±ìŠ¤ 12ì¼ê²½ìš° ì˜ˆì™¸ì²˜ë¦¬
 			Y+=step;
 		}
-		else if((BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 1) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 2)) {//´ÙÀ½ ÀÌµ¿À§Ä¡ ÀÎµ¦½º 0,1,2ÀÏ °æ¿ì¿¡¸¸ ÀÌµ¿°¡´É
+		else if((BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 1) || 
+				(BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 2) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 9) || 
+				(BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 12) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 15)) {
+			//ë‹¤ìŒ ì´ë™ìœ„ì¹˜ì˜ ì¸ë±ìŠ¤ 0,1,2,9,12ì¼ ê²½ìš°ì—ë§Œ ì´ë™ê°€ëŠ¥
 			Y+=step;
 		}
-		else if((playerIndex_y)*60.45>this.getY()) {//±×·¡µµ Ä³¸¯ÅÍ°¡ º®¿·ÀÇ ºóÄ­À¸·Î ¾È³Ñ¾î°¡Á®¼­ º®À» ³ÑÁö ¾ÊÀ» Á¤µµ±îÁö¸¸ ÀÌµ¿
+		else if((playerIndex_y)*60.45>this.getY()) {//ê·¸ë˜ë„ ìºë¦­í„°ê°€ ë²½ì˜†ì˜ ë¹ˆì¹¸ìœ¼ë¡œ ì•ˆë„˜ì–´ê°€ì ¸ì„œ ë²½ì„ ë„˜ì§€ ì•Šì„ ì •ë„ê¹Œì§€ë§Œ ì´ë™
 			Y+=step;
 		}
 	}
-	public void left() {//¿ŞÂÊÀ¸·Î °¡±â
+	public void left(int step) {//ì™¼ìª½ìœ¼ë¡œ ê°€ê¸°
 		this.state  = 2;
-		if (playerIndex_x == 0) {//ÀÎµ¦½º 0ÀÏ°æ¿ì ¿¹¿ÜÃ³¸®
+		if (playerIndex_x == 0) {//ì¸ë±ìŠ¤ 0ì¼ê²½ìš° ì˜ˆì™¸ì²˜ë¦¬
 			X-=step;
 		}
-		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 1) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 2)) {//´ÙÀ½ ÀÌµ¿À§Ä¡ ÀÎµ¦½º 0,1,2ÀÏ °æ¿ì¿¡¸¸ ÀÌµ¿°¡´É
+		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 1) || 
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 2) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 9) || 
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 12) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 15)) {
+			//ë‹¤ìŒ ì´ë™ìœ„ì¹˜ì˜ ì¸ë±ìŠ¤ 0,1,2,9,12ì¼ ê²½ìš°ì—ë§Œ ì´ë™ê°€ëŠ¥
 			X-=step;
 		}
-		else if((playerIndex_x)*60.45<this.getX()) {//±×·¡µµ Ä³¸¯ÅÍ°¡ º®¿·ÀÇ ºóÄ­À¸·Î ¾È³Ñ¾î°¡Á®¼­ º®À» ³ÑÁö ¾ÊÀ» Á¤µµ±îÁö¸¸ ÀÌµ¿
+		else if((playerIndex_x)*60.45<this.getX()) {//ê·¸ë˜ë„ ìºë¦­í„°ê°€ ë²½ì˜†ì˜ ë¹ˆì¹¸ìœ¼ë¡œ ì•ˆë„˜ì–´ê°€ì ¸ì„œ ë²½ì„ ë„˜ì§€ ì•Šì„ ì •ë„ê¹Œì§€ë§Œ ì´ë™
 			X-=step;
 		}
 	}
-	public void right() {//¿À¸¥ÂÊÀ¸·Î °¡±â
+	public void right(int step) {//ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ê¸°
 		this.state  = 3;
-		if (playerIndex_x == 12) {//ÀÎµ¦½º 12ÀÏ°æ¿ì ¿¹¿ÜÃ³¸®
+		if (playerIndex_x == 12) {//ì¸ë±ìŠ¤ 12ì¼ê²½ìš° ì˜ˆì™¸ì²˜ë¦¬
 			X+=step;
 		}
-		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 1) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 2)) {//´ÙÀ½ ÀÌµ¿À§Ä¡ ÀÎµ¦½º 0,1,2ÀÏ °æ¿ì¿¡¸¸ ÀÌµ¿°¡´É
+		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 1) || 
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 2) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 9) || 
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 12) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 15)) {
+			//ë‹¤ìŒ ì´ë™ìœ„ì¹˜ì˜ ì¸ë±ìŠ¤ 0,1,2,9,12ì¼ ê²½ìš°ì—ë§Œ ì´ë™ê°€ëŠ¥
 			X+=step;
 		}
-		else if((playerIndex_x)*60.45>this.getX()) {//±×·¡µµ Ä³¸¯ÅÍ°¡ º®¿·ÀÇ ºóÄ­À¸·Î ¾È³Ñ¾î°¡Á®¼­ º®À» ³ÑÁö ¾ÊÀ» Á¤µµ±îÁö¸¸ ÀÌµ¿
+		else if((playerIndex_x)*60.45>this.getX()) {//ê·¸ë˜ë„ ìºë¦­í„°ê°€ ë²½ì˜†ì˜ ë¹ˆì¹¸ìœ¼ë¡œ ì•ˆë„˜ì–´ê°€ì ¸ì„œ ë²½ì„ ë„˜ì§€ ì•Šì„ ì •ë„ê¹Œì§€ë§Œ ì´ë™
 			X+=step;
 		}
 	}
+
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -183,55 +198,63 @@ public class Bazzi extends Character implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(playertype == 1) {
-			switch(e.getKeyCode()) {//player1¿¡ ´ëÇÑ ¿òÁ÷ÀÓ
+			if(BoomJudge.character1_speedup != step_plus) {
+				this.step_plus = BoomJudge.character1_speedup;
+				this.step += 3;
+			}
+			switch(e.getKeyCode()) {//player1ì— ëŒ€í•œ ì›€ì§ì„
 			case KeyEvent.VK_UP:
 				if(this.getY()>=0) {
-					this.up();
+					this.up(this.step);
 				}
 				break;
 			case KeyEvent.VK_DOWN:
 				if(this.getY()<=700) {
-					this.down();
+					this.down(this.step);
 				}
 				break;
 			case KeyEvent.VK_LEFT:
 				if(this.getX()>=0) {
-					this.left();
+					this.left(this.step);
 				}
 				break;
 			case KeyEvent.VK_RIGHT:
 				if(this.getX()<=720) {
-					this.right();
+					this.right(this.step);
 				}
 				break;
 			case KeyEvent.VK_SPACE:
-				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize);//¹°Ç³¼± ³õ±â
+				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character1_bombsizeup);//ë¬¼í’ì„  ë†“ê¸°
 				break;
 			}
 		}else if(playertype == 2) {
-			switch(e.getKeyCode()) {//player2¿¡ ´ëÇÑ ¿òÁ÷ÀÓ
+			if(BoomJudge.character2_speedup != step_plus) {
+				this.step_plus = BoomJudge.character2_speedup;
+				this.step += 3;
+			}
+			switch(e.getKeyCode()) {//player2ì— ëŒ€í•œ ì›€ì§ì„
 			case KeyEvent.VK_W:
 				if(this.getY()>=0) {
-					this.up();
+					this.up(this.step);
 				}
 				break;
 			case KeyEvent.VK_S:
 				if(this.getY()<=700) {
-					this.down();
+					this.down(this.step);
 				}
 				break;
 			case KeyEvent.VK_A:
 				if(this.getX()>=0) {
-					this.left();
+					this.left(this.step);
 				}
 				break;
 			case KeyEvent.VK_D:
 				if(this.getX()<=720) {
-					this.right();
+					this.right(this.step);
 				}
 				break;
 			case KeyEvent.VK_SHIFT:
-				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize);//¹°Ç³¼± ³õ±â
+				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character2_bombsizeup);//ë¬¼í’ì„  ë†“ê¸°
 				break;
 			}
 			

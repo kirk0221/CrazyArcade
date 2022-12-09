@@ -9,40 +9,32 @@ public abstract class Character {
 	private int playerIndex_y;
 	private static int step;
 	
-	public Character(Screen screen) {//½ºÅ©¸° ºÒ·¯¿À±â
+	public Character(Screen screen) {//ìŠ¤í¬ë¦° ë¶ˆëŸ¬ì˜¤ê¸°
 		this.screen = screen;
 	}
-	public Screen getScreen() {//½ºÅ©¸° °¡Á®¿À´Â ÇÔ¼ö
+	public Screen getScreen() {//ìŠ¤í¬ë¦° ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
 		return this.screen;
 	}
-	public abstract Image getImg();//ÀÌ¹ÌÁö °¡Á®¿À´Â ÇÔ¼ö
-	public abstract Image getballoonImg(); //¹°Ç³¼± ÀÌ¹ÌÁö °¡Á®¿À±â
-	public abstract Image getcenterImg(); //¹°Ç³¼± ÀÌ¹ÌÁö °¡Á®¿À±â
-	public abstract Image getleftImg(); //¹°Ç³¼± ÀÌ¹ÌÁö °¡Á®¿À±â
-	public abstract Image getrightImg(); //¹°Ç³¼± ÀÌ¹ÌÁö °¡Á®¿À±â
-	public abstract Image getupImg(); //¹°Ç³¼± ÀÌ¹ÌÁö °¡Á®¿À±â
-	public abstract Image getdownImg(); //¹°Ç³¼± ÀÌ¹ÌÁö °¡Á®¿À±â
+	public abstract Image getImg();//ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
+	public abstract Image getballoonImg(); //ë¬¼í’ì„  ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ê¸°
+	public abstract Image getcenterImg(); //ë¬¼í’ì„  ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ê¸°
+	public abstract Image getleftImg(); //ë¬¼í’ì„  ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ê¸°
+	public abstract Image getrightImg(); //ë¬¼í’ì„  ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ê¸°
+	public abstract Image getupImg(); //ë¬¼í’ì„  ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ê¸°
+	public abstract Image getdownImg(); //ë¬¼í’ì„  ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ê¸°
 	
-	public int getX() {// X°ª °¡Á®¿À´Â ÇÔ¼ö
+	public int getX() {// Xê°’ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
 		return this.X;
 	}
 	
-	public int getY() {// Y°ª °¡Á®¿À´Â ÇÔ¼ö
+	public int getY() {// Yê°’ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
 		return this.Y;
 	}
 	
-	public void up() {//À§·Î °¡±â
-		Y-=step;
-	}
-	public void down() {//¾Æ·¡·Î °¡±â
-		Y+=step;
-	}
-	public void left() {//¿ŞÂÊÀ¸·Î °¡±â
-		X-=step;
-	}
-	public void right() {//¿À¸¥ÂÊÀ¸·Î °¡±â
-		X+=step;
-	}
+	public abstract void up(int step);
+	public abstract void down(int step);
+	public abstract void left(int step);
+	public abstract void right(int step);
 	public abstract void keyPressed(KeyEvent e);
 	protected abstract int getballoonY(int i);
 	protected abstract int getballoonX(int i);
