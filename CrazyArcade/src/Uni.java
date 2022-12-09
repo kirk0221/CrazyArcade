@@ -13,6 +13,7 @@ public class Uni extends Character implements KeyListener{
 	private int step;
 	private int step_plus;
 	public int bombSize;
+	public int streamSize;
 	public int playertype;
 	WaterBalloon playerWaterBalloon;
 	private Image[] Uni_state;
@@ -28,6 +29,9 @@ public class Uni extends Character implements KeyListener{
 			}else if (Screen.map_selection == 1) {//해적맵일때
 				this.X = 60;//초기 X값
 				this.Y = 60;//초기 Y값
+			}else if (Screen.map_selection == 2) {//빌리지맵일때
+				this.X = 0;//초기 X값
+				this.Y = 0;//초기 Y값
 			}
 		}else if(playertype == 2) {
 			if (Screen.map_selection == 0) {
@@ -36,6 +40,9 @@ public class Uni extends Character implements KeyListener{
 			}else if (Screen.map_selection == 1) {
 				this.X = 660;//초기 X값
 				this.Y = 660;//초기 Y값
+			}else if (Screen.map_selection == 2) {
+				this.X = 720;//초기 X값
+				this.Y = 720;//초기 Y값
 			}
 		}
 		this.step = 5;//초기 이동 거리
@@ -123,7 +130,10 @@ public class Uni extends Character implements KeyListener{
 	}
 	
 	public int getbombSize() {//물풍선 크기값을 스크린에 주기위한 함수
-		return this.bombSize;
+		return this.bombSize + this.streamSize;
+	}
+	public int getstreamSize() {//물풍선 길이 증가값을 스크린에 주기위한 함수
+		return this.streamSize;
 	}
 	
 	public void up(int step) {//위로 가기
@@ -206,66 +216,67 @@ public class Uni extends Character implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(playertype == 1) {
+			this.streamSize = BoomJudge.character1_stream;
 			if(BoomJudge.character1_speedup != step_plus) {
+				this.step = step + BoomJudge.character1_speedup - this.step_plus;
 				this.step_plus = BoomJudge.character1_speedup;
-				this.step += 3;
 			}
-			switch(e.getKeyCode()) {//player1에 대한 움직임
-			case KeyEvent.VK_UP:
+			if(Screen.c1.isUp()) {
 				if(this.getY()>=0) {
 					this.up(this.step);
 				}
-				break;
-			case KeyEvent.VK_DOWN:
-				if(this.getY()<=700) {
+			}
+	        if(Screen.c1.isDown()) {
+	        	if(this.getY()<=700) {
 					this.down(this.step);
 				}
-				break;
-			case KeyEvent.VK_LEFT:
-				if(this.getX()>=0) {
+	        }
+	        if(Screen.c1.isLeft()) {
+	        	if(this.getX()>=0) {
 					this.left(this.step);
 				}
-				break;
-			case KeyEvent.VK_RIGHT:
-				if(this.getX()<=720) {
+	        }
+	        if(Screen.c1.isRight()) {
+	        	if(this.getX()<=720) {
 					this.right(this.step);
 				}
-				break;
-			case KeyEvent.VK_SPACE:
-				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character1_bombsizeup);//물풍선 놓기
-				break;
-			}
+	        }
+		    if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+			   playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character1_bombsizeup);//물풍선 놓기
+		    }
 		}else if(playertype == 2) {
+			this.streamSize = BoomJudge.character2_stream;
+			if(BoomJudge.character2_speedup != step_plus) {
+				this.step = step + BoomJudge.character2_speedup - this.step_plus;
+				this.step_plus = BoomJudge.character2_speedup;
+			}
 			if(BoomJudge.character2_speedup != step_plus) {
 				this.step_plus = BoomJudge.character2_speedup;
 				this.step += 3;
-			}
-			switch(e.getKeyCode()) {//player2에 대한 움직임
-			case KeyEvent.VK_W:
-				if(this.getY()>=0) {
-					this.up(this.step);
-				}
-				break;
-			case KeyEvent.VK_S:
-				if(this.getY()<=700) {
-					this.down(this.step);
-				}
-				break;
-			case KeyEvent.VK_A:
-				if(this.getX()>=0) {
-					this.left(this.step);
-				}
-				break;
-			case KeyEvent.VK_D:
-				if(this.getX()<=720) {
-					this.right(this.step);
-				}
-				break;
-			case KeyEvent.VK_SHIFT:
-				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character2_bombsizeup);//물풍선 놓기
-				break;
-			}
-			
+			 }
+			 if(Screen.c2.isUp()) {
+				 if(this.getY()>=0) {
+						this.up(this.step);
+					}
+			 }
+		     if(Screen.c2.isDown()) {
+		        	if(this.getY()<=700) {
+						this.down(this.step);
+					}
+		        }
+		     if(Screen.c2.isLeft()) {
+		        	if(this.getX()>=0) {
+						this.left(this.step);
+					}
+		        }
+		     if(Screen.c2.isRight()) {
+						if(this.getX()<=720) {
+							this.right(this.step);
+						}
+		        }
+		    if(e.getKeyCode()==KeyEvent.VK_SHIFT) {	
+			playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character2_bombsizeup);//물풍선 놓기
+		    }
 		}
 	}
 
