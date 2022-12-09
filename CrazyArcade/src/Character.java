@@ -9,7 +9,6 @@ public abstract class Character {
 	private int playerIndex_y;
 	private static int step;
 	
-	
 	public Character(Screen screen) {//스크린 불러오기
 		this.screen = screen;
 	}
@@ -44,6 +43,7 @@ public abstract class Character {
 	protected abstract int getballonListsize();
 	protected abstract int getboomballonListsize();
 	protected abstract int getbombSize();
+	protected abstract int getstreamSize();
 	protected abstract void getPlayerIndex_x(int x);
 	protected abstract void getPlayerIndex_y(int y);
 }

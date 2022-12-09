@@ -13,6 +13,7 @@ public class Bazzi extends Character implements KeyListener{
 	private int step;
 	private int step_plus;
 	public int bombSize;
+	public int streamSize;
 	public int playertype;
 	WaterBalloon playerWaterBalloon;
 	private Image[] bazzi_state;
@@ -28,6 +29,9 @@ public class Bazzi extends Character implements KeyListener{
 			}else if (Screen.map_selection == 1) {//해적맵일때
 				this.X = 60;//초기 X값
 				this.Y = 60;//초기 Y값
+			}else if (Screen.map_selection == 2) {//빌리지맵일때
+				this.X = 0;//초기 X값
+				this.Y = 0;//초기 Y값
 			}
 		}else if(playertype == 2) {
 			if (Screen.map_selection == 0) {
@@ -36,6 +40,9 @@ public class Bazzi extends Character implements KeyListener{
 			}else if (Screen.map_selection == 1) {
 				this.X = 660;//초기 X값
 				this.Y = 660;//초기 Y값
+			}else if (Screen.map_selection == 2) {
+				this.X = 720;//초기 X값
+				this.Y = 720;//초기 Y값
 			}
 		}
 		this.step = 5;//초기 이동 거리
@@ -123,7 +130,10 @@ public class Bazzi extends Character implements KeyListener{
 	}
 	
 	public int getbombSize() {//물풍선 크기값을 스크린에 주기위한 함수
-		return this.bombSize;
+		return this.bombSize + this.streamSize;
+	}
+	public int getstreamSize() {//물풍선 길이 증가값을 스크린에 주기위한 함수
+		return this.streamSize;
 	}
 	
 	public void up(int step) {//위로 가기
@@ -133,7 +143,9 @@ public class Bazzi extends Character implements KeyListener{
 		}
 		else if((BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 1) ||
 				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 2) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 9) || 
-				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 12) ||  (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 15)){
+				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 12) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 15) ||
+				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 18) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 21) ||
+				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 24) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 2)){
 			//다음 이동위치 인덱스 0,1,2,9,12일 경우에만 이동가능
 			Y-=step;
 		}
@@ -148,7 +160,9 @@ public class Bazzi extends Character implements KeyListener{
 		}
 		else if((BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 1) || 
 				(BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 2) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 9) || 
-				(BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 12) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 15)) {
+				(BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 12) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 15) ||
+				(BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 18) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 21) ||
+				(BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 24) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 27)) {
 			//다음 이동위치의 인덱스 0,1,2,9,12일 경우에만 이동가능
 			Y+=step;
 		}
@@ -163,7 +177,9 @@ public class Bazzi extends Character implements KeyListener{
 		}
 		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 1) || 
 				(BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 2) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 9) || 
-				(BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 12) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 15)) {
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 12) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 15) ||
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 18) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 21) ||
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 24) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 27)) {
 			//다음 이동위치의 인덱스 0,1,2,9,12일 경우에만 이동가능
 			X-=step;
 		}
@@ -178,7 +194,9 @@ public class Bazzi extends Character implements KeyListener{
 		}
 		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 1) || 
 				(BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 2) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 9) || 
-				(BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 12) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 15)) {
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 12) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 15) ||
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 18) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 21) ||
+				(BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 24) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 27)) {
 			//다음 이동위치의 인덱스 0,1,2,9,12일 경우에만 이동가능
 			X+=step;
 		}
@@ -193,7 +211,7 @@ public class Bazzi extends Character implements KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public void keyPressed(KeyEvent e) { /*동시이동적용*/
 		// TODO Auto-generated method stub
@@ -226,7 +244,7 @@ public class Bazzi extends Character implements KeyListener{
 			   playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character1_bombsizeup);//물풍선 놓기
 		    }
 			
-		}else if(playertype == 2) {
+		}else if(playertype == 2) { 
 			if(BoomJudge.character2_speedup != step_plus) {
 				this.step_plus = BoomJudge.character2_speedup;
 				this.step += 3;
