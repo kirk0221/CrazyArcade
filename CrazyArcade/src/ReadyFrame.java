@@ -23,12 +23,14 @@ public class ReadyFrame extends JFrame implements MouseListener {
 	private Image bazziBackground = new ImageIcon("Resources/bazzi.png").getImage();//배찌 배경 넣기
 	private Image uniBackground = new ImageIcon("Resources/uni.png").getImage();//우니 배경 넣기
 	private Image dizniackground = new ImageIcon("Resources/dizni.png").getImage();//디즈니 배경 넣기
-	private Image FactoryBackground = new ImageIcon("Resources/Fatriotmap.png").getImage();//팩토리 배경 넣기
+	private Image FactoryBackground = new ImageIcon("Resources/Factorymap.png").getImage();//팩토리 배경 넣기
 	private Image CookieBackground = new ImageIcon("Resources/Cookiemap.png").getImage();//쿠키 배경
+	private Image VilageBackground = new ImageIcon("Resources/Vilagemap.png").getImage();//쿠키 배경
 	private Image FactorylevelBackground = new ImageIcon("Resources/factorylevel.png").getImage();//팩토리 난이도 넣기
 	private Image CookielevelBackground = new ImageIcon("Resources/Cookielevel.png").getImage();//쿠키 난이도
 	private Image ReadyBackground = new ImageIcon("Resources/Readyy.png").getImage();//준비 그림
 	private Image NoreadyBackground = new ImageIcon("Resources/Noready.png").getImage();//준비 취소 그림
+	private Image VilagelevelBackground = new ImageIcon("Resources/Vilagelevel.png").getImage();//쿠키 난이도
 	
 	static int plyaernumber=0; //몇번 플레이어인지 구분하기위한 변수
 	static int chrnumber=0;  //캐릭터그릴때 필요한 변수 디즈니 =1, 배찌 = 2, 우니 =3
@@ -83,13 +85,17 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		else if (plyaernumber==2 && p2chnumger==3) { //두번째 캐릭터 창에 우니사진 띄우기
 			g.drawImage(uniBackground,250,100,null);
 		}
-		if (MapChoice.MapNumber==2){
+		if (MapChoice.MapNumber==2){  //해적맵 고르면 해적맵이랑 해적난이도 그려줌
 			g.drawImage(FactoryBackground,440 ,200, null);
 			g.drawImage(FactorylevelBackground, 625,190, null);
 		}
-		else if (MapChoice.MapNumber==1){
+		else if (MapChoice.MapNumber==1){ //쿠키맵 고르면 쿠키맵이랑 쿠키난이도 그려줌
 			g.drawImage(CookieBackground,440 ,200, null);
 			g.drawImage(CookielevelBackground,625 ,190, null);
+		}
+		else if (MapChoice.MapNumber==3){ //빌리지맵 고르면 빌리지맵이랑 빌리지난이도 그려줌
+			g.drawImage(VilageBackground,440 ,200, null);
+			g.drawImage(VilagelevelBackground,625 ,190, null);
 		}
 		if (p1chrcheck==1 && p1ready == 1) {
 			g.drawImage(ReadyBackground, 12 , 520, null);
@@ -120,12 +126,21 @@ public class ReadyFrame extends JFrame implements MouseListener {
 			if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==1) {
 				if (p1ready ==1 && p2ready==1) {
 					new MAP_Cookie(); //쿠키맵 시작
+					MainFrame.music.stop();
 				    ReadyFrame.this.setVisible(false); //현재 창 숨기기
 				}
 			}
 			else if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==2) {
 				if (p1ready ==1 && p2ready==1) {
+					MainFrame.music.stop();
 					new MAP_Patriots(); //해적맵 시작
+					ReadyFrame.this.setVisible(false); //현재 창 숨기기
+				}
+			}
+			else if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==3) {
+				if (p1ready ==1 && p2ready==1) {
+					MainFrame.music.stop();
+					new MAP_Village(); //빌리지맵 시작
 					ReadyFrame.this.setVisible(false); //현재 창 숨기기
 				}
 			}
@@ -133,9 +148,9 @@ public class ReadyFrame extends JFrame implements MouseListener {
 				JOptionPane no = new JOptionPane();
 				no.showMessageDialog(null, "맵을 골라주세요.");
 			}
-			else if(p1chnumber ==0 || p2chnumger ==0) {
+			else if(p1ready ==0 || p2ready ==0) {
 				JOptionPane nono = new JOptionPane();
-				nono.showMessageDialog(null, "캐릭터를 골라주세요.");
+				nono.showMessageDialog(null, "준비를 해주세요.");
 			}
 		}
 		

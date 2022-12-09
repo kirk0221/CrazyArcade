@@ -22,6 +22,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	
 	public static int map_selection;//어떤 맵이 골라졌는지
 	
+	static VirtualKeyState c1 = new VirtualKeyState(); /*동시이동적용*/
+    static VirtualKeyState c2 = new VirtualKeyState();
 	
 	public int[] mapXlocationlist;
 	public int[] mapYlocationlist;
@@ -47,9 +49,9 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Image map_PatriotsBox3 = new ImageIcon("Resources/box3.png").getImage();
 	private Image map_VillageBackground = new ImageIcon("Resources/mapvillage.png").getImage();
 	private Image map_VillageBox1 = new ImageIcon("Resources/boxhome.png").getImage();//이거 아직은 안쓸듯
-	private Image map_VillageBox2 = new ImageIcon("Resources/boxtree.png").getImage();//이거 아직은 안쓸듯
+	private Image map_VillageBox2 = new ImageIcon("Resources/boxtree.png").getImage();
 	private Image map_VillageBox3 = new ImageIcon("Resources/boxvillage2.png").getImage();
-	private Image map_VillageBox4 = new ImageIcon("Resources/boxvillage3.png").getImage();
+	private Image map_VillageBox4 = new ImageIcon("Resources/boxvillage3.png").getImage();//이거 아직은 안쓸듯
 	//아이템 관련 이미지
 	private Image item_waterbomb = new ImageIcon("Resources/item_waterbombplus.png").getImage();
 	private Image item_speed = new ImageIcon("Resources/item_Speed.png").getImage();
@@ -222,7 +224,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 							(BoomJudge.map_size[map_y][map_x] == 11) || (BoomJudge.map_size[map_y][map_x] == 14) ||
 							(BoomJudge.map_size[map_y][map_x] == 17) || (BoomJudge.map_size[map_y][map_x] == 20) ||
 							(BoomJudge.map_size[map_y][map_x] == 23) || (BoomJudge.map_size[map_y][map_x] == 26)) {
-						bufferGraphics.drawImage(map_VillageBox4, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
+						bufferGraphics.drawImage(map_VillageBox2, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
 					if(BoomJudge.map_size[map_y][map_x] == 9) {
 						bufferGraphics.drawImage(item_waterbomb, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//물풍선 늘려주는 아이템 이미지 생성
@@ -256,49 +258,34 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			
 			for(int i=0;i<players[playertype].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
-			/*stream을 체크하고 확장된 물풍선 터지는 이미지를 그린다.*/
-			if((BoomJudge.character1_stream!=0) || (BoomJudge.character2_stream!=0)) {
-				bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-					   if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
-						bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-						}
-						if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()<=12) {
-						bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-						}
-						if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()>=0) {
-						bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()], this);
-						}
-						if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
-						bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
-						}
-						if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()-1>=0) {
-							bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()-1],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-						}
-						if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()+1<=12) {
-						bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()+1],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-						}
-						if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()-1>=0) {
-						bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()-1], this);
-						}
-						if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()+1<=12) {
-						bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()+1], this);
-						}
-			}else { /*일반적인 물풍선 그리기*/
-				bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
-					bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-					}
-					if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()<=12) {
-					bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-					}
-					if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()>=0) {
-					bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()], this);
-					}
-					if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
-					bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
-					}
+			/*일반적인 물풍선 터진 이미지 그리기*/
+			bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+			if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
+				bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+			if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()<=12) {
+				bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+			if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()>=0) {
+				bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()], this);
+				}
+			if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
+				bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
+				}
+			for(int plusbombsize = players[playertype].getstreamSize(); plusbombsize>0; plusbombsize--) {
+				if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize>=0) {
+					bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+				if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize<=12) {
+				bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+				if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize>=0) {
+				bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize], this);
+				}
+				if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize<=12) {
+				bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize], this);
+				}
 			}
-				
 		}
 	}
 		
@@ -355,17 +342,73 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) {/*동시이동적용*/
 		// TODO Auto-generated method stub
+		switch(e.getKeyCode()) {
+		case KeyEvent.VK_W:
+			c1.setUp(true);
+			break;
+		case KeyEvent.VK_S:
+			c1.setDown(true);
+			break;
+		case KeyEvent.VK_A:
+			c1.setLeft(true);
+			break;
+		case KeyEvent.VK_D:
+			c1.setRight(true);
+			break;
+		case KeyEvent.VK_UP:
+			 c2.setUp(true);
+			break;
+		case KeyEvent.VK_DOWN:
+			c2.setDown(true);
+			break;
+		case KeyEvent.VK_LEFT:
+			c2.setLeft(true);
+			break;
+		case KeyEvent.VK_RIGHT:
+			c2.setRight(true);
+			break;
+		}
+        
+        
 		players[0].keyPressed(e);
 		players[1].keyPressed(e);
 		characterin(); // 버튼 누를때마다 캐릭터 위치 반영
+		repaint();
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent e) { /*동시이동적용*/
 		// TODO Auto-generated method stub
 		
+		switch(e.getKeyCode()) {
+		case KeyEvent.VK_W:
+			c1.setUp(false);
+			break;
+		case KeyEvent.VK_S:
+			c1.setDown(false);
+			break;
+		case KeyEvent.VK_A:
+			c1.setLeft(false);
+			break;
+		case KeyEvent.VK_D:
+			c1.setRight(false);
+			break;
+		case KeyEvent.VK_UP:
+			 c2.setUp(false);
+			break;
+		case KeyEvent.VK_DOWN:
+			c2.setDown(false);
+			break;
+		case KeyEvent.VK_LEFT:
+			c2.setLeft(false);
+			break;
+		case KeyEvent.VK_RIGHT:
+			c2.setRight(false);
+			break;
+		}
+        repaint();
 	}
 	
 	private void initBufferd() {//버퍼 초기화

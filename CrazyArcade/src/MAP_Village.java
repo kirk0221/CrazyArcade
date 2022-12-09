@@ -29,7 +29,7 @@ public class MAP_Village extends JFrame{
 	private void bgplay() { // 배경 음악 (프기프 교수님 참조 파일 참고)
 		Player jlPlayer = null;
         try {
-            FileInputStream fileInputStream = new FileInputStream("Resources/villagemap.mp3");//여기 음악 바꿔야됨
+            FileInputStream fileInputStream = new FileInputStream("Resources/villagemap.mp3");
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
             jlPlayer = new Player(bufferedInputStream);
         } catch (Exception e) {
