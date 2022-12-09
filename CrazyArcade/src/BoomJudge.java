@@ -182,13 +182,11 @@ public class BoomJudge {
 					previous_map_size[map_y][map_x] = 1;
 					map_size[map_y][map_x] = 1;
 					character1_stream+=1;
-					System.out.println(character1_stream);
 				}
 				if((previous_map_size[map_y][map_x] == 15) && (map_size[map_y][map_x] == 2)) {//player2 물풍선 범위 증가 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 2;
 					map_size[map_y][map_x] = 2;
 					character2_stream+=1;
-					System.out.println(character2_stream);
 				}
 				if((previous_map_size[map_y][map_x] == 18) && (map_size[map_y][map_x] == 1)) {//player1 속도 증가(레드데빌) 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 1;
@@ -214,27 +212,23 @@ public class BoomJudge {
 					previous_map_size[map_y][map_x] = 1;
 					map_size[map_y][map_x] = 1;
 					character1_stream+=5;
-					System.out.println(character1_stream);
 				}
 				if((previous_map_size[map_y][map_x] == 24) && (map_size[map_y][map_x] == 2)) {//player2 핵풍선 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 2;
 					map_size[map_y][map_x] = 2;
 					character2_stream+=5;
-					System.out.println(character2_stream);
 				}				
 				if((previous_map_size[map_y][map_x] == 27) && (map_size[map_y][map_x] == 1)) {//player1 슈퍼맨 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 1;
 					map_size[map_y][map_x] = 1;
 					character1_stream+=3;
 					character2_speedup+=3;
-					System.out.println(character1_stream);
 				}
 				if((previous_map_size[map_y][map_x] == 27) && (map_size[map_y][map_x] == 2)) {//player2 슈퍼맨 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 2;
 					map_size[map_y][map_x] = 2;
 					character2_stream+=3;
-					character2_speedup+=3;					
-					System.out.println(character2_stream);
+					character2_speedup+=3;
 				}
 			}
 		}

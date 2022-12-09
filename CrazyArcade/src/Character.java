@@ -43,6 +43,7 @@ public abstract class Character {
 	protected abstract int getballonListsize();
 	protected abstract int getboomballonListsize();
 	protected abstract int getbombSize();
+	protected abstract int getstreamSize();
 	protected abstract void getPlayerIndex_x(int x);
 	protected abstract void getPlayerIndex_y(int y);
 }

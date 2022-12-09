@@ -13,6 +13,7 @@ public class Dizini extends Character implements KeyListener{
 	private int step;
 	private int step_plus;
 	public int bombSize;
+	public int streamSize;
 	public int playertype;
 	WaterBalloon playerWaterBalloon;
 	private Image[] bazzi_state;
@@ -123,7 +124,11 @@ public class Dizini extends Character implements KeyListener{
 	}
 	
 	public int getbombSize() {//물풍선 크기값을 스크린에 주기위한 함수
-		return this.bombSize;
+		return this.bombSize + this.streamSize;
+	}
+	
+	public int getstreamSize() {//물풍선 길이 증가값을 스크린에 주기위한 함수
+		return this.streamSize;
 	}
 	
 	public void up(int step) {//위로 가기
@@ -206,9 +211,10 @@ public class Dizini extends Character implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(playertype == 1) {
+			this.streamSize = BoomJudge.character1_stream;
 			if(BoomJudge.character1_speedup != step_plus) {
+				this.step = step + BoomJudge.character1_speedup - this.step_plus;
 				this.step_plus = BoomJudge.character1_speedup;
-				this.step += 3;
 			}
 			switch(e.getKeyCode()) {//player1에 대한 움직임
 			case KeyEvent.VK_UP:
@@ -236,9 +242,10 @@ public class Dizini extends Character implements KeyListener{
 				break;
 			}
 		}else if(playertype == 2) {
+			this.streamSize = BoomJudge.character2_stream;
 			if(BoomJudge.character2_speedup != step_plus) {
+				this.step = step + BoomJudge.character2_speedup - this.step_plus;
 				this.step_plus = BoomJudge.character2_speedup;
-				this.step += 3;
 			}
 			switch(e.getKeyCode()) {//player2에 대한 움직임
 			case KeyEvent.VK_W:

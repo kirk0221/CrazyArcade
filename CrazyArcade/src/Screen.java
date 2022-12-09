@@ -256,49 +256,34 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			}
 			
 			for(int i=0;i<players[playertype].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
-			/*stream을 체크하고 확장된 물풍선 터지는 이미지를 그린다.*/
-			if((BoomJudge.character1_stream!=0) || (BoomJudge.character2_stream!=0)) {
-				bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-					   if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
-						bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-						}
-						if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()<=12) {
-						bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-						}
-						if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()>=0) {
-						bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()], this);
-						}
-						if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
-						bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
-						}
-						if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()-1>=0) {
-							bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()-1],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-						}
-						if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()+1<=12) {
-						bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()+1],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-						}
-						if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()-1>=0) {
-						bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()-1], this);
-						}
-						if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()+1<=12) {
-						bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()+1], this);
-						}
-			}else { /*일반적인 물풍선 그리기*/
-				bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
-					bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-					}
-					if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()<=12) {
-					bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-					}
-					if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()>=0) {
-					bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()], this);
-					}
-					if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
-					bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
-					}
+			/*일반적인 물풍선 터진 이미지 그리기*/
+			bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+			if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
+				bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+			if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()<=12) {
+				bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+			if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()>=0) {
+				bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()], this);
+				}
+			if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
+				bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
+				}
+			for(int plusbombsize = players[playertype].getstreamSize(); plusbombsize>0; plusbombsize--) {
+				if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize>=0) {
+					bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+				if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize<=12) {
+				bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+				if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize>=0) {
+				bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize], this);
+				}
+				if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize<=12) {
+				bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize], this);
+				}
 			}
-				
 		}
 	}
 		
