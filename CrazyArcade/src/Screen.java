@@ -49,9 +49,9 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Image map_PatriotsBox3 = new ImageIcon("Resources/box3.png").getImage();
 	private Image map_VillageBackground = new ImageIcon("Resources/mapvillage.png").getImage();
 	private Image map_VillageBox1 = new ImageIcon("Resources/boxhome.png").getImage();//이거 아직은 안쓸듯
-	private Image map_VillageBox2 = new ImageIcon("Resources/boxtree.png").getImage();//이거 아직은 안쓸듯
+	private Image map_VillageBox2 = new ImageIcon("Resources/boxtree.png").getImage();
 	private Image map_VillageBox3 = new ImageIcon("Resources/boxvillage2.png").getImage();
-	private Image map_VillageBox4 = new ImageIcon("Resources/boxvillage3.png").getImage();
+	private Image map_VillageBox4 = new ImageIcon("Resources/boxvillage3.png").getImage();//이거 아직은 안쓸듯
 	//아이템 관련 이미지
 	private Image item_waterbomb = new ImageIcon("Resources/item_waterbombplus.png").getImage();
 	private Image item_speed = new ImageIcon("Resources/item_Speed.png").getImage();
@@ -224,7 +224,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 							(BoomJudge.map_size[map_y][map_x] == 11) || (BoomJudge.map_size[map_y][map_x] == 14) ||
 							(BoomJudge.map_size[map_y][map_x] == 17) || (BoomJudge.map_size[map_y][map_x] == 20) ||
 							(BoomJudge.map_size[map_y][map_x] == 23) || (BoomJudge.map_size[map_y][map_x] == 26)) {
-						bufferGraphics.drawImage(map_VillageBox4, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
+						bufferGraphics.drawImage(map_VillageBox2, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
 					if(BoomJudge.map_size[map_y][map_x] == 9) {
 						bufferGraphics.drawImage(item_waterbomb, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//물풍선 늘려주는 아이템 이미지 생성
