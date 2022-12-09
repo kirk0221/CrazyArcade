@@ -29,6 +29,9 @@ public class Uni extends Character implements KeyListener{
 			}else if (Screen.map_selection == 1) {//해적맵일때
 				this.X = 60;//초기 X값
 				this.Y = 60;//초기 Y값
+			}else if (Screen.map_selection == 2) {//빌리지맵일때
+				this.X = 0;//초기 X값
+				this.Y = 0;//초기 Y값
 			}
 		}else if(playertype == 2) {
 			if (Screen.map_selection == 0) {
@@ -37,6 +40,9 @@ public class Uni extends Character implements KeyListener{
 			}else if (Screen.map_selection == 1) {
 				this.X = 660;//초기 X값
 				this.Y = 660;//초기 Y값
+			}else if (Screen.map_selection == 2) {
+				this.X = 720;//초기 X값
+				this.Y = 720;//초기 Y값
 			}
 		}
 		this.step = 5;//초기 이동 거리
