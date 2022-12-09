@@ -143,7 +143,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 					if((BoomJudge.map_size[map_y][map_x] == 6) || (BoomJudge.map_size[map_y][map_x] == 8) || 
 							(BoomJudge.map_size[map_y][map_x] == 11) || (BoomJudge.map_size[map_y][map_x] == 14) ||
 							(BoomJudge.map_size[map_y][map_x] == 17) || (BoomJudge.map_size[map_y][map_x] == 20) ||
-							(BoomJudge.map_size[map_y][map_x] == 23) || (BoomJudge.map_size[map_y][map_x] == 25)) {
+							(BoomJudge.map_size[map_y][map_x] == 23) || (BoomJudge.map_size[map_y][map_x] == 26)) {
 						bufferGraphics.drawImage(map_CookieBox2, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
 					if(BoomJudge.map_size[map_y][map_x] == 9) {
@@ -182,7 +182,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 					if((BoomJudge.map_size[map_y][map_x] == 6) || (BoomJudge.map_size[map_y][map_x] == 8) || 
 							(BoomJudge.map_size[map_y][map_x] == 11) || (BoomJudge.map_size[map_y][map_x] == 14) ||
 							(BoomJudge.map_size[map_y][map_x] == 17) || (BoomJudge.map_size[map_y][map_x] == 20) ||
-							(BoomJudge.map_size[map_y][map_x] == 23) || (BoomJudge.map_size[map_y][map_x] == 25)) {
+							(BoomJudge.map_size[map_y][map_x] == 23) || (BoomJudge.map_size[map_y][map_x] == 26)) {
 						bufferGraphics.drawImage(map_PatriotsBox3, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
 					if(BoomJudge.map_size[map_y][map_x] == 9) {
@@ -221,7 +221,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 					if((BoomJudge.map_size[map_y][map_x] == 6) || (BoomJudge.map_size[map_y][map_x] == 8) || 
 							(BoomJudge.map_size[map_y][map_x] == 11) || (BoomJudge.map_size[map_y][map_x] == 14) ||
 							(BoomJudge.map_size[map_y][map_x] == 17) || (BoomJudge.map_size[map_y][map_x] == 20) ||
-							(BoomJudge.map_size[map_y][map_x] == 23) || (BoomJudge.map_size[map_y][map_x] == 25)) {
+							(BoomJudge.map_size[map_y][map_x] == 23) || (BoomJudge.map_size[map_y][map_x] == 26)) {
 						bufferGraphics.drawImage(map_VillageBox4, mapXlocationlist[map_x], mapYlocationlist[map_y],this);//맵 인덱스에 맞게 블록 이미지 생성
 					}
 					if(BoomJudge.map_size[map_y][map_x] == 9) {
