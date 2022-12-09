@@ -221,63 +221,62 @@ public class Uni extends Character implements KeyListener{
 				this.step = step + BoomJudge.character1_speedup - this.step_plus;
 				this.step_plus = BoomJudge.character1_speedup;
 			}
-			switch(e.getKeyCode()) {//player1에 대한 움직임
-			case KeyEvent.VK_UP:
+			if(Screen.c1.isUp()) {
 				if(this.getY()>=0) {
 					this.up(this.step);
 				}
-				break;
-			case KeyEvent.VK_DOWN:
-				if(this.getY()<=700) {
+			}
+	        if(Screen.c1.isDown()) {
+	        	if(this.getY()<=700) {
 					this.down(this.step);
 				}
-				break;
-			case KeyEvent.VK_LEFT:
-				if(this.getX()>=0) {
+	        }
+	        if(Screen.c1.isLeft()) {
+	        	if(this.getX()>=0) {
 					this.left(this.step);
 				}
-				break;
-			case KeyEvent.VK_RIGHT:
-				if(this.getX()<=720) {
+	        }
+	        if(Screen.c1.isRight()) {
+	        	if(this.getX()<=720) {
 					this.right(this.step);
 				}
-				break;
-			case KeyEvent.VK_SPACE:
-				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character1_bombsizeup);//물풍선 놓기
-				break;
-			}
+	        }
+		    if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+			   playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character1_bombsizeup);//물풍선 놓기
+		    }
 		}else if(playertype == 2) {
 			this.streamSize = BoomJudge.character2_stream;
 			if(BoomJudge.character2_speedup != step_plus) {
 				this.step = step + BoomJudge.character2_speedup - this.step_plus;
 				this.step_plus = BoomJudge.character2_speedup;
 			}
-			switch(e.getKeyCode()) {//player2에 대한 움직임
-			case KeyEvent.VK_W:
-				if(this.getY()>=0) {
-					this.up(this.step);
-				}
-				break;
-			case KeyEvent.VK_S:
-				if(this.getY()<=700) {
-					this.down(this.step);
-				}
-				break;
-			case KeyEvent.VK_A:
-				if(this.getX()>=0) {
-					this.left(this.step);
-				}
-				break;
-			case KeyEvent.VK_D:
-				if(this.getX()<=720) {
-					this.right(this.step);
-				}
-				break;
-			case KeyEvent.VK_SHIFT:
-				playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character2_bombsizeup);//물풍선 놓기
-				break;
-			}
-			
+			if(BoomJudge.character2_speedup != step_plus) {
+				this.step_plus = BoomJudge.character2_speedup;
+				this.step += 3;
+			 }
+			 if(Screen.c2.isUp()) {
+				 if(this.getY()>=0) {
+						this.up(this.step);
+					}
+			 }
+		     if(Screen.c2.isDown()) {
+		        	if(this.getY()<=700) {
+						this.down(this.step);
+					}
+		        }
+		     if(Screen.c2.isLeft()) {
+		        	if(this.getX()>=0) {
+						this.left(this.step);
+					}
+		        }
+		     if(Screen.c2.isRight()) {
+						if(this.getX()<=720) {
+							this.right(this.step);
+						}
+		        }
+		    if(e.getKeyCode()==KeyEvent.VK_SHIFT) {	
+			playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character2_bombsizeup);//물풍선 놓기
+		    }
 		}
 	}
 

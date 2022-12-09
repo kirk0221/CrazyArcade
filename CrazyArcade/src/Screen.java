@@ -22,6 +22,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	
 	public static int map_selection;//어떤 맵이 골라졌는지
 	
+	static VirtualKeyState c1 = new VirtualKeyState(); /*동시이동적용*/
+    static VirtualKeyState c2 = new VirtualKeyState();
 	
 	public int[] mapXlocationlist;
 	public int[] mapYlocationlist;
@@ -340,17 +342,73 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) {/*동시이동적용*/
 		// TODO Auto-generated method stub
+		switch(e.getKeyCode()) {
+		case KeyEvent.VK_W:
+			c1.setUp(true);
+			break;
+		case KeyEvent.VK_S:
+			c1.setDown(true);
+			break;
+		case KeyEvent.VK_A:
+			c1.setLeft(true);
+			break;
+		case KeyEvent.VK_D:
+			c1.setRight(true);
+			break;
+		case KeyEvent.VK_UP:
+			 c2.setUp(true);
+			break;
+		case KeyEvent.VK_DOWN:
+			c2.setDown(true);
+			break;
+		case KeyEvent.VK_LEFT:
+			c2.setLeft(true);
+			break;
+		case KeyEvent.VK_RIGHT:
+			c2.setRight(true);
+			break;
+		}
+        
+        
 		players[0].keyPressed(e);
 		players[1].keyPressed(e);
 		characterin(); // 버튼 누를때마다 캐릭터 위치 반영
+		repaint();
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent e) { /*동시이동적용*/
 		// TODO Auto-generated method stub
 		
+		switch(e.getKeyCode()) {
+		case KeyEvent.VK_W:
+			c1.setUp(false);
+			break;
+		case KeyEvent.VK_S:
+			c1.setDown(false);
+			break;
+		case KeyEvent.VK_A:
+			c1.setLeft(false);
+			break;
+		case KeyEvent.VK_D:
+			c1.setRight(false);
+			break;
+		case KeyEvent.VK_UP:
+			 c2.setUp(false);
+			break;
+		case KeyEvent.VK_DOWN:
+			c2.setDown(false);
+			break;
+		case KeyEvent.VK_LEFT:
+			c2.setLeft(false);
+			break;
+		case KeyEvent.VK_RIGHT:
+			c2.setRight(false);
+			break;
+		}
+        repaint();
 	}
 	
 	private void initBufferd() {//버퍼 초기화
