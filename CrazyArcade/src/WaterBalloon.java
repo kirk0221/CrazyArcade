@@ -167,26 +167,6 @@ public class WaterBalloon {
 						BoomJudge.map_size[boomballoonYqueue.peek()-bombSize][boomballoonXqueue.peek()] = 4;
 					}
 					waterballoonmax +=1;
-					/*맵 인덱스 테스트용*/
-					System.out.println("");
-					System.out.println("----------지금 상태-----------");
-					for(int i=0;i<13;i++) {
-						System.out.println("");
-						for(int j=0;j<13;j++) {
-								System.out.print(BoomJudge.map_size[i][j]+" ");
-							}
-						}
-					System.out.println("");
-					System.out.println("----------이전 상태-----------");
-					for(int i=0;i<13;i++) {
-						System.out.println("");
-						for(int j=0;j<13;j++) {
-								System.out.print(BoomJudge.previous_map_size[i][j]+" ");
-							}
-						}
-					System.out.println("");
-					System.out.println(waterballoonmax);
-					System.out.println("");
 			    }
 			};
 			TimerTask task2 = new TimerTask() {
@@ -236,27 +216,26 @@ public class WaterBalloon {
 					
 					
 					waterballoonmax +=1;
-					/*맵 인덱스 테스트용*/
-					System.out.println("");
-					System.out.println("----------지금 상태-----------");
-					for(int i=0;i<13;i++) {
-						System.out.println("");
-						for(int j=0;j<13;j++) {
-								System.out.print(BoomJudge.map_size[i][j]+" ");
-							}
-						}
-					System.out.println("");
-					System.out.println("----------이전 상태-----------");
-					for(int i=0;i<13;i++) {
-						System.out.println("");
-						for(int j=0;j<13;j++) {
-								System.out.print(BoomJudge.previous_map_size[i][j]+" ");
-							}
-						}
-					System.out.println("");
-					System.out.println(waterballoonmax);
-					System.out.println("");
-					
+//					/*맵 인덱스 테스트용*/
+//					System.out.println("");
+//					System.out.println("----------지금 상태-----------");
+//					for(int i=0;i<13;i++) {
+//						System.out.println("");
+//						for(int j=0;j<13;j++) {
+//								System.out.print(BoomJudge.map_size[i][j]+" ");
+//							}
+//						}
+//					System.out.println("");
+//					System.out.println("----------이전 상태-----------");
+//					for(int i=0;i<13;i++) {
+//						System.out.println("");
+//						for(int j=0;j<13;j++) {
+//								System.out.print(BoomJudge.previous_map_size[i][j]+" ");
+//							}
+//						}
+//					System.out.println("");
+//					System.out.println(waterballoonmax);
+//					System.out.println("");
 			    }
 			};
 			
@@ -578,8 +557,6 @@ public class WaterBalloon {
 			
 			Timer boom = new Timer();
 			
-			
-			
 			/*stream을 체크하여 1 ~ 3 사이이면 task2(확장된 물풍선)를 수행함*/
 			if((BoomJudge.character1_stream>0 && BoomJudge.character1_stream<4) || (BoomJudge.character2_stream>0 && BoomJudge.character2_stream<4)) {
 				boom.schedule(task2, 5000);
@@ -596,8 +573,6 @@ public class WaterBalloon {
 				boom.schedule(task, 5000);
 				boom.schedule(boomover, 6000);
 			}
-			
-			
 		}
 	}
 }

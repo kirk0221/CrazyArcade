@@ -133,9 +133,9 @@ public class ReadyFrame extends JFrame implements MouseListener {
 				JOptionPane no = new JOptionPane();
 				no.showMessageDialog(null, "맵을 골라주세요.");
 			}
-			else if(p1chnumber ==0 || p2chnumger ==0) {
+			else if(p1ready ==0 || p2ready ==0) {
 				JOptionPane nono = new JOptionPane();
-				nono.showMessageDialog(null, "캐릭터를 골라주세요.");
+				nono.showMessageDialog(null, "준비를 해주세요.");
 			}
 		}
 		
