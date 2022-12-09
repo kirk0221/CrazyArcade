@@ -83,7 +83,7 @@ public class BoomJudge {
 											  { 0, 0, 6, 6,14, 6, 8, 6, 6, 6,11, 0, 2 }};
 	}
 	public void Map_Patriots_batch() {//해적맵 기본 맵 구성
-		this.map_size = new int[][] {{ 6, 5,10, 5, 5,21, 5, 5,13, 5, 5, 7,11 },
+		this.map_size = new int[][] {{ 6, 5,10, 5, 5,22, 5, 5,13, 5, 5, 7,11 },
 									 { 5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5 },
 									 { 5, 0, 8, 0, 0, 5, 0,13, 0, 0,23, 0, 5 },
 									 {25, 0, 0, 6, 0, 0, 0, 0, 0, 8, 0, 0,10 },
@@ -94,9 +94,9 @@ public class BoomJudge {
 									 { 5, 0, 0, 0, 6, 0, 0, 0,14, 0, 0, 0, 5 },
 									 {10, 0, 0,14, 0, 0, 0, 0, 0, 6, 0, 0, 5 },
 									 { 5, 0, 8, 0, 0, 7, 0, 5, 0, 0, 8, 0, 5 },
-									 { 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,21 },
+									 { 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,22 },
 									 { 8, 5, 7, 5,13, 5,10, 5, 5, 5,10, 5, 6 }};
-		this.previous_map_size = new int[][] {{ 6, 5,10, 5, 5,21, 5, 5,13, 5, 5, 7,11 },
+		this.previous_map_size = new int[][] {{ 6, 5,10, 5, 5,22, 5, 5,13, 5, 5, 7,11 },
 			 								  { 5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5 },
 			 								  { 5, 0, 8, 0, 0, 5, 0,13, 0, 0,23, 0, 5 },
 			 								  {25, 0, 0, 6, 0, 0, 0, 0, 0, 8, 0, 0,10 },
@@ -107,35 +107,35 @@ public class BoomJudge {
 			 								  { 5, 0, 0, 0, 6, 0, 0, 0,14, 0, 0, 0, 5 },
 			 								  {10, 0, 0,14, 0, 0, 0, 0, 0, 6, 0, 0, 5 },
 			 								  { 5, 0, 8, 0, 0, 7, 0, 5, 0, 0, 8, 0, 5 },
-			 								  { 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,21 },
+			 								  { 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,22 },
 			 								  { 8, 5, 7, 5,13, 5,10, 5, 5, 5,10, 5, 6 }};
 	}
 	public void Map_Village_batch() {//마을맵 기본 맵 구성
 		this.map_size = new int[][] {{ 1, 0, 0, 0, 0, 5, 8, 7, 0, 0, 0, 0, 0 },
-									 { 0, 5,12, 5,15, 0,14, 0,25, 5, 5, 5, 0 },
-									 { 0, 5,15, 7, 5, 0,20, 0, 5, 5, 5, 5, 0 },
-									 { 5, 0, 0, 0, 0, 5, 6, 5, 0, 0, 0, 0,12 },
+									 { 0, 5,10, 5,13, 0,14, 0,25, 5, 5, 5, 0 },
+									 { 0, 5,13, 7, 5, 0,20, 0, 5, 5, 5, 5, 0 },
+									 { 5, 0, 0, 0, 0, 5, 6, 5, 0, 0, 0, 0,10 },
 									 { 6, 0, 8, 6, 0, 8, 6,11, 0,11,17, 0,14 },
 									 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-									 { 0, 5, 0, 5, 0, 5, 0,25, 0, 5, 0,12, 0 },
+									 { 0, 5, 0, 5, 0, 5, 0,25, 0, 5, 0,10, 0 },
 									 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 									 {11, 0, 6,14, 0,11,17, 8, 0, 6, 8, 0, 6 },
-									 { 5, 0, 0, 0, 0, 7, 6, 5, 0, 0, 0, 0,12 },
-									 { 0, 5,15,12, 5, 0,20, 0, 5, 5, 7, 5, 0 },
-									 { 0,12, 5, 7, 5, 0,14, 0, 5, 7, 5,12, 0 },
+									 { 5, 0, 0, 0, 0, 7, 6, 5, 0, 0, 0, 0,10 },
+									 { 0, 5,13,10, 5, 0,20, 0, 5, 5, 7, 5, 0 },
+									 { 0,10, 5, 7, 5, 0,14, 0, 5, 7, 5,10, 0 },
 									 { 0, 0, 0, 0, 0, 5,11, 5, 0, 0, 0, 0, 2 }};
 		this.previous_map_size = new int[][] {{ 1, 0, 0, 0, 0, 5, 8, 7, 0, 0, 0, 0, 0 },
-			 								  { 0, 5,12, 5,15, 0,14, 0,25, 5, 5, 5, 0 },
-			 								  { 0, 5,15, 7, 5, 0,20, 0, 5, 5, 5, 5, 0 },
-			 								  { 5, 0, 0, 0, 0, 5, 6, 5, 0, 0, 0, 0,12 },
+			 								  { 0, 5,10, 5,13, 0,14, 0,25, 5, 5, 5, 0 },
+			 								  { 0, 5,13, 7, 5, 0,20, 0, 5, 5, 5, 5, 0 },
+			 								  { 5, 0, 0, 0, 0, 5, 6, 5, 0, 0, 0, 0,10 },
 			 								  { 6, 0, 8, 6, 0, 8, 6,11, 0,11,17, 0,14 },
 			 								  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			 								  { 0, 5, 0, 5, 0, 5, 0,25, 0, 5, 0,12, 0 },
+			 								  { 0, 5, 0, 5, 0, 5, 0,25, 0, 5, 0,10, 0 },
 			 								  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			 								  {11, 0, 6,14, 0,11,17, 8, 0, 6, 8, 0, 6 },
-			 								  { 5, 0, 0, 0, 0, 7, 6, 5, 0, 0, 0, 0,12 },
-			 								  { 0, 5,15,12, 5, 0,20, 0, 5, 5, 7, 5, 0 },
-			 								  { 0,12, 5, 7, 5, 0,14, 0, 5, 7, 5,12, 0 },
+			 								  { 5, 0, 0, 0, 0, 7, 6, 5, 0, 0, 0, 0,10 },
+			 								  { 0, 5,13,10, 5, 0,20, 0, 5, 5, 7, 5, 0 },
+			 								  { 0,10, 5, 7, 5, 0,14, 0, 5, 7, 5,10, 0 },
 			 								  { 0, 0, 0, 0, 0, 5,11, 5, 0, 0, 0, 0, 2 }};
 	}
 	public static void die() {
@@ -159,81 +159,118 @@ public class BoomJudge {
 	public static void item_check() { //추가 및 체크 함수
 		for(int map_y=0;map_y<13;map_y++) {
 			for(int map_x=0;map_x<13;map_x++) {
-				
 				if((previous_map_size[map_y][map_x] == 9) && (map_size[map_y][map_x] == 1)) {//player1 물풍선 추가 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 1;
 					map_size[map_y][map_x] = 1;
 					character1_bombsizeup+=1;
+					System.out.println("p1 물풍선추가");
+					/*오류 수정용 print*/
 				}
 				if((previous_map_size[map_y][map_x] == 9) && (map_size[map_y][map_x] == 2)) {//player2 물풍선 추가 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 2;
 					map_size[map_y][map_x] = 2;
 					character2_bombsizeup+=1;
+					System.out.println("p2 물풍선 추가");
+					/*오류 수정용 print*/
 				}
 				if((previous_map_size[map_y][map_x] == 12) && (map_size[map_y][map_x] == 1)) {//player1 속도 증가 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 1;
 					map_size[map_y][map_x] = 1;
 					character1_speedup+=1;
+					System.out.println("p1 스피드 1업");
+					/*오류 수정용 print*/
 				}
 				if((previous_map_size[map_y][map_x] == 12) && (map_size[map_y][map_x] == 2)) {//player2 속도 증가 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 2;
 					map_size[map_y][map_x] = 2;
 					character2_speedup+=1;
+					System.out.println(character2_speedup);
+					System.out.println("p2 스피드 1업");
+					/*오류 수정용 print*/
 				}			
 				if((previous_map_size[map_y][map_x] == 15) && (map_size[map_y][map_x] == 1)) {//player1 물풍선 범위 증가 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 1;
 					map_size[map_y][map_x] = 1;
 					character1_stream+=1;
+					System.out.println("p1 범위 1업");
+					/*오류 수정용 print*/
 				}
 				if((previous_map_size[map_y][map_x] == 15) && (map_size[map_y][map_x] == 2)) {//player2 물풍선 범위 증가 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 2;
 					map_size[map_y][map_x] = 2;
 					character2_stream+=1;
+					System.out.println("p2 범위 1업");
+					/*오류 수정용 print*/
 				}
 				if((previous_map_size[map_y][map_x] == 18) && (map_size[map_y][map_x] == 1)) {//player1 속도 증가(레드데빌) 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 1;
 					map_size[map_y][map_x] = 1;
 					character1_speedup+=3;
+					System.out.println("p1 스피드 3업");
+					/*오류 수정용 print*/
 				}
 				if((previous_map_size[map_y][map_x] == 18) && (map_size[map_y][map_x] == 2)) {//player2 속도 증가(레드데빌) 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 2;
 					map_size[map_y][map_x] = 2;
 					character2_speedup+=3;
+					System.out.println(character2_speedup);
+					System.out.println("p2 스피드 3업");
+					/*오류 수정용 print*/
 				}
 				if((previous_map_size[map_y][map_x] == 21) && (map_size[map_y][map_x] == 1)) {//player1 속도 감소(퍼플데빌) 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 1;
 					map_size[map_y][map_x] = 1;
 					character1_speedup-=3;
+					if(character1_speedup<0) {
+						character1_speedup = 0;
+					}
+					System.out.println("p1 스피드 감소");
+					/*오류 수정용 print*/
 				}
 				if((previous_map_size[map_y][map_x] == 21) && (map_size[map_y][map_x] == 2)) {//player2 속도 감소(퍼플데빌) 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 2;
 					map_size[map_y][map_x] = 2;
 					character2_speedup-=3;
-				}					
+					if(character2_speedup<0) {
+						character2_speedup = 0;
+					}
+					System.out.println("p2 스피드 감소");
+					/*오류 수정용 print*/
+				}
 				if((previous_map_size[map_y][map_x] == 24) && (map_size[map_y][map_x] == 1)) {//player1 핵풍선 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 1;
 					map_size[map_y][map_x] = 1;
 					character1_stream+=5;
+					System.out.println("p1 범위 5업");
+					/*오류 수정용 print*/
 				}
 				if((previous_map_size[map_y][map_x] == 24) && (map_size[map_y][map_x] == 2)) {//player2 핵풍선 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 2;
 					map_size[map_y][map_x] = 2;
 					character2_stream+=5;
+					System.out.println("p2 범위 5업");
+					/*오류 수정용 print*/
 				}				
 				if((previous_map_size[map_y][map_x] == 27) && (map_size[map_y][map_x] == 1)) {//player1 슈퍼맨 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 1;
 					map_size[map_y][map_x] = 1;
 					character1_stream+=3;
-					character2_speedup+=3;
+					character1_speedup+=3;
+					System.out.println("p1 범위 3업");
+					System.out.println("p1 스피드 3업");
+					/*오류 수정용 print*/
 				}
 				if((previous_map_size[map_y][map_x] == 27) && (map_size[map_y][map_x] == 2)) {//player2 슈퍼맨 아이템 흭득 경우
 					previous_map_size[map_y][map_x] = 2;
 					map_size[map_y][map_x] = 2;
 					character2_stream+=3;
 					character2_speedup+=3;
+					System.out.println("p2 범위 3업");
+					System.out.println("p2 스피드 3업");
+					/*오류 수정용 print*/
 				}
 			}
 		}
 	}
-	
 }
+	

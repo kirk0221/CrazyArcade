@@ -213,12 +213,13 @@ public class Uni extends Character implements KeyListener{
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) { /*동시이동적용*/
+	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(playertype == 1) {
+			this.streamSize = BoomJudge.character1_stream;
 			if(BoomJudge.character1_speedup != step_plus) {
+				this.step = step + BoomJudge.character1_speedup - this.step_plus;
 				this.step_plus = BoomJudge.character1_speedup;
-				this.step += 3;
 			}
 			if(Screen.c1.isUp()) {
 				if(this.getY()>=0) {
@@ -243,8 +244,12 @@ public class Uni extends Character implements KeyListener{
 		    if(e.getKeyCode()==KeyEvent.VK_SPACE) {
 			   playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character1_bombsizeup);//물풍선 놓기
 		    }
-			
-		}else if(playertype == 2) { 
+		}else if(playertype == 2) {
+			this.streamSize = BoomJudge.character2_stream;
+			if(BoomJudge.character2_speedup != step_plus) {
+				this.step = step + BoomJudge.character2_speedup - this.step_plus;
+				this.step_plus = BoomJudge.character2_speedup;
+			}
 			if(BoomJudge.character2_speedup != step_plus) {
 				this.step_plus = BoomJudge.character2_speedup;
 				this.step += 3;
@@ -272,7 +277,6 @@ public class Uni extends Character implements KeyListener{
 		    if(e.getKeyCode()==KeyEvent.VK_SHIFT) {	
 			playerWaterBalloon.makeWaterBalloon(this.getX(), this.getY(), this.bombSize, BoomJudge.character2_bombsizeup);//물풍선 놓기
 		    }
-			
 		}
 	}
 
