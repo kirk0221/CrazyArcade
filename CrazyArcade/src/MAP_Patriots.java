@@ -40,7 +40,9 @@ public class MAP_Patriots extends JFrame{
         new Thread() {
             public void run() {
                 try {
-                	player.play();
+                	while(true) {
+                		player.play();
+                	}
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
