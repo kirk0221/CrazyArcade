@@ -147,17 +147,55 @@ public class BoomJudge {
 		for(int map_y=0;map_y<13;map_y++) {
 			for(int map_x=0;map_x<13;map_x++) {
 				if((previous_map_size[map_y][map_x] == 1) && (map_size[map_y][map_x] == 4)) {
+					if(Screen.map_selection == 0) {
+						MAP_Cookie.music.stop();
+					}else if(Screen.map_selection == 1) {
+						MAP_Patriots.music.stop();
+					}else if(Screen.map_selection == 2) {
+						MAP_Village.music.stop();
+					}
+					bgplay();
 					JOptionPane.showMessageDialog(null, "플레이어 1 사망");
 					System.exit(0);
 				} /*물풍선이 터지기 직전의 플레이어의 좌표를 가지는 맵 previous_map_size와 
 				물풍선이 터질때의 인덱스 정보를 가지는 map_size를 비교하여 동일한 위치에 1과 4 혹은
 				2와 4가 존재하면 사망처리*/
 				if((previous_map_size[map_y][map_x] == 2) && (map_size[map_y][map_x] == 4)) {
+					if(Screen.map_selection == 0) {
+						MAP_Cookie.music.stop();
+					}else if(Screen.map_selection == 1) {
+						MAP_Patriots.music.stop();
+					}else if(Screen.map_selection == 2) {
+						MAP_Village.music.stop();
+					}
+					bgplay();
 					JOptionPane.showMessageDialog(null, "플레이어 2 사망");
 					System.exit(0);
 				}
 			}
 		}
+	}
+	
+	private static void bgplay() { // 배경 음악 (프기프 교수님 참조 파일 참고)
+		Player jlPlayer = null;
+        try {
+            FileInputStream fileInputStream = new FileInputStream("Resources/gamewin.mp3");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+            jlPlayer = new Player(bufferedInputStream);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        final Player player = jlPlayer;
+        new Thread() {
+            public void run() {
+                try {
+                		player.play();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }.start();
 	}
 	
 	public static void item_check() { //추가 및 체크 함수
