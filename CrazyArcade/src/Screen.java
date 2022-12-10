@@ -31,7 +31,6 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	
 	private final int MAX_PLAYER = 2;//MAX 플레이어
 	Character[] players; //플레이어 관리를 위한 배열
-	public int state_move;
 
 	
 	int[] playerIndex_x; /*characterin에서 사용*/
@@ -75,7 +74,6 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		playerIndex_y = new int[MAX_PLAYER];
 		previous_Index_x = new int[MAX_PLAYER];
 		previous_Index_y = new int[MAX_PLAYER];
-		state_move = 0;
 		if (ReadyFrame.p1chnumber==2) {
 			Character player1 = new Dizini(this,1); //플레이어1에 디지니 생성
 			players[0] = player1;

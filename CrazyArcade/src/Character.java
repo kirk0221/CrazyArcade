@@ -8,7 +8,6 @@ public abstract class Character {
 	private int playerIndex_x;
 	private int playerIndex_y;
 	private static int step;
-	public int state_move;
 	
 	public Character(Screen screen) {//스크린 불러오기
 		this.screen = screen;
