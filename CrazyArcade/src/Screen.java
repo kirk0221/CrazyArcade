@@ -308,6 +308,21 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			for(int i=0;i<players[playertype].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
 			/*일반적인 물풍선 터진 이미지 그리기*/
 			bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+			
+			for(int plusbombsize = players[playertype].getstreamSize(); plusbombsize>0; plusbombsize--) {
+				if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize>=0) {
+					bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+				if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize<=12) {
+				bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+				if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize>=0) {
+				bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize], this);
+				}
+				if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize<=12) {
+				bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize], this);
+				}
+			}
 			if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
 				bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
 				}
@@ -320,20 +335,6 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
 				bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
 				}
-			for(int plusbombsize = players[playertype].getstreamSize(); plusbombsize>0; plusbombsize--) {
-				if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize>=0) {
-					bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				}
-				if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize<=12) {
-				bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				}
-				if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize>=0) {
-				bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize], this);
-				}
-				if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize<=12) {
-				bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize], this);
-				}
-			}
 		}
 	}
 		
@@ -351,8 +352,8 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			if(BoomJudge.map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] != 4) {
 			BoomJudge.map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = 0;
 			}
-			if((BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 9)&&(BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 15)
-					&& (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 12)&& (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 18)
+			if((BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 9) &&(BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 15)
+					&& (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 12) && (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 18)
 					&& (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 21) && (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 24)
 					&& (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 27)) {
 				BoomJudge.previous_map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = 0;/* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1 또는 2를 0으로 초기화*/

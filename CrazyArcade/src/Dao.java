@@ -153,10 +153,6 @@ public class Dao extends Character implements KeyListener{
 			Y-=step;
 		}
 	}
-		else if((playerIndex_y)*60.45<this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
-			Y-=step;
-		}
-	}
 	public void down(int step) {//아래로 가기
 		this.state  = 0;
 		if (playerIndex_y == 12) {//인덱스 12일경우 예외처리
