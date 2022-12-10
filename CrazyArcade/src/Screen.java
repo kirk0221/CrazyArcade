@@ -310,18 +310,27 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
 			
 			for(int plusbombsize = players[playertype].getstreamSize(); plusbombsize>0; plusbombsize--) {
-				if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize>=0) {
-					bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				}
-				if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize<=12) {
-				bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				}
-				if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize>=0) {
-				bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize], this);
-				}
-				if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize<=12) {
-				bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize], this);
-				}
+					if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize<=12) {
+						if(BoomJudge.map_size[mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize]][mapYlocationlist[players[playertype].getboomballoonY(i)]]==4) {
+							bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+						}
+					}
+					if(BoomJudge.map_size[mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize]][mapYlocationlist[players[playertype].getboomballoonY(i)]]==4) {
+						if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize>=0) {
+							bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+						}
+					}
+					if(BoomJudge.map_size[mapXlocationlist[players[playertype].getboomballoonX(i)]][mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize]]==4) {
+						if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize>=0) {
+							bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize], this);
+							}
+					}
+					if(BoomJudge.map_size[mapXlocationlist[players[playertype].getboomballoonX(i)]][mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize]]==4) {
+						if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize<=12) {
+							bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize], this);
+							}
+					}
+					
 			}
 			if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
 				bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
