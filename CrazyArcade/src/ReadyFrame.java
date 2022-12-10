@@ -121,12 +121,12 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		else if (plyaernumber==2 && p2chnumger==6) { //두번째 캐릭터 창에 배찌사진 띄우기
 			g.drawImage(bazziBackground,250,100,null);
 		}
-		else if (plyaernumber==2 && p2chnumger==6) { //두번째 캐릭터 창에 배찌사진 띄우기
-			g.drawImage(bazziBackground,250,100,null);
-		}
 		else if (plyaernumber==2 && p2chnumger==7) { //두번째 캐릭터 창에 우니사진 띄우기
 			g.drawImage(uniBackground,250,100,null);
 		}
+		else if (plyaernumber==2 && p2chnumger==9) { //두번째 캐릭터 창에 수사진 띄우기
+			g.drawImage(suBackground,250,100,null);
+		}			
 		if (MapChoice.MapNumber==2){  //해적맵 고르면 해적맵이랑 해적난이도 그려줌
 			g.drawImage(FactoryBackground,440 ,200, null);
 			g.drawImage(FactorylevelBackground, 625,190, null);
@@ -240,45 +240,7 @@ public class ReadyFrame extends JFrame implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Rectangle realbazzi = new Rectangle(580, 30, 100, 140); //배찌 선택하면 사진이 바뀜
-		boolean realbazzicheck = realbazzi.contains(e.getPoint());
-		if(realbazzicheck) {
-			System.out.println("배찌!");
-			if (plyaernumber==1) {
-				p1chnumber=6;
-				p1chrcheck=1;
-			}
-			else if(plyaernumber==2) {
-				p2chnumger=6;
-				p2chrcheck=1;
-			}
-		}
-		Rectangle realdizni = new Rectangle(440, 30, 100, 140); //디지니 선택하면 사진이 바뀜
-		boolean realdiznicheck = realdizni.contains(e.getPoint());
-		if(realdiznicheck) {
-			System.out.println("디지니!");
-			if (plyaernumber==1) {
-				p1chnumber=2;
-				p1chrcheck=1;
-			}
-			else if(plyaernumber==2) {
-				p2chnumger=2;
-				p2chrcheck=1;
-			}
-		}
-		Rectangle realuni = new Rectangle(690, 30, 100, 140); //우니 선택하면 사진이 바뀜
-		boolean realunicheck = realuni.contains(e.getPoint());
-		if(realunicheck) {
-			System.out.println("우니!");
-			if (plyaernumber==1) {
-				p1chnumber=7;
-				p1chrcheck=1;
-			}
-			else if(plyaernumber==2) {
-				p2chnumger=7;
-				p2chrcheck=1;
-			}
-		}
+	
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
