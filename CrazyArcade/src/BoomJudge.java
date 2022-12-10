@@ -176,7 +176,7 @@ public class BoomJudge {
 		}
 	}
 	
-	private static void bgplay() { // 배경 음악 (프기프 교수님 참조 파일 참고)
+	private static void bgplay() { // 게임 종료시 음악 (프기프 교수님 참조 파일 참고)
 		Player jlPlayer = null;
         try {
             FileInputStream fileInputStream = new FileInputStream("Resources/gamewin.mp3");
