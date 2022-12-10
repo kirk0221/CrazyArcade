@@ -74,28 +74,76 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		playerIndex_y = new int[MAX_PLAYER];
 		previous_Index_x = new int[MAX_PLAYER];
 		previous_Index_y = new int[MAX_PLAYER];
-		if (ReadyFrame.p1chnumber==1) {
+		if (ReadyFrame.p1chnumber==2) {
 			Character player1 = new Dizini(this,1); //플레이어1에 디지니 생성
 			players[0] = player1;
 		}
-		else if (ReadyFrame.p1chnumber==2) {
+		else if (ReadyFrame.p1chnumber==6) {
 			Character player1 = new Bazzi(this,1); //플레이어1에 배찌 생성
 			players[0] = player1;
 		}
-		else if (ReadyFrame.p1chnumber==3) {
+		else if (ReadyFrame.p1chnumber==7) {
 			Character player1 = new Uni(this,1); //플레이어1에 우니 생성
 			players[0] = player1;
 		}
-		if (ReadyFrame.p2chnumger==1) {
+		else if (ReadyFrame.p1chnumber==1) {
+			Character player1 = new Dao(this,1); //플레이어1에 다오 생성
+			players[0] = player1;
+		}
+		else if (ReadyFrame.p1chnumber==3) {
+			Character player1 = new Eddi(this,1); //플레이어1에 에띠 생성
+			players[0] = player1;
+		}
+		else if (ReadyFrame.p1chnumber==4) {
+			Character player1 = new Mos(this,1); //플레이어1에 모스 생성
+			players[0] = player1;
+		}
+		else if (ReadyFrame.p1chnumber==5) {
+			Character player1 = new Marid(this,1); //플레이어1에 마리드 생성
+			players[0] = player1;
+		}
+		else if (ReadyFrame.p1chnumber==8) {
+			Character player1 = new Keppy(this,1); //플레이어1에 케피 생성
+			players[0] = player1;
+		}
+		else if (ReadyFrame.p1chnumber==9) {
+			Character player1 = new Su(this,1); //플레이어1에 수 생성
+			players[0] = player1;
+		}
+		if (ReadyFrame.p2chnumger==2) {
 			Character player2 = new Dizini(this,2); //플레이어2에 디지니 생성
 			players[1] = player2;
 		}
-		else if (ReadyFrame.p2chnumger==2) {
+		else if (ReadyFrame.p2chnumger==6) {
 			Character player2 = new Bazzi(this,2); //플레이어2에 배찌 생성
 			players[1] = player2;
 		}
-		else if (ReadyFrame.p2chnumger==3) {
+		else if (ReadyFrame.p2chnumger==7) {
 			Character player2 = new Uni(this,2); //플레이어2에 우니 생성
+			players[1] = player2;
+		}
+		else if (ReadyFrame.p2chnumger==1) {
+			Character player2 = new Dao(this,2); //플레이어2에 다오 생성
+			players[1] = player2;
+		}
+		else if (ReadyFrame.p2chnumger==3) {
+			Character player2 = new Eddi(this,2); //플레이어2에 에띠 생성
+			players[1] = player2;
+		}
+		else if (ReadyFrame.p2chnumger==4) {
+			Character player2 = new Mos(this,2); //플레이어2에 모스 생성
+			players[1] = player2;
+		}
+		else if (ReadyFrame.p2chnumger==5) {
+			Character player2 = new Marid(this,2); //플레이어2에 마리드 생성
+			players[1] = player2;
+		}
+		else if (ReadyFrame.p2chnumger==8) {
+			Character player2 = new Keppy(this,2); //플레이어2에 케피 생성
+			players[1] = player2;
+		}
+		else if (ReadyFrame.p2chnumger==9) {
+			Character player2 = new Su(this,2); //플레이어2에 수 생성
 			players[1] = player2;
 		}
 		addKeyListener(this);
@@ -260,6 +308,21 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			for(int i=0;i<players[playertype].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
 			/*일반적인 물풍선 터진 이미지 그리기*/
 			bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+			
+			for(int plusbombsize = players[playertype].getstreamSize(); plusbombsize>0; plusbombsize--) {
+				if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize>=0) {
+					bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+				if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize<=12) {
+				bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+				}
+				if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize>=0) {
+				bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize], this);
+				}
+				if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize<=12) {
+				bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize], this);
+				}
+			}
 			if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
 				bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
 				}
@@ -272,20 +335,6 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
 				bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
 				}
-			for(int plusbombsize = players[playertype].getstreamSize(); plusbombsize>0; plusbombsize--) {
-				if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize>=0) {
-					bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				}
-				if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize<=12) {
-				bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				}
-				if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize>=0) {
-				bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize], this);
-				}
-				if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize<=12) {
-				bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize], this);
-				}
-			}
 		}
 	}
 		
@@ -303,7 +352,10 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			if(BoomJudge.map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] != 4) {
 			BoomJudge.map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = 0;
 			}
-			if((BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 9) &&(BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 15)){
+			if((BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 9) &&(BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 15)
+					&& (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 12) && (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 18)
+					&& (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 21) && (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 24)
+					&& (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 27)) {
 				BoomJudge.previous_map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = 0;/* 캐릭터에 대한 조작 이벤트가 발생시 map_size의 1 또는 2를 0으로 초기화*/
 			}
 			for(int i=0; i<13;i++) {
@@ -320,7 +372,10 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 				}
 			}
 			BoomJudge.map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = playertype+1; /*캐릭터의 위치를 저장*/ //player1은 1로 player2는 2로 저장
-			if((BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 9)&&(BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 15)) {
+			if((BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 9)&&(BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 15)
+					&& (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 12)&& (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 18)
+					&& (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 21) && (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 24)
+					&& (BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] != 27)) {
 				BoomJudge.previous_map_size[previous_Index_y[playertype]][previous_Index_x[playertype]] = 0;
 				BoomJudge.previous_map_size[playerIndex_y[playertype]][playerIndex_x[playertype]] = playertype+1;
 			}

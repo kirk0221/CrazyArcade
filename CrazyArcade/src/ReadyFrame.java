@@ -20,17 +20,23 @@ public class ReadyFrame extends JFrame implements MouseListener {
 	private JButton[] mapButtons;
 	private JButton[] characterButtons;
 	private Image starteBackground = new ImageIcon("Resources/ready2.png").getImage();//처음 배경 넣기
+	private Image daoBackground = new ImageIcon("Resources/dao.png").getImage();//다오 배경 넣기
+	private Image eddiBackground = new ImageIcon("Resources/eddi.png").getImage();//에띠 배경 넣기
+	private Image mosBackground = new ImageIcon("Resources/mos.png").getImage();//모스 배경 넣기
+	private Image maridBackground = new ImageIcon("Resources/marid.png").getImage();//마리드 배경 넣기
+	private Image keppiBackground = new ImageIcon("Resources/keppi.png").getImage();//케피 배경 넣기
+	private Image suBackground = new ImageIcon("Resources/su.png").getImage();//수 배경 넣기
 	private Image bazziBackground = new ImageIcon("Resources/bazzi.png").getImage();//배찌 배경 넣기
 	private Image uniBackground = new ImageIcon("Resources/uni.png").getImage();//우니 배경 넣기
 	private Image dizniackground = new ImageIcon("Resources/dizni.png").getImage();//디즈니 배경 넣기
 	private Image FactoryBackground = new ImageIcon("Resources/Factorymap.png").getImage();//팩토리 배경 넣기
 	private Image CookieBackground = new ImageIcon("Resources/Cookiemap.png").getImage();//쿠키 배경
-	private Image VilageBackground = new ImageIcon("Resources/Vilagemap.png").getImage();//쿠키 배경
+	private Image VilageBackground = new ImageIcon("Resources/Vilagemap.png").getImage();//빌리지 배경
 	private Image FactorylevelBackground = new ImageIcon("Resources/factorylevel.png").getImage();//팩토리 난이도 넣기
 	private Image CookielevelBackground = new ImageIcon("Resources/Cookielevel.png").getImage();//쿠키 난이도
 	private Image ReadyBackground = new ImageIcon("Resources/Readyy.png").getImage();//준비 그림
 	private Image NoreadyBackground = new ImageIcon("Resources/Noready.png").getImage();//준비 취소 그림
-	private Image VilagelevelBackground = new ImageIcon("Resources/Vilagelevel.png").getImage();//쿠키 난이도
+	private Image VilagelevelBackground = new ImageIcon("Resources/Vilagelevel.png").getImage();//빌리지 난이도
 	
 	static int plyaernumber=0; //몇번 플레이어인지 구분하기위한 변수
 	static int chrnumber=0;  //캐릭터그릴때 필요한 변수 디즈니 =1, 배찌 = 2, 우니 =3
@@ -39,8 +45,8 @@ public class ReadyFrame extends JFrame implements MouseListener {
 	int count=0;
 	private int p1ready=0;
 	private int p2ready=0;
-	private int p1chrcheck=0; //플레이어1의 캐릭터를 골랐는지 체크하는 변수
-	private int p2chrcheck=0; //플레이어2의 캐릭터를 골랐는지 체크하는 변수
+	static int p1chrcheck=0; //플레이어1의 캐릭터를 골랐는지 체크하는 변수
+	static int p2chrcheck=0; //플레이어2의 캐릭터를 골랐는지 체크하는 변수
 	
 	public ReadyFrame(){ //MainFrame 생성자
 		this.setTitle("MapChoice"); //창 제목
@@ -67,22 +73,58 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		    g.drawImage(starteBackground,0,0,null); //처음 배경 넣기 한번만 그려져야됨
 		    count=1;
 		}
-		if (plyaernumber==1 && p1chnumber==1) { //첫번째 캐릭터 창에 디즈니 사진 띄우기
+		if (plyaernumber==1 && p1chnumber==2) { //첫번째 캐릭터 창에 디즈니 사진 띄우기
 			g.drawImage(dizniackground,35,100,null);
 		}
-		else if (plyaernumber==1 && p1chnumber==2) { //첫번째 캐릭터 창에 배찌사진 띄우기
+		else if (plyaernumber==1 && p1chnumber==1) { //첫번째 캐릭터 창에 다오사진 띄우기
+			g.drawImage(daoBackground,35,100,null);
+		}
+		else if (plyaernumber==1 && p1chnumber==3) { //첫번째 캐릭터 창에 에띠사진 띄우기
+			g.drawImage(eddiBackground,35,100,null);
+		}
+		else if (plyaernumber==1 && p1chnumber==4) { //첫번째 캐릭터 창에 모스사진 띄우기
+			g.drawImage(mosBackground,35,100,null);
+		}
+		else if (plyaernumber==1 && p1chnumber==5) { //첫번째 캐릭터 창에 마리드사진 띄우기
+			g.drawImage(maridBackground,35,100,null);
+		}
+		else if (plyaernumber==1 && p1chnumber==8) { //첫번째 캐릭터 창에 케피사진 띄우기
+			g.drawImage(keppiBackground,35,100,null);
+		}
+		else if (plyaernumber==1 && p1chnumber==6) { //첫번째 캐릭터 창에 배찌사진 띄우기
 			g.drawImage(bazziBackground,35,100,null);
 		}
-		else if (plyaernumber==1 && p1chnumber==3) { //첫번째 캐릭터 창에 우니사진 띄우기
+		else if (plyaernumber==1 && p1chnumber==9) { //첫번째 캐릭터 창에 수사진 띄우기
+			g.drawImage(suBackground,35,100,null);
+		}
+		else if (plyaernumber==1 && p1chnumber==7) { //첫번째 캐릭터 창에 우니사진 띄우기
 			g.drawImage(uniBackground,35,100,null);
 		}
-		if (plyaernumber==2 && p2chnumger==1) { //두번째 캐릭터 창에 디즈니 사진 띄우기
+		if (plyaernumber==2 && p2chnumger==2) { //두번째 캐릭터 창에 디즈니 사진 띄우기
 			g.drawImage(dizniackground,250,100,null);
 		}
-		else if (plyaernumber==2 && p2chnumger==2) { //두번째 캐릭터 창에 배찌사진 띄우기
+		else if (plyaernumber==2 && p2chnumger==1) { //두번째 캐릭터 창에 다오사진 띄우기
+			g.drawImage(daoBackground,250,100,null);
+		}
+		else if (plyaernumber==2 && p2chnumger==3) { //두번째 캐릭터 창에 에띠사진 띄우기
+			g.drawImage(eddiBackground,250,100,null);
+		}
+		else if (plyaernumber==2 && p2chnumger==4) { //두번째 캐릭터 창에 모스사진 띄우기
+			g.drawImage(mosBackground,250,100,null);
+		}
+		else if (plyaernumber==2 && p2chnumger==5) { //두번째 캐릭터 창에 마리드사진 띄우기
+			g.drawImage(maridBackground,250,100,null);
+		}
+		else if (plyaernumber==2 && p2chnumger==8) { //두번째 캐릭터 창에 케피사진 띄우기
+			g.drawImage(keppiBackground,250,100,null);
+		}
+		else if (plyaernumber==2 && p2chnumger==6) { //두번째 캐릭터 창에 배찌사진 띄우기
 			g.drawImage(bazziBackground,250,100,null);
 		}
-		else if (plyaernumber==2 && p2chnumger==3) { //두번째 캐릭터 창에 우니사진 띄우기
+		else if (plyaernumber==2 && p2chnumger==6) { //두번째 캐릭터 창에 배찌사진 띄우기
+			g.drawImage(bazziBackground,250,100,null);
+		}
+		else if (plyaernumber==2 && p2chnumger==7) { //두번째 캐릭터 창에 우니사진 띄우기
 			g.drawImage(uniBackground,250,100,null);
 		}
 		if (MapChoice.MapNumber==2){  //해적맵 고르면 해적맵이랑 해적난이도 그려줌
@@ -158,13 +200,13 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		boolean p1check = player1.contains(e.getPoint());
 		if(p1check) {
 			plyaernumber =1; //1번플레이어
-			System.out.println("첫번째 캐릭터");
+			new CharacterChoice(); //캐릭터 선택창 띄우기
 		}
 		Rectangle player2 = new Rectangle(230, 100, 190, 330); //두번째 캐릭터 선택
 		boolean p2check = player2.contains(e.getPoint());
 		if(p2check) {
 			plyaernumber =2; //2번플레이어
-			System.out.println("두번째 캐릭터");
+			new CharacterChoice(); //캐릭터 선택창 띄우기
 		}
 		
 		// pready가 1번이면 준비된거고 0번이면 준비가 안된거임
@@ -194,6 +236,7 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		}
 		
 	}
+	// 다오 :1, 디지니 :2, 에띠 :3, 모스:4,마리드:5,배찌:6,우니:7,케피:8,수:9
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -201,6 +244,19 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		boolean realbazzicheck = realbazzi.contains(e.getPoint());
 		if(realbazzicheck) {
 			System.out.println("배찌!");
+			if (plyaernumber==1) {
+				p1chnumber=6;
+				p1chrcheck=1;
+			}
+			else if(plyaernumber==2) {
+				p2chnumger=6;
+				p2chrcheck=1;
+			}
+		}
+		Rectangle realdizni = new Rectangle(440, 30, 100, 140); //디지니 선택하면 사진이 바뀜
+		boolean realdiznicheck = realdizni.contains(e.getPoint());
+		if(realdiznicheck) {
+			System.out.println("디지니!");
 			if (plyaernumber==1) {
 				p1chnumber=2;
 				p1chrcheck=1;
@@ -210,29 +266,16 @@ public class ReadyFrame extends JFrame implements MouseListener {
 				p2chrcheck=1;
 			}
 		}
-		Rectangle realdizni = new Rectangle(440, 30, 100, 140); //디지니 선택하면 사진이 바뀜
-		boolean realdiznicheck = realdizni.contains(e.getPoint());
-		if(realdiznicheck) {
-			System.out.println("디지니!");
-			if (plyaernumber==1) {
-				p1chnumber=1;
-				p1chrcheck=1;
-			}
-			else if(plyaernumber==2) {
-				p2chnumger=1;
-				p2chrcheck=1;
-			}
-		}
 		Rectangle realuni = new Rectangle(690, 30, 100, 140); //우니 선택하면 사진이 바뀜
 		boolean realunicheck = realuni.contains(e.getPoint());
 		if(realunicheck) {
 			System.out.println("우니!");
 			if (plyaernumber==1) {
-				p1chnumber=3;
+				p1chnumber=7;
 				p1chrcheck=1;
 			}
 			else if(plyaernumber==2) {
-				p2chnumger=3;
+				p2chnumger=7;
 				p2chrcheck=1;
 			}
 		}

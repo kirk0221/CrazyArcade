@@ -128,7 +128,8 @@ public class WaterBalloon {
                 }
             }
         }.start();
-	}	
+	}		
+	
 	public void makeWaterBalloon(int x, int y, int bombSize, int waterballoonmax_plus) {
 		this.bombSize = bombSize;
 		if (this.waterballoonmax_plus != waterballoonmax_plus) {
@@ -193,7 +194,7 @@ public class WaterBalloon {
 						if(boomballoonYqueue.peek()-bombSize-plusbombsize>=0) {
 							BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] = 4;
 						}
-						bgplay();
+						bgplay();						
 					}
 					waterballoonmax +=1;
 			    }
