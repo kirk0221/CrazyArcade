@@ -286,4 +286,10 @@ public class Keppy extends Character implements KeyListener{
 		
 	}
 
+	@Override
+	public void getmovestop() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
