@@ -158,7 +158,14 @@ public class Dao extends Character implements KeyListener{
 	
 	public void up(int step) {//위로 가기
 		this.state = 1;
-		this.state_move = (move%9)/3;
+		if (move == 7) {
+			move = 0;
+		}
+		if((move%6 == 0)||(move%6 == 1)||(move%6 == 2)) {
+			this.state_move = 1;
+		}else {
+			this.state_move = 2;
+		}
 		if (playerIndex_y == 0) {//인덱스 0일경우 예외처리
 			Y-=step;
 			move++;
@@ -179,7 +186,14 @@ public class Dao extends Character implements KeyListener{
 	}
 	public void down(int step) {//아래로 가기
 		this.state  = 0;
-		this.state_move = (move%9)/3;
+		if (move == 7) {
+			move = 0;
+		}
+		if((move%6 == 0)||(move%6 == 1)||(move%6 == 2)) {
+			this.state_move = 1;
+		}else {
+			this.state_move = 2;
+		}
 		if (playerIndex_y == 12) {//인덱스 12일경우 예외처리
 			Y+=step;
 			move++;
@@ -200,7 +214,14 @@ public class Dao extends Character implements KeyListener{
 	}
 	public void left(int step) {//왼쪽으로 가기
 		this.state  = 2;
-		this.state_move = (move%9)/3;
+		if (move == 7) {
+			move = 0;
+		}
+		if((move%6 == 0)||(move%6 == 1)||(move%6 == 2)) {
+			this.state_move = 1;
+		}else {
+			this.state_move = 2;
+		}
 		if (playerIndex_x == 0) {//인덱스 0일경우 예외처리
 			X-=step;
 			move++;
@@ -221,7 +242,14 @@ public class Dao extends Character implements KeyListener{
 	}
 	public void right(int step) {//오른쪽으로 가기
 		this.state  = 3;
-		this.state_move = (move%9)/3;
+		if (move == 7) {
+			move = 0;
+		}
+		if((move%6 == 0)||(move%6 == 1)||(move%6 == 2)) {
+			this.state_move = 1;
+		}else {
+			this.state_move = 2;
+		}
 		if (playerIndex_x == 12) {//인덱스 12일경우 예외처리
 			X+=step;
 			move++;
@@ -320,14 +348,12 @@ public class Dao extends Character implements KeyListener{
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		this.state_move = 0;
-		this.move = 0;
 	}
 
 	@Override
 	public void getmovestop() {
 		// TODO Auto-generated method stub
 		this.state_move = 0;
-		this.move = 0;
 	}
 
 }
