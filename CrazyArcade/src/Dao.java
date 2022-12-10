@@ -320,12 +320,14 @@ public class Dao extends Character implements KeyListener{
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		this.state_move = 0;
+		this.move = 0;
 	}
 
 	@Override
 	public void getmovestop() {
 		// TODO Auto-generated method stub
 		this.state_move = 0;
+		this.move = 0;
 	}
 
 }
