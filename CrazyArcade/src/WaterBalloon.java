@@ -18,6 +18,15 @@ public class WaterBalloon {
 	int waterballoonmax;
 	int waterballoonmax_plus;
 	
+	int up_check;
+	LinkedList<Integer> up_checkList = new LinkedList<>();
+	int down_check;
+	LinkedList<Integer> down_checkList = new LinkedList<>();
+	int left_check;
+	LinkedList<Integer> left_checkList = new LinkedList<>();
+	int right_check;
+	LinkedList<Integer> right_checkList = new LinkedList<>();
+	
 	public int[] mapXlocationlist;
 	public int[] mapYlocationlist;
 	
@@ -180,22 +189,144 @@ public class WaterBalloon {
 					boomballoonXList.add(remember_x); /*¹°Ç³¼± x ÁÂÇ¥ ÀÎµ¦½º¸¦ ÀúÀåÇÏ´Â ¸µÅ©µå ¸®½ºÆ®*/
 					boomballoonYList.add(remember_y); /*¹°Ç³¼± y ÁÂÇ¥ ÀÎµ¦½º¸¦ ÀúÀåÇÏ´Â ¸µÅ©µå ¸®½ºÆ®*/
 					
-					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 4;
 					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
+						if(boomballoonYqueue.peek()+bombSize+plusbombsize<=12) {
+							if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 9){
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 12) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 15) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 18) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 21) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 24) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 27) {
+								down_check = plusbombsize;
+								break;
+							}else{
+								down_check = plusbombsize;
+							}
+						}
+					}
+					down_checkList.add(down_check+1);
+					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
+						if(boomballoonYqueue.peek()-bombSize-plusbombsize>=0) {
+							if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 9) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 12) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 15) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 18) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 21) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 24) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 27) {
+								up_check = plusbombsize;
+								break;
+							}else{
+								up_check = plusbombsize;
+							}
+						}
+					}
+					up_checkList.add(up_check+1);
+					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
+						if(boomballoonXqueue.peek()+bombSize+plusbombsize<=12) {
+							if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 9) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 12) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 15) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 18) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 21) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 24) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 27) {
+								right_check = plusbombsize;
+								break;
+							}else{
+								right_check = plusbombsize;
+							}
+						}
+					}
+					right_checkList.add(right_check+1);
+					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
+						if(boomballoonXqueue.peek()-bombSize-plusbombsize>=0) {
+							if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 9) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 12) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 15) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 18) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 21) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 24) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 27) {
+								left_check = plusbombsize;
+								break;
+							}else{
+								left_check = plusbombsize;
+							}
+						}
+					}
+					left_checkList.add(left_check+1);
+					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 4; 
+					for(int plusbombsize = 0; plusbombsize<right_checkList.get(0); plusbombsize++) {
 						if(boomballoonXqueue.peek()+bombSize+plusbombsize<=12) {
 							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] = 4;
 						}
+					}
+					for(int plusbombsize = 0; plusbombsize<left_checkList.get(0); plusbombsize++) {
 						if(boomballoonXqueue.peek()-bombSize-plusbombsize>=0) {
 							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] = 4;
 						}
+					}
+					for(int plusbombsize = 0; plusbombsize<down_checkList.get(0); plusbombsize++) {
 						if(boomballoonYqueue.peek()+bombSize+plusbombsize<=12) {
 							BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] = 4;
 						}
+					}
+					for(int plusbombsize = 0; plusbombsize<up_checkList.get(0); plusbombsize++) {
 						if(boomballoonYqueue.peek()-bombSize-plusbombsize>=0) {
 							BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] = 4;
 						}
-						bgplay();						
 					}
+					bgplay();
 					waterballoonmax +=1;
 			    }
 			};
@@ -206,38 +337,38 @@ public class WaterBalloon {
 				public void run() {
 					// TODO Auto-generated method stub
 					//7¹øÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 7, 9);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 7, 9);
 					//8¹ø ÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 8, 9);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 8, 9);
 					//10¹ø ÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 10, 12);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 10, 12);
 					//11¹ø ÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 11, 12);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 11, 12);
 					//13¹ø ÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 13, 15);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 13, 15);
 					//14¹ø ÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 14, 15);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 14, 15);
 					//16¹ø ÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 16, 18);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 16, 18);
 					//17¹ø ÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 17, 18);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 17, 18);
 					//19¹ø ÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 19, 21);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 19, 21);
 					//20¹ø ÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 20, 21);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 20, 21);
 					//22¹ø ÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 22, 24);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 22, 24);
 					//23¹ø ÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 23, 24);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 23, 24);
 					//25¹ø ÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 25, 27);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 25, 27);
 					//26¹ø ÀÎµ¦½º
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 26, 27);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 26, 27);
 					
 					//±âÁ¸ ÀÎµ¦½º
 					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
 					BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
-					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
+					for(int plusbombsize = 0; plusbombsize<down_checkList.get(0); plusbombsize++) {
 						if(boomballoonYqueue.peek()+bombSize+plusbombsize<=12) {
 							if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 9){
 								BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] = 9;
@@ -265,7 +396,8 @@ public class WaterBalloon {
 								BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] = 0;
 							}
 						}
-	
+					}
+					for(int plusbombsize = 0; plusbombsize<up_checkList.get(0); plusbombsize++) {
 						if(boomballoonYqueue.peek()-bombSize-plusbombsize>=0) {
 							if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 9) {
 								BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] = 9;
@@ -293,7 +425,8 @@ public class WaterBalloon {
 								BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] = 0;
 							}
 						}
-	
+					}
+					for(int plusbombsize = 0; plusbombsize<right_checkList.get(0); plusbombsize++) {
 						if(boomballoonXqueue.peek()+bombSize+plusbombsize<=12) {
 							if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 9) {
 								BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] = 9;
@@ -321,7 +454,8 @@ public class WaterBalloon {
 								BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] = 0;
 							}
 						}
-	
+					}
+					for(int plusbombsize = 0; plusbombsize<left_checkList.get(0); plusbombsize++) {
 						if(boomballoonXqueue.peek()-bombSize-plusbombsize>=0) {
 							if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 9) {
 								BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] = 9;
@@ -354,15 +488,29 @@ public class WaterBalloon {
 					boomballoonYqueue.remove();
 					boomballoonXList.remove(0);
 					boomballoonYList.remove(0);
+					up_checkList.remove(0);
+					down_checkList.remove(0);
+					left_checkList.remove(0);
+					right_checkList.remove(0);
 				}
 			};
-			
-			
-			
+
 			Timer boom = new Timer();
-			
 			boom.schedule(task, 5000);
 			boom.schedule(boomover, 6000);
 		}
+	}
+	
+	public LinkedList<Integer> get_up_checkList() {
+		return up_checkList;
+	}
+	public LinkedList<Integer> get_down_checkList() {
+		return down_checkList;
+	}
+	public LinkedList<Integer> get_left_checkList() {
+		return left_checkList;
+	}
+	public LinkedList<Integer> get_right_checkList() {
+		return right_checkList;
 	}
 }

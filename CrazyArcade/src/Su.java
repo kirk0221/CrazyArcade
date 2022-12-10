@@ -1,6 +1,7 @@
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
@@ -16,8 +17,10 @@ public class Su extends Character implements KeyListener{
 	public int streamSize;
 	public int playertype;
 	WaterBalloon playerWaterBalloon;
-	private Image[] Su_state;
+	private Image[][] Su_state;
 	private int state;//상태 번호
+	private int state_move;//이동 상태 번호
+	private int move;
 
 	public Su(Screen screen, int playertype) { /*플레이어 타입을 전달받아, 해당 타입에 따라 키에 대한 동작이 다르도록 함*/
 		super(screen);
@@ -50,20 +53,38 @@ public class Su extends Character implements KeyListener{
 		this.bombSize = 1;//물줄기 크기 1
 		this.playertype = playertype;
 		playerWaterBalloon = new WaterBalloon(playertype); /* 물풍선 생성*/
-		this.Su_state = new Image[4];
-		Image su_front = new ImageIcon("Resources/sue_front.png").getImage();//수 정면 이미지
-		Image su_back = new ImageIcon("Resources/sue_back.png").getImage();//수 후면 이미지
-		Image su_left = new ImageIcon("Resources/sue_left.png").getImage();//수 좌측면 이미지
-		Image su_right = new ImageIcon("Resources/sue_right.png").getImage();//수 우측면 이미지
-		this.Su_state[0] = su_front;
-		this.Su_state[1] = su_back;
-		this.Su_state[2] = su_left;
-		this.Su_state[3] = su_right;
+		this.Su_state = new Image[4][3];
+		Image Su_front = new ImageIcon("Resources/Su_front.png").getImage();//다오 정면 이미지
+		Image Su_front1 = new ImageIcon("Resources/Su_front1.png").getImage();
+		Image Su_front2 = new ImageIcon("Resources/Su_front2.png").getImage();
+		Image Su_back = new ImageIcon("Resources/Su_back.png").getImage();//다오 후면 이미지
+		Image Su_back1 = new ImageIcon("Resources/Su_back1.png").getImage();
+		Image Su_back2 = new ImageIcon("Resources/Su_back2.png").getImage();
+		Image Su_left = new ImageIcon("Resources/Su_left.png").getImage();//다오 좌측면 이미지
+		Image Su_left1 = new ImageIcon("Resources/Su_left1.png").getImage();
+		Image Su_left2 = new ImageIcon("Resources/Su_left2.png").getImage();
+		Image Su_right = new ImageIcon("Resources/Su_right.png").getImage();//다오 우측면 이미지
+		Image Su_right1 = new ImageIcon("Resources/Su_right1.png").getImage();
+		Image Su_right2 = new ImageIcon("Resources/Su_right2.png").getImage();
+		this.Su_state[0][0] = Su_front;
+		this.Su_state[0][1] = Su_front1;
+		this.Su_state[0][2] = Su_front2;
+		this.Su_state[1][0] = Su_back;
+		this.Su_state[1][1] = Su_back1;
+		this.Su_state[1][2] = Su_back2;
+		this.Su_state[2][0] = Su_left;
+		this.Su_state[2][1] = Su_left1;
+		this.Su_state[2][2] = Su_left2;
+		this.Su_state[3][0] = Su_right;
+		this.Su_state[3][1] = Su_right1;
+		this.Su_state[3][2] = Su_right2;
 		this.state = 0;//초기 정면으로 보고있음
+		this.state_move = 0;
+		this.move = 0;
 	}
 	
 	public Image getImg() {//이미지를 스크린에 주기위한 함수
-		return this.Su_state[state];
+		return this.Su_state[state][state_move];
 	}
 	
 	public Image getballoonImg() {//이미지를 스크린에 주기위한 함수
@@ -129,17 +150,31 @@ public class Su extends Character implements KeyListener{
 		/*터진 물풍선 객체의 링크드 리스트의 크기를 스크린에 전달하여, 반복문의 반복 휫수를 지정하기 위한 함수*/
 	}
 	
-	public int getbombSize() {//물풍선 크기값을 스크린에 주기위한 함수
-		return this.bombSize + this.streamSize;
-	}
-	public int getstreamSize() {//물풍선 길이 증가값을 스크린에 주기위한 함수
-		return this.streamSize;
+	public LinkedList<Integer> getbombSize(int i) {//물풍선 크기값을 스크린에 주기위한 함수
+		if(i==0) {
+			return playerWaterBalloon.get_up_checkList();
+		}else if(i==1) {
+			return playerWaterBalloon.get_down_checkList();
+		}else if(i==2) {
+			return playerWaterBalloon.get_left_checkList();
+		}else{
+			return playerWaterBalloon.get_right_checkList();
+		}
 	}
 	
 	public void up(int step) {//위로 가기
-		this.state  = 1;
+		this.state = 1;
+		if (move == 7) {
+			move = 0;
+		}
+		if((move%6 == 0)||(move%6 == 1)||(move%6 == 2)) {
+			this.state_move = 1;
+		}else {
+			this.state_move = 2;
+		}
 		if (playerIndex_y == 0) {//인덱스 0일경우 예외처리
 			Y-=step;
+			move++;
 		}
 		else if((BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 1) ||
 				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 2) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 9) || 
@@ -148,15 +183,26 @@ public class Su extends Character implements KeyListener{
 				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 24) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 27)){
 			//다음 이동위치 인덱스 0,1,2,9,12일 경우에만 이동가능
 			Y-=step;
+			move++;
 		}
 		else if((playerIndex_y)*60.45<this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			Y-=step;
+			move++;
 		}
 	}
 	public void down(int step) {//아래로 가기
 		this.state  = 0;
+		if (move == 7) {
+			move = 0;
+		}
+		if((move%6 == 0)||(move%6 == 1)||(move%6 == 2)) {
+			this.state_move = 1;
+		}else {
+			this.state_move = 2;
+		}
 		if (playerIndex_y == 12) {//인덱스 12일경우 예외처리
 			Y+=step;
+			move++;
 		}
 		else if((BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 1) || 
 				(BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 2) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 9) || 
@@ -165,15 +211,26 @@ public class Su extends Character implements KeyListener{
 				(BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 24) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 27)) {
 			//다음 이동위치의 인덱스 0,1,2,9,12일 경우에만 이동가능
 			Y+=step;
+			move++;
 		}
 		else if((playerIndex_y)*60.45>this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			Y+=step;
+			move++;
 		}
 	}
 	public void left(int step) {//왼쪽으로 가기
 		this.state  = 2;
+		if (move == 7) {
+			move = 0;
+		}
+		if((move%6 == 0)||(move%6 == 1)||(move%6 == 2)) {
+			this.state_move = 1;
+		}else {
+			this.state_move = 2;
+		}
 		if (playerIndex_x == 0) {//인덱스 0일경우 예외처리
 			X-=step;
+			move++;
 		}
 		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 1) || 
 				(BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 2) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 9) || 
@@ -182,15 +239,26 @@ public class Su extends Character implements KeyListener{
 				(BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 24) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 27)) {
 			//다음 이동위치의 인덱스 0,1,2,9,12일 경우에만 이동가능
 			X-=step;
+			move++;
 		}
 		else if((playerIndex_x)*60.45<this.getX()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			X-=step;
+			move++;
 		}
 	}
 	public void right(int step) {//오른쪽으로 가기
 		this.state  = 3;
+		if (move == 7) {
+			move = 0;
+		}
+		if((move%6 == 0)||(move%6 == 1)||(move%6 == 2)) {
+			this.state_move = 1;
+		}else {
+			this.state_move = 2;
+		}
 		if (playerIndex_x == 12) {//인덱스 12일경우 예외처리
 			X+=step;
+			move++;
 		}
 		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 1) || 
 				(BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 2) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 9) || 
@@ -199,9 +267,11 @@ public class Su extends Character implements KeyListener{
 				(BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 24) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 27)) {
 			//다음 이동위치의 인덱스 0,1,2,9,12일 경우에만 이동가능
 			X+=step;
+			move++;
 		}
 		else if((playerIndex_x)*60.45>this.getX()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			X+=step;
+			move++;
 		}
 	}
 
@@ -283,13 +353,13 @@ public class Su extends Character implements KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		this.state_move = 0;
 	}
 
 	@Override
 	public void getmovestop() {
 		// TODO Auto-generated method stub
-		
+		this.state_move = 0;
 	}
 
 }

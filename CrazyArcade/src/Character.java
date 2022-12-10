@@ -1,5 +1,6 @@
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
 
 public abstract class Character {
 	private Screen screen;
@@ -41,8 +42,7 @@ public abstract class Character {
 	protected abstract int getboomballoonX(int i);
 	protected abstract int getballonListsize();
 	protected abstract int getboomballonListsize();
-	protected abstract int getbombSize();
-	protected abstract int getstreamSize();
+	protected abstract LinkedList<Integer> getbombSize(int i);
 	protected abstract void getPlayerIndex_x(int x);
 	protected abstract void getPlayerIndex_y(int y);
 	public abstract void getmovestop();
