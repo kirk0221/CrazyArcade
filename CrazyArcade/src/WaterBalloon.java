@@ -45,7 +45,7 @@ public class WaterBalloon {
 	LinkedList<Integer> boomballoonYList = new LinkedList<>();
 	
 	private Make_Item_Index item;
-	
+
 	public WaterBalloon(int playertype){
 		this.playertype = playertype;
 		this.waterballoonmax = 1; //물풍선 기본 개수 1개

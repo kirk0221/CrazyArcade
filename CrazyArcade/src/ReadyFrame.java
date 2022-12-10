@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import javazoom.jl.player.Player;
 
 public class ReadyFrame extends JFrame implements MouseListener {
 	private JButton[] mapButtons;
@@ -47,6 +51,50 @@ public class ReadyFrame extends JFrame implements MouseListener {
 	private int p2ready=0;
 	static int p1chrcheck=0; //플레이어1의 캐릭터를 골랐는지 체크하는 변수
 	static int p2chrcheck=0; //플레이어2의 캐릭터를 골랐는지 체크하는 변수
+	
+	
+	private void readyplay() { //레디누를때 (프기프 교수님 참조 파일 참고)
+		Player jlPlayer = null;
+        try {
+            FileInputStream fileInputStream = new FileInputStream("Resources/ready.mp3");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+            jlPlayer = new Player(bufferedInputStream);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        final Player player = jlPlayer;
+        new Thread() {
+            public void run() {
+                try {
+                	player.play();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }.start();
+	}
+	private void startplay() { //게임시작누를때 (프기프 교수님 참조 파일 참고)
+		Player jlPlayer = null;
+        try {
+            FileInputStream fileInputStream = new FileInputStream("Resources/start.mp3");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+            jlPlayer = new Player(bufferedInputStream);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        final Player player = jlPlayer;
+        new Thread() {
+            public void run() {
+                try {
+                	player.play();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }.start();
+	}
 	
 	public ReadyFrame(){ //MainFrame 생성자
 		this.setTitle("MapChoice"); //창 제목
@@ -124,7 +172,7 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		else if (plyaernumber==2 && p2chnumger==7) { //두번째 캐릭터 창에 우니사진 띄우기
 			g.drawImage(uniBackground,250,100,null);
 		}
-		else if (plyaernumber==2 && p1chnumber==9) { //두번째 캐릭터 창에 수사진 띄우기
+		else if (plyaernumber==2 && p2chnumger==9) { //두번째 캐릭터 창에 수사진 띄우기
 			g.drawImage(suBackground,250,100,null);
 		}			
 		if (MapChoice.MapNumber==2){  //해적맵 고르면 해적맵이랑 해적난이도 그려줌
@@ -168,12 +216,14 @@ public class ReadyFrame extends JFrame implements MouseListener {
 			if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==1) {
 				if (p1ready ==1 && p2ready==1) {
 					new MAP_Cookie(); //쿠키맵 시작
+					startplay();
 					MainFrame.music.stop();
 				    ReadyFrame.this.setVisible(false); //현재 창 숨기기
 				}
 			}
 			else if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==2) {
 				if (p1ready ==1 && p2ready==1) {
+					startplay();
 					MainFrame.music.stop();
 					new MAP_Patriots(); //해적맵 시작
 					ReadyFrame.this.setVisible(false); //현재 창 숨기기
@@ -181,6 +231,7 @@ public class ReadyFrame extends JFrame implements MouseListener {
 			}
 			else if (p1chnumber !=0 && p2chnumger !=0 && MapChoice.MapNumber==3) {
 				if (p1ready ==1 && p2ready==1) {
+					startplay();
 					MainFrame.music.stop();
 					new MAP_Village(); //빌리지맵 시작
 					ReadyFrame.this.setVisible(false); //현재 창 숨기기
@@ -215,6 +266,7 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		if(ready1check) {
 			if (p1chrcheck == 1 && p1ready ==0) {
 				p1ready =1; //준비상태가 아닐때 준비를 누르면 1번 플레이어가 레디가됨
+				readyplay();
 				System.out.println("1플레이어 준비완료");
 			}
 			else if(p1ready == 1) {
@@ -227,6 +279,7 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		if(ready2check) {
 			if (p2chrcheck == 1 && p2ready ==0) {
 				p2ready =1; //준비상태가 아닐때 준비를 누르면 2번 플레이어가 레디가됨
+				readyplay();
 				System.out.println("2플레이어 준비완료");
 			}
 			else if(p2ready == 1) {
@@ -240,45 +293,7 @@ public class ReadyFrame extends JFrame implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Rectangle realbazzi = new Rectangle(580, 30, 100, 140); //배찌 선택하면 사진이 바뀜
-		boolean realbazzicheck = realbazzi.contains(e.getPoint());
-		if(realbazzicheck) {
-			System.out.println("배찌!");
-			if (plyaernumber==1) {
-				p1chnumber=6;
-				p1chrcheck=1;
-			}
-			else if(plyaernumber==2) {
-				p2chnumger=6;
-				p2chrcheck=1;
-			}
-		}
-		Rectangle realdizni = new Rectangle(440, 30, 100, 140); //디지니 선택하면 사진이 바뀜
-		boolean realdiznicheck = realdizni.contains(e.getPoint());
-		if(realdiznicheck) {
-			System.out.println("디지니!");
-			if (plyaernumber==1) {
-				p1chnumber=2;
-				p1chrcheck=1;
-			}
-			else if(plyaernumber==2) {
-				p2chnumger=2;
-				p2chrcheck=1;
-			}
-		}
-		Rectangle realuni = new Rectangle(690, 30, 100, 140); //우니 선택하면 사진이 바뀜
-		boolean realunicheck = realuni.contains(e.getPoint());
-		if(realunicheck) {
-			System.out.println("우니!");
-			if (plyaernumber==1) {
-				p1chnumber=7;
-				p1chrcheck=1;
-			}
-			else if(plyaernumber==2) {
-				p2chnumger=7;
-				p2chrcheck=1;
-			}
-		}
+	
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {

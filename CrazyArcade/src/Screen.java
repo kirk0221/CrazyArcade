@@ -31,6 +31,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	
 	private final int MAX_PLAYER = 2;//MAX 플레이어
 	Character[] players; //플레이어 관리를 위한 배열
+	public int state_move;
 
 	
 	int[] playerIndex_x; /*characterin에서 사용*/
@@ -74,6 +75,7 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		playerIndex_y = new int[MAX_PLAYER];
 		previous_Index_x = new int[MAX_PLAYER];
 		previous_Index_y = new int[MAX_PLAYER];
+		state_move = 0;
 		if (ReadyFrame.p1chnumber==2) {
 			Character player1 = new Dizini(this,1); //플레이어1에 디지니 생성
 			players[0] = player1;
@@ -436,31 +438,38 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	@Override
 	public void keyReleased(KeyEvent e) { /*동시이동적용*/
 		// TODO Auto-generated method stub
-		
 		switch(e.getKeyCode()) {
 		case KeyEvent.VK_W:
 			c1.setUp(false);
+			this.players[0].getmovestop();
 			break;
 		case KeyEvent.VK_S:
 			c1.setDown(false);
+			this.players[0].getmovestop();
 			break;
 		case KeyEvent.VK_A:
 			c1.setLeft(false);
+			this.players[0].getmovestop();
 			break;
 		case KeyEvent.VK_D:
 			c1.setRight(false);
+			this.players[0].getmovestop();
 			break;
 		case KeyEvent.VK_UP:
 			 c2.setUp(false);
+			 this.players[1].getmovestop();
 			break;
 		case KeyEvent.VK_DOWN:
 			c2.setDown(false);
+			this.players[1].getmovestop();
 			break;
 		case KeyEvent.VK_LEFT:
 			c2.setLeft(false);
+			this.players[1].getmovestop();
 			break;
 		case KeyEvent.VK_RIGHT:
 			c2.setRight(false);
+			this.players[1].getmovestop();
 			break;
 		}
         repaint();

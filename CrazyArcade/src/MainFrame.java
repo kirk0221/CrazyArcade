@@ -54,7 +54,9 @@ public class MainFrame extends JFrame implements ActionListener {
             public void run() {
                 try {
                 	while(!Thread.currentThread().isInterrupted()) {
-                		player.play();
+                    	while(true) {
+                    		player.play();
+                    	}
                 	}
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
