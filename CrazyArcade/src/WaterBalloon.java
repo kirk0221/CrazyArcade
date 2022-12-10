@@ -1,10 +1,14 @@
 import java.awt.Image;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
+
+import javazoom.jl.player.Player;
 
 public class WaterBalloon {
 	int X;
@@ -104,6 +108,27 @@ public class WaterBalloon {
 	public int getboomY(int i) {
 		return boomballoonYList.get(i);
 	}	
+	private void bgplay() { // 배경 음악 (프기프 교수님 참조 파일 참고)
+		Player jlPlayer = null;
+        try {
+            FileInputStream fileInputStream = new FileInputStream("Resources/exclusive.mp3");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+            jlPlayer = new Player(bufferedInputStream);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        final Player player = jlPlayer;
+        new Thread() {
+            public void run() {
+                try {
+                	player.play();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }.start();
+	}		
 	
 	public void makeWaterBalloon(int x, int y, int bombSize, int waterballoonmax_plus) {
 		this.bombSize = bombSize;
@@ -169,6 +194,7 @@ public class WaterBalloon {
 						if(boomballoonYqueue.peek()-bombSize-plusbombsize>=0) {
 							BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] = 4;
 						}
+						bgplay();						
 					}
 					waterballoonmax +=1;
 			    }

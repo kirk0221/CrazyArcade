@@ -4,7 +4,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 
-public class Bazzi extends Character implements KeyListener{
+public class Eddi extends Character implements KeyListener{
 
 	private int X;
 	private int Y;
@@ -16,10 +16,10 @@ public class Bazzi extends Character implements KeyListener{
 	public int streamSize;
 	public int playertype;
 	WaterBalloon playerWaterBalloon;
-	private Image[] bazzi_state;
+	private Image[] Eddi_state;
 	private int state;//상태 번호
 
-	public Bazzi(Screen screen, int playertype) { /*플레이어 타입을 전달받아, 해당 타입에 따라 키에 대한 동작이 다르도록 함*/
+	public Eddi(Screen screen, int playertype) { /*플레이어 타입을 전달받아, 해당 타입에 따라 키에 대한 동작이 다르도록 함*/
 		super(screen);
 		// TODO Auto-generated constructor stub
 		if(playertype == 1) {
@@ -50,20 +50,20 @@ public class Bazzi extends Character implements KeyListener{
 		this.bombSize = 1;//물줄기 크기 1
 		this.playertype = playertype;
 		playerWaterBalloon = new WaterBalloon(playertype); /* 물풍선 생성*/
-		this.bazzi_state = new Image[4];
-		Image bazzi_front = new ImageIcon("Resources/bazzi_front.png").getImage();//배찌 정면 이미지
-		Image bazzi_back = new ImageIcon("Resources/bazzi_back.png").getImage();//배찌 후면 이미지
-		Image bazzi_left = new ImageIcon("Resources/bazzi_left.png").getImage();//배찌 좌측면 이미지
-		Image bazzi_right = new ImageIcon("Resources/bazzi_right.png").getImage();//배찌 우측면 이미지
-		this.bazzi_state[0] = bazzi_front;
-		this.bazzi_state[1] = bazzi_back;
-		this.bazzi_state[2] = bazzi_left;
-		this.bazzi_state[3] = bazzi_right;
+		this.Eddi_state = new Image[4];
+		Image eddi_front = new ImageIcon("Resources/Ettie_front.png").getImage();//에띠 정면 이미지
+		Image eddi_back = new ImageIcon("Resources/Ettie_back.png").getImage();//에띠 후면 이미지
+		Image eddi_left = new ImageIcon("Resources/Ettie_left.png").getImage();//에띠 좌측면 이미지
+		Image eddi_right = new ImageIcon("Resources/Ettie_right.png").getImage();//에띠 우측면 이미지
+		this.Eddi_state[0] = eddi_front;
+		this.Eddi_state[1] = eddi_back;
+		this.Eddi_state[2] = eddi_left;
+		this.Eddi_state[3] = eddi_right;
 		this.state = 0;//초기 정면으로 보고있음
 	}
 	
 	public Image getImg() {//이미지를 스크린에 주기위한 함수
-		return this.bazzi_state[state];
+		return this.Eddi_state[state];
 	}
 	
 	public Image getballoonImg() {//이미지를 스크린에 주기위한 함수

@@ -1,4 +1,3 @@
-
 public class Make_Item_Index {
 	
 	public Make_Item_Index() {

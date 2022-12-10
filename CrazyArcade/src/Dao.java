@@ -4,7 +4,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 
-public class Bazzi extends Character implements KeyListener{
+public class Dao extends Character implements KeyListener{
 
 	private int X;
 	private int Y;
@@ -16,10 +16,10 @@ public class Bazzi extends Character implements KeyListener{
 	public int streamSize;
 	public int playertype;
 	WaterBalloon playerWaterBalloon;
-	private Image[] bazzi_state;
+	private Image[] Dao_state;
 	private int state;//상태 번호
 
-	public Bazzi(Screen screen, int playertype) { /*플레이어 타입을 전달받아, 해당 타입에 따라 키에 대한 동작이 다르도록 함*/
+	public Dao(Screen screen, int playertype) { /*플레이어 타입을 전달받아, 해당 타입에 따라 키에 대한 동작이 다르도록 함*/
 		super(screen);
 		// TODO Auto-generated constructor stub
 		if(playertype == 1) {
@@ -50,20 +50,20 @@ public class Bazzi extends Character implements KeyListener{
 		this.bombSize = 1;//물줄기 크기 1
 		this.playertype = playertype;
 		playerWaterBalloon = new WaterBalloon(playertype); /* 물풍선 생성*/
-		this.bazzi_state = new Image[4];
-		Image bazzi_front = new ImageIcon("Resources/bazzi_front.png").getImage();//배찌 정면 이미지
-		Image bazzi_back = new ImageIcon("Resources/bazzi_back.png").getImage();//배찌 후면 이미지
-		Image bazzi_left = new ImageIcon("Resources/bazzi_left.png").getImage();//배찌 좌측면 이미지
-		Image bazzi_right = new ImageIcon("Resources/bazzi_right.png").getImage();//배찌 우측면 이미지
-		this.bazzi_state[0] = bazzi_front;
-		this.bazzi_state[1] = bazzi_back;
-		this.bazzi_state[2] = bazzi_left;
-		this.bazzi_state[3] = bazzi_right;
+		this.Dao_state = new Image[4];
+		Image dao_front = new ImageIcon("Resources/dao_front.png").getImage();//다오 정면 이미지
+		Image dao_back = new ImageIcon("Resources/dao_back.png").getImage();//다오 후면 이미지
+		Image dao_left = new ImageIcon("Resources/dao_left.png").getImage();//다오 좌측면 이미지
+		Image dao_right = new ImageIcon("Resources/dao_right.png").getImage();//다오 우측면 이미지
+		this.Dao_state[0] = dao_front;
+		this.Dao_state[1] = dao_back;
+		this.Dao_state[2] = dao_left;
+		this.Dao_state[3] = dao_right;
 		this.state = 0;//초기 정면으로 보고있음
 	}
 	
 	public Image getImg() {//이미지를 스크린에 주기위한 함수
-		return this.bazzi_state[state];
+		return this.Dao_state[state];
 	}
 	
 	public Image getballoonImg() {//이미지를 스크린에 주기위한 함수
@@ -149,6 +149,10 @@ public class Bazzi extends Character implements KeyListener{
 			//다음 이동위치 인덱스 0,1,2,9,12일 경우에만 이동가능
 			Y-=step;
 		}
+		else if((playerIndex_y)*60.45<this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
+			Y-=step;
+		}
+	}
 		else if((playerIndex_y)*60.45<this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			Y-=step;
 		}
