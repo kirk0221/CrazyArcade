@@ -121,12 +121,12 @@ public class ReadyFrame extends JFrame implements MouseListener {
 		else if (plyaernumber==2 && p2chnumger==6) { //두번째 캐릭터 창에 배찌사진 띄우기
 			g.drawImage(bazziBackground,250,100,null);
 		}
-		else if (plyaernumber==2 && p2chnumger==6) { //두번째 캐릭터 창에 배찌사진 띄우기
-			g.drawImage(bazziBackground,250,100,null);
-		}
 		else if (plyaernumber==2 && p2chnumger==7) { //두번째 캐릭터 창에 우니사진 띄우기
 			g.drawImage(uniBackground,250,100,null);
 		}
+		else if (plyaernumber==2 && p1chnumber==9) { //두번째 캐릭터 창에 수사진 띄우기
+			g.drawImage(suBackground,250,100,null);
+		}			
 		if (MapChoice.MapNumber==2){  //해적맵 고르면 해적맵이랑 해적난이도 그려줌
 			g.drawImage(FactoryBackground,440 ,200, null);
 			g.drawImage(FactorylevelBackground, 625,190, null);

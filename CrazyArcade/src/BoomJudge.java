@@ -1,4 +1,9 @@
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+
 import javax.swing.JOptionPane;
+
+import javazoom.jl.player.Player;
 
 public class BoomJudge {
 	public static int[][] map_size = new int[13][13];//맵 사이즈 13*13
@@ -153,7 +158,6 @@ public class BoomJudge {
 				}
 			}
 		}
-		
 	}
 	
 	public static void item_check() { //추가 및 체크 함수
