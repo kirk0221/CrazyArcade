@@ -43,7 +43,6 @@ public class CharacterChoice extends JFrame implements MouseListener{
 		Rectangle dao = new Rectangle(0, 20, 790, 65); //다오선택
 		boolean check = dao.contains(e.getPoint());
 		if(check) {
-			System.out.println("다오선택");
 			if (ReadyFrame.plyaernumber==1) {
 				ReadyFrame.p1chnumber=1;
 				ReadyFrame.p1chrcheck=1;
@@ -57,7 +56,6 @@ public class CharacterChoice extends JFrame implements MouseListener{
 		Rectangle dizini = new Rectangle(0, 86, 790, 65); //디지니선택
 		boolean check1 = dizini.contains(e.getPoint());
 		if(check1) {
-			System.out.println("디지니선택");
 			if (ReadyFrame.plyaernumber==1) {
 				ReadyFrame.p1chnumber=2;
 				ReadyFrame.p1chrcheck=1;
@@ -71,7 +69,6 @@ public class CharacterChoice extends JFrame implements MouseListener{
 		Rectangle eddi = new Rectangle(0, 150, 790, 65); //에띠선택
 		boolean check2 = eddi.contains(e.getPoint());
 		if(check2) {
-			System.out.println("에띠선택");
 			if (ReadyFrame.plyaernumber==1) {
 				ReadyFrame.p1chnumber=3;
 				ReadyFrame.p1chrcheck=1;
@@ -85,7 +82,6 @@ public class CharacterChoice extends JFrame implements MouseListener{
 		Rectangle mos = new Rectangle(0, 220, 790, 65); //모스선택
 		boolean check3 = mos.contains(e.getPoint());
 		if(check3) {
-			System.out.println("모스선택");
 			if (ReadyFrame.plyaernumber==1) {
 				ReadyFrame.p1chnumber=4;
 				ReadyFrame.p1chrcheck=1;
@@ -99,7 +95,6 @@ public class CharacterChoice extends JFrame implements MouseListener{
 		Rectangle marid = new Rectangle(0, 285, 790, 65); //마리드선택
 		boolean check4 = marid.contains(e.getPoint());
 		if(check4) {
-			System.out.println("마리드선택");
 			if (ReadyFrame.plyaernumber==1) {
 				ReadyFrame.p1chnumber=5;
 				ReadyFrame.p1chrcheck=1;
@@ -113,7 +108,6 @@ public class CharacterChoice extends JFrame implements MouseListener{
 		Rectangle bazzi = new Rectangle(0, 345, 790, 65); //배찌선택
 		boolean check5 = bazzi.contains(e.getPoint());
 		if(check5) {
-			System.out.println("배찌선택");
 			if (ReadyFrame.plyaernumber==1) {
 				ReadyFrame.p1chnumber=6;
 				ReadyFrame.p1chrcheck=1;
@@ -127,7 +121,6 @@ public class CharacterChoice extends JFrame implements MouseListener{
 		Rectangle uni = new Rectangle(0, 410, 790, 65); //우니선택
 		boolean check6 = uni.contains(e.getPoint());
 		if(check6) {
-			System.out.println("우니선택");
 			if (ReadyFrame.plyaernumber==1) {
 				ReadyFrame.p1chnumber=7;
 				ReadyFrame.p1chrcheck=1;
@@ -141,7 +134,6 @@ public class CharacterChoice extends JFrame implements MouseListener{
 		Rectangle keppi = new Rectangle(0, 475, 790, 65); //케피선택
 		boolean check7 = keppi.contains(e.getPoint());
 		if(check7) {
-			System.out.println("케피선택");
 			if (ReadyFrame.plyaernumber==1) {
 				ReadyFrame.p1chnumber=8;
 				ReadyFrame.p1chrcheck=1;
@@ -155,7 +147,6 @@ public class CharacterChoice extends JFrame implements MouseListener{
 		Rectangle su = new Rectangle(0, 540, 790, 65); //수선택
 		boolean check8 = su.contains(e.getPoint());
 		if(check8) {
-			System.out.println("수선택");
 			if (ReadyFrame.plyaernumber==1) {
 				ReadyFrame.p1chnumber=9;
 				ReadyFrame.p1chrcheck=1;
