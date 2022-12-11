@@ -1,6 +1,7 @@
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
@@ -16,8 +17,10 @@ public class Uni extends Character implements KeyListener{
 	public int streamSize;
 	public int playertype;
 	WaterBalloon playerWaterBalloon;
-	private Image[] Uni_state;
+	private Image[][] Uni_state;
 	private int state;//상태 번호
+	private int state_move;//이동 상태 번호
+	private int move;
 
 	public Uni(Screen screen, int playertype) { /*플레이어 타입을 전달받아, 해당 타입에 따라 키에 대한 동작이 다르도록 함*/
 		super(screen);
@@ -50,20 +53,38 @@ public class Uni extends Character implements KeyListener{
 		this.bombSize = 1;//물줄기 크기 1
 		this.playertype = playertype;
 		playerWaterBalloon = new WaterBalloon(playertype); /* 물풍선 생성*/
-		this.Uni_state = new Image[4];
-		Image uni_front = new ImageIcon("Resources/uni_front.png").getImage();//우니 정면 이미지
-		Image uni_back = new ImageIcon("Resources/uni_back.png").getImage();//우니 후면 이미지
-		Image uni_left = new ImageIcon("Resources/uni_left.png").getImage();//우니 좌측면 이미지
-		Image uni_right = new ImageIcon("Resources/uni_right.png").getImage();//우니 우측면 이미지
-		this.Uni_state[0] = uni_front;
-		this.Uni_state[1] = uni_back;
-		this.Uni_state[2] = uni_left;
-		this.Uni_state[3] = uni_right;
+		this.Uni_state = new Image[4][3];
+		Image Uni_front = new ImageIcon(getClass().getClassLoader().getResource("uni_front.png")).getImage();//다오 정면 이미지
+		Image Uni_front1 = new ImageIcon(getClass().getClassLoader().getResource("uni_front1.png")).getImage();
+		Image Uni_front2 = new ImageIcon(getClass().getClassLoader().getResource("uni_front2.png")).getImage();
+		Image Uni_back = new ImageIcon(getClass().getClassLoader().getResource("uni_back.png")).getImage();//다오 후면 이미지
+		Image Uni_back1 = new ImageIcon(getClass().getClassLoader().getResource("uni_back1.png")).getImage();
+		Image Uni_back2 = new ImageIcon(getClass().getClassLoader().getResource("uni_back2.png")).getImage();
+		Image Uni_left = new ImageIcon(getClass().getClassLoader().getResource("uni_left.png")).getImage();//다오 좌측면 이미지
+		Image Uni_left1 = new ImageIcon(getClass().getClassLoader().getResource("uni_left1.png")).getImage();
+		Image Uni_left2 = new ImageIcon(getClass().getClassLoader().getResource("uni_left2.png")).getImage();
+		Image Uni_right = new ImageIcon(getClass().getClassLoader().getResource("uni_right.png")).getImage();//다오 우측면 이미지
+		Image Uni_right1 = new ImageIcon(getClass().getClassLoader().getResource("uni_right1.png")).getImage();
+		Image Uni_right2 = new ImageIcon(getClass().getClassLoader().getResource("uni_right2.png")).getImage();
+		this.Uni_state[0][0] = Uni_front;
+		this.Uni_state[0][1] = Uni_front1;
+		this.Uni_state[0][2] = Uni_front2;
+		this.Uni_state[1][0] = Uni_back;
+		this.Uni_state[1][1] = Uni_back1;
+		this.Uni_state[1][2] = Uni_back2;
+		this.Uni_state[2][0] = Uni_left;
+		this.Uni_state[2][1] = Uni_left1;
+		this.Uni_state[2][2] = Uni_left2;
+		this.Uni_state[3][0] = Uni_right;
+		this.Uni_state[3][1] = Uni_right1;
+		this.Uni_state[3][2] = Uni_right2;
 		this.state = 0;//초기 정면으로 보고있음
+		this.state_move = 0;
+		this.move = 0;
 	}
 	
 	public Image getImg() {//이미지를 스크린에 주기위한 함수
-		return this.Uni_state[state];
+		return this.Uni_state[state][state_move];
 	}
 	
 	public Image getballoonImg() {//이미지를 스크린에 주기위한 함수
@@ -129,34 +150,59 @@ public class Uni extends Character implements KeyListener{
 		/*터진 물풍선 객체의 링크드 리스트의 크기를 스크린에 전달하여, 반복문의 반복 휫수를 지정하기 위한 함수*/
 	}
 	
-	public int getbombSize() {//물풍선 크기값을 스크린에 주기위한 함수
-		return this.bombSize + this.streamSize;
-	}
-	public int getstreamSize() {//물풍선 길이 증가값을 스크린에 주기위한 함수
-		return this.streamSize;
+	public LinkedList<Integer> getbombSize(int i) {//물풍선 크기값을 스크린에 주기위한 함수
+		if(i==0) {
+			return playerWaterBalloon.get_up_checkList();
+		}else if(i==1) {
+			return playerWaterBalloon.get_down_checkList();
+		}else if(i==2) {
+			return playerWaterBalloon.get_left_checkList();
+		}else{
+			return playerWaterBalloon.get_right_checkList();
+		}
 	}
 	
 	public void up(int step) {//위로 가기
-		this.state  = 1;
+		this.state = 1;
+		if (move == 7) {
+			move = 0;
+		}
+		if((move%6 == 0)||(move%6 == 1)||(move%6 == 2)) {
+			this.state_move = 1;
+		}else {
+			this.state_move = 2;
+		}
 		if (playerIndex_y == 0) {//인덱스 0일경우 예외처리
 			Y-=step;
+			move++;
 		}
 		else if((BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 1) ||
 				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 2) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 9) || 
 				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 12) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 15) ||
 				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 18) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 21) ||
-				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 24) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 2)){
+				(BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 24) || (BoomJudge.map_size[playerIndex_y-1][playerIndex_x] == 27)){
 			//다음 이동위치 인덱스 0,1,2,9,12일 경우에만 이동가능
 			Y-=step;
+			move++;
 		}
 		else if((playerIndex_y)*60.45<this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			Y-=step;
+			move++;
 		}
 	}
 	public void down(int step) {//아래로 가기
 		this.state  = 0;
+		if (move == 7) {
+			move = 0;
+		}
+		if((move%6 == 0)||(move%6 == 1)||(move%6 == 2)) {
+			this.state_move = 1;
+		}else {
+			this.state_move = 2;
+		}
 		if (playerIndex_y == 12) {//인덱스 12일경우 예외처리
 			Y+=step;
+			move++;
 		}
 		else if((BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 0) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 1) || 
 				(BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 2) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 9) || 
@@ -165,15 +211,26 @@ public class Uni extends Character implements KeyListener{
 				(BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 24) || (BoomJudge.map_size[playerIndex_y+1][playerIndex_x] == 27)) {
 			//다음 이동위치의 인덱스 0,1,2,9,12일 경우에만 이동가능
 			Y+=step;
+			move++;
 		}
 		else if((playerIndex_y)*60.45>this.getY()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			Y+=step;
+			move++;
 		}
 	}
 	public void left(int step) {//왼쪽으로 가기
 		this.state  = 2;
+		if (move == 7) {
+			move = 0;
+		}
+		if((move%6 == 0)||(move%6 == 1)||(move%6 == 2)) {
+			this.state_move = 1;
+		}else {
+			this.state_move = 2;
+		}
 		if (playerIndex_x == 0) {//인덱스 0일경우 예외처리
 			X-=step;
+			move++;
 		}
 		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 1) || 
 				(BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 2) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 9) || 
@@ -182,15 +239,26 @@ public class Uni extends Character implements KeyListener{
 				(BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 24) || (BoomJudge.map_size[playerIndex_y][playerIndex_x-1] == 27)) {
 			//다음 이동위치의 인덱스 0,1,2,9,12일 경우에만 이동가능
 			X-=step;
+			move++;
 		}
 		else if((playerIndex_x)*60.45<this.getX()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			X-=step;
+			move++;
 		}
 	}
 	public void right(int step) {//오른쪽으로 가기
 		this.state  = 3;
+		if (move == 7) {
+			move = 0;
+		}
+		if((move%6 == 0)||(move%6 == 1)||(move%6 == 2)) {
+			this.state_move = 1;
+		}else {
+			this.state_move = 2;
+		}
 		if (playerIndex_x == 12) {//인덱스 12일경우 예외처리
 			X+=step;
+			move++;
 		}
 		else if((BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 0) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 1) || 
 				(BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 2) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 9) || 
@@ -199,9 +267,11 @@ public class Uni extends Character implements KeyListener{
 				(BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 24) || (BoomJudge.map_size[playerIndex_y][playerIndex_x+1] == 27)) {
 			//다음 이동위치의 인덱스 0,1,2,9,12일 경우에만 이동가능
 			X+=step;
+			move++;
 		}
 		else if((playerIndex_x)*60.45>this.getX()) {//그래도 캐릭터가 벽옆의 빈칸으로 안넘어가져서 벽을 넘지 않을 정도까지만 이동
 			X+=step;
+			move++;
 		}
 	}
 
@@ -211,7 +281,7 @@ public class Uni extends Character implements KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -250,10 +320,6 @@ public class Uni extends Character implements KeyListener{
 				this.step = step + BoomJudge.character2_speedup - this.step_plus;
 				this.step_plus = BoomJudge.character2_speedup;
 			}
-			if(BoomJudge.character2_speedup != step_plus) {
-				this.step_plus = BoomJudge.character2_speedup;
-				this.step += 3;
-			 }
 			 if(Screen.c2.isUp()) {
 				 if(this.getY()>=0) {
 						this.up(this.step);
@@ -283,7 +349,13 @@ public class Uni extends Character implements KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		this.state_move = 0;
+	}
+
+	@Override
+	public void getmovestop() {
+		// TODO Auto-generated method stub
+		this.state_move = 0;
 	}
 
 }
