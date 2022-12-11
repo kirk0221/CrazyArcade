@@ -1,6 +1,7 @@
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
@@ -149,11 +150,16 @@ public class Uni extends Character implements KeyListener{
 		/*터진 물풍선 객체의 링크드 리스트의 크기를 스크린에 전달하여, 반복문의 반복 휫수를 지정하기 위한 함수*/
 	}
 	
-	public int getbombSize() {//물풍선 크기값을 스크린에 주기위한 함수
-		return this.bombSize + this.streamSize;
-	}
-	public int getstreamSize() {//물풍선 길이 증가값을 스크린에 주기위한 함수
-		return this.streamSize;
+	public LinkedList<Integer> getbombSize(int i) {//물풍선 크기값을 스크린에 주기위한 함수
+		if(i==0) {
+			return playerWaterBalloon.get_up_checkList();
+		}else if(i==1) {
+			return playerWaterBalloon.get_down_checkList();
+		}else if(i==2) {
+			return playerWaterBalloon.get_left_checkList();
+		}else{
+			return playerWaterBalloon.get_right_checkList();
+		}
 	}
 	
 	public void up(int step) {//위로 가기

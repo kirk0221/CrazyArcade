@@ -31,7 +31,6 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	
 	private final int MAX_PLAYER = 2;//MAX 플레이어
 	Character[] players; //플레이어 관리를 위한 배열
-	public int state_move;
 
 	
 	int[] playerIndex_x; /*characterin에서 사용*/
@@ -75,7 +74,6 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 		playerIndex_y = new int[MAX_PLAYER];
 		previous_Index_x = new int[MAX_PLAYER];
 		previous_Index_y = new int[MAX_PLAYER];
-		state_move = 0;
 		if (ReadyFrame.p1chnumber==2) {
 			Character player1 = new Dizini(this,1); //플레이어1에 디지니 생성
 			players[0] = player1;
@@ -310,33 +308,50 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			for(int i=0;i<players[playertype].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
 			/*일반적인 물풍선 터진 이미지 그리기*/
 			bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-			
-			for(int plusbombsize = players[playertype].getstreamSize(); plusbombsize>0; plusbombsize--) {
-				if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize>=0) {
-					bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				}
-				if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize<=12) {
-				bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				}
-				if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize>=0) {
-				bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize], this);
-				}
-				if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize<=12) {
-				bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize], this);
+			boolean check_end=true;
+			for(int plusbombsize = players[playertype].getbombSize(2).get(i); plusbombsize>0; plusbombsize--) {
+				if(players[playertype].getboomballoonX(i)-plusbombsize>=0) {
+					if (check_end) {
+						bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+						check_end=false;
+					}else {
+						bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+					}
 				}
 			}
-			if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
-				bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+			check_end=true;
+			for(int plusbombsize = players[playertype].getbombSize(3).get(i); plusbombsize>0; plusbombsize--) {
+				if(players[playertype].getboomballoonX(i)+plusbombsize<=12) {
+					if (check_end) {
+						bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+						check_end=false;
+					}else {
+						bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+					}
 				}
-			if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()<=12) {
-				bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+			}
+			check_end=true;
+			for(int plusbombsize = players[playertype].getbombSize(0).get(i); plusbombsize>0; plusbombsize--) {
+				if(players[playertype].getboomballoonY(i)-plusbombsize>=0) {
+					if (check_end) {
+						bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-plusbombsize], this);
+						check_end=false;
+					}else {
+						bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-plusbombsize], this);
+					}
 				}
-			if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()>=0) {
-				bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()], this);
+			}
+			check_end=true;
+			for(int plusbombsize = players[playertype].getbombSize(1).get(i); plusbombsize>0; plusbombsize--) {
+				if(players[playertype].getboomballoonY(i)+plusbombsize<=12) {
+					if (check_end) {
+						bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+plusbombsize], this);
+						check_end=false;
+					}else {
+						bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+plusbombsize], this);
+					}
 				}
-			if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
-				bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
-				}
+			}
 		}
 	}
 		
