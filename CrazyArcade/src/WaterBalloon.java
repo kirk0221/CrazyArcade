@@ -189,7 +189,11 @@ public class WaterBalloon {
 					boomballoonXList.add(remember_x); /*물풍선 x 좌표 인덱스를 저장하는 링크드 리스트*/
 					boomballoonYList.add(remember_y); /*물풍선 y 좌표 인덱스를 저장하는 링크드 리스트*/
 					
-					down_check=0;
+					down_check=-1;
+					up_check=-1;
+					left_check=-1;
+					right_check=-1;
+					
 					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
 						if(boomballoonYqueue.peek()+bombSize+plusbombsize<=12) {
 							if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 5){
@@ -246,7 +250,6 @@ public class WaterBalloon {
 						}
 					}
 					down_checkList.add(down_check+1);
-					up_check=0;
 					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
 						if(boomballoonYqueue.peek()-bombSize-plusbombsize>=0) {
 							if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 5){
@@ -285,16 +288,16 @@ public class WaterBalloon {
 							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 20) {
 								up_check = plusbombsize;
 								break;
-							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 22) {
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 22) {
 								up_check = plusbombsize;
 								break;
-							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 23) {
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 23) {
 								up_check = plusbombsize;
 								break;
-							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 25) {
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 25) {
 								up_check = plusbombsize;
 								break;
-							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 26) {
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 26) {
 								up_check = plusbombsize;
 								break;
 							}else{
@@ -303,8 +306,6 @@ public class WaterBalloon {
 						}
 					}
 					up_checkList.add(up_check+1);
-					System.out.println(up_checkList.get(0));
-					right_check=0;
 					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
 						if(boomballoonXqueue.peek()+bombSize+plusbombsize<=12) {
 							if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 5){
@@ -361,7 +362,6 @@ public class WaterBalloon {
 						}
 					}
 					right_checkList.add(right_check+1);
-					left_check=0;
 					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
 						if(boomballoonXqueue.peek()-bombSize-plusbombsize>=0) {
 							if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 5){
@@ -403,13 +403,13 @@ public class WaterBalloon {
 							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 22) {
 								left_check = plusbombsize;
 								break;
-							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 23) {
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 23) {
 								left_check = plusbombsize;
 								break;
-							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 25) {
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 25) {
 								left_check = plusbombsize;
 								break;
-							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 26) {
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 26) {
 								left_check = plusbombsize;
 								break;
 							}else{
