@@ -6,10 +6,6 @@ public abstract class Character {
 	private Screen screen;
 	private int X;
 	private int Y;
-	private int playerIndex_x;
-	private int playerIndex_y;
-	private static int step;
-	
 	public Character(Screen screen) {//스크린 불러오기
 		this.screen = screen;
 	}

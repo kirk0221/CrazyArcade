@@ -16,6 +16,10 @@ import javazoom.jl.player.Player;
 
 public class MainFrame extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton[] loginButtons; //시작, 종료 관리용 멤버필드
 	private Image starteBackground = new ImageIcon("Resources/start.png").getImage();//처음 배경 넣기
 	ImageIcon loginBackground = new ImageIcon("Resources/login.png");//로그인 배경 넣기

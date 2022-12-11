@@ -44,14 +44,11 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	private Image map_CookieBox1 = new ImageIcon("Resources/boxcookie1.png").getImage();
 	private Image map_CookieBox2 = new ImageIcon("Resources/boxcookie2.png").getImage();
 	private Image map_PatriotsBackground = new ImageIcon("Resources/mapPatriots.png").getImage();//해적(맵1) 이미지
-	private Image map_PatriotsBox1 = new ImageIcon("Resources/box1.png").getImage(); // 이거 아마 안쓸듯 이미지가 2랑 똑같은데 작은거임
 	private Image map_PatriotsBox2 = new ImageIcon("Resources/box2.png").getImage();
 	private Image map_PatriotsBox3 = new ImageIcon("Resources/box3.png").getImage();
 	private Image map_VillageBackground = new ImageIcon("Resources/mapvillage.png").getImage();
-	private Image map_VillageBox1 = new ImageIcon("Resources/boxhome.png").getImage();//이거 아직은 안쓸듯
 	private Image map_VillageBox2 = new ImageIcon("Resources/boxtree.png").getImage();
 	private Image map_VillageBox3 = new ImageIcon("Resources/boxvillage2.png").getImage();
-	private Image map_VillageBox4 = new ImageIcon("Resources/boxvillage3.png").getImage();//이거 아직은 안쓸듯
 	//아이템 관련 이미지
 	private Image item_waterbomb = new ImageIcon("Resources/item_waterbombplus.png").getImage();
 	private Image item_speed = new ImageIcon("Resources/item_Speed.png").getImage();

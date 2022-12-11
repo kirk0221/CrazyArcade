@@ -30,7 +30,6 @@ public class MAP_Cookie extends JFrame{
 		bgplay();
 		music.start();
 	}
-	
 	private void bgplay() { // 배경 음악 (프기프 교수님 참조 파일 참고)
 		Player jlPlayer = null;
         try {

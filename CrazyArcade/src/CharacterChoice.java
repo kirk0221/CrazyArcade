@@ -6,11 +6,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class CharacterChoice extends JFrame implements MouseListener{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Image ChrChoiceBackground = new ImageIcon("Resources/Charcterch.png").getImage();//처음 배경 넣기
 	private int num =0;
 	

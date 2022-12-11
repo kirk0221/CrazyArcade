@@ -1,10 +1,7 @@
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedInputStream;
@@ -13,16 +10,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 import javazoom.jl.player.Player;
 
 public class ReadyFrame extends JFrame implements MouseListener {
-	private JButton[] mapButtons;
-	private JButton[] characterButtons;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Image starteBackground = new ImageIcon("Resources/ready2.png").getImage();//처음 배경 넣기
 	private Image daoBackground = new ImageIcon("Resources/dao.png").getImage();//다오 배경 넣기
 	private Image eddiBackground = new ImageIcon("Resources/eddi.png").getImage();//에띠 배경 넣기
@@ -33,7 +29,7 @@ public class ReadyFrame extends JFrame implements MouseListener {
 	private Image bazziBackground = new ImageIcon("Resources/bazzi.png").getImage();//배찌 배경 넣기
 	private Image uniBackground = new ImageIcon("Resources/uni.png").getImage();//우니 배경 넣기
 	private Image dizniackground = new ImageIcon("Resources/dizni.png").getImage();//디즈니 배경 넣기
-	private Image FactoryBackground = new ImageIcon("Resources/Factorymap.png").getImage();//팩토리 배경 넣기
+	private Image FactoryBackground = new ImageIcon("Resources/Fatriotmap.png").getImage();//팩토리 배경 넣기
 	private Image CookieBackground = new ImageIcon("Resources/Cookiemap.png").getImage();//쿠키 배경
 	private Image VilageBackground = new ImageIcon("Resources/Vilagemap.png").getImage();//빌리지 배경
 	private Image FactorylevelBackground = new ImageIcon("Resources/factorylevel.png").getImage();//팩토리 난이도 넣기
@@ -51,7 +47,6 @@ public class ReadyFrame extends JFrame implements MouseListener {
 	private int p2ready=0;
 	static int p1chrcheck=0; //플레이어1의 캐릭터를 골랐는지 체크하는 변수
 	static int p2chrcheck=0; //플레이어2의 캐릭터를 골랐는지 체크하는 변수
-	
 	
 	private void readyplay() { //레디누를때 (프기프 교수님 참조 파일 참고)
 		Player jlPlayer = null;
@@ -97,7 +92,7 @@ public class ReadyFrame extends JFrame implements MouseListener {
 	}
 	
 	public ReadyFrame(){ //MainFrame 생성자
-		this.setTitle("MapChoice"); //창 제목
+		this.setTitle("GameReady"); //창 제목
 		this.setSize(805, 610); //창 크기
 		this.setResizable(false);//창 크기 고정
 		this.setLayout(new BorderLayout());///BorderLayout 설정
@@ -260,18 +255,16 @@ public class ReadyFrame extends JFrame implements MouseListener {
 			new CharacterChoice(); //캐릭터 선택창 띄우기
 		}
 		
-		// pready가 1번이면 준비된거고 0번이면 준비가 안된거임
+		// ready가 1번이면 준비된거고 0번이면 준비가 안된거임
 		Rectangle ready1 = new Rectangle(5, 520, 200, 70); //1 플레이어 준비
 		boolean ready1check = ready1.contains(e.getPoint());
 		if(ready1check) {
 			if (p1chrcheck == 1 && p1ready ==0) {
 				p1ready =1; //준비상태가 아닐때 준비를 누르면 1번 플레이어가 레디가됨
 				readyplay();
-				System.out.println("1플레이어 준비완료");
 			}
 			else if(p1ready == 1) {
 				p1ready =0; //준비상태일 때 준비를 누르면 1번 플레이어 레디가 사라짐
-				System.out.println("1플레이어 준비취소");
 			}
 		}
 		Rectangle ready2 = new Rectangle(230, 520, 200, 70); //2 플레이어 준비
@@ -280,16 +273,14 @@ public class ReadyFrame extends JFrame implements MouseListener {
 			if (p2chrcheck == 1 && p2ready ==0) {
 				p2ready =1; //준비상태가 아닐때 준비를 누르면 2번 플레이어가 레디가됨
 				readyplay();
-				System.out.println("2플레이어 준비완료");
 			}
 			else if(p2ready == 1) {
 				p2ready =0; //준비상태일 때 준비를 누르면 2번 플레이어 레디가 사라짐
-				System.out.println("2플레이어 준비취소");
 			}
 		}
 		
 	}
-	// 다오 :1, 디지니 :2, 에띠 :3, 모스:4,마리드:5,배찌:6,우니:7,케피:8,수:9
+	// 다오 :1, 디지니 :2, 에띠 :3, 모스:4, 마리드:5, 배찌:6, 우니:7, 케피:8, 수:9
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub

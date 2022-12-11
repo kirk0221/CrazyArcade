@@ -1,24 +1,19 @@
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class MapChoice extends JFrame implements MouseListener{
 	
-	private String MAP_COOKIE = "Cookie";
-	private String MAP_PATRIOTS = "Patriots";
-	private String MAP_VILLAGE = "Village";
-	private JButton[] mapButtons; //¸Ê °ü¸®¿ë ¸â¹öÇÊµå
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int num=0;
 	static int MapNumber=0;
 	private Image MapChoiceBackground = new ImageIcon("Resources/MapChoice1.png").getImage();//Ã³À½ ¹è°æ ³Ö±â
@@ -51,21 +46,18 @@ public class MapChoice extends JFrame implements MouseListener{
 		boolean check = cookie.contains(e.getPoint());
 		if(check) {
 			MapNumber=1; //ÄíÅ°¸ÊÀº 1¹ø
-			System.out.println("ÄíÅ°¸Ê");
 			MapChoice.this.setVisible(false); //ÇöÀç Ã¢ ¼û±â±â
 		}
 		Rectangle Patriots = new Rectangle(271, 120, 259, 340); //ÆÐÆ®¸´¸Ê¼±ÅÃ
 		boolean check2 = Patriots.contains(e.getPoint());
 		if(check2) {
 			MapNumber=2; //ÇØÀû¸ÊÀº 2¹ø
-			System.out.println("ÇØÀû¸Ê");
 			MapChoice.this.setVisible(false); //ÇåÀç Ã¢ ¼û±â±â
 		}
 		Rectangle Vilage = new Rectangle(532, 120, 268, 340); //ºô¸®Áö¸Ê¼±ÅÃ
 		boolean check3 = Vilage.contains(e.getPoint());
 		if(check3) {
 			MapNumber=3; //ºô¸®Áö ¸ÊÀº 3¹ø
-			System.out.println("ºô¸®Áö¸Ê");
 			MapChoice.this.setVisible(false); //ÇåÀç Ã¢ ¼û±â±â
 		}
 	}
