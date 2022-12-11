@@ -320,10 +320,6 @@ public class Dao extends Character implements KeyListener{
 				this.step = step + BoomJudge.character2_speedup - this.step_plus;
 				this.step_plus = BoomJudge.character2_speedup;
 			}
-			if(BoomJudge.character2_speedup != step_plus) {
-				this.step_plus = BoomJudge.character2_speedup;
-				this.step += 3;
-			 }
 			 if(Screen.c2.isUp()) {
 				 if(this.getY()>=0) {
 						this.up(this.step);
