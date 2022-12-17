@@ -18,6 +18,15 @@ public class WaterBalloon {
 	int waterballoonmax;
 	int waterballoonmax_plus;
 	
+	int up_check;
+	LinkedList<Integer> up_checkList = new LinkedList<>();
+	int down_check;
+	LinkedList<Integer> down_checkList = new LinkedList<>();
+	int left_check;
+	LinkedList<Integer> left_checkList = new LinkedList<>();
+	int right_check;
+	LinkedList<Integer> right_checkList = new LinkedList<>();
+	
 	public int[] mapXlocationlist;
 	public int[] mapYlocationlist;
 	
@@ -60,12 +69,12 @@ public class WaterBalloon {
 				locationnum += 60.45;
 		}
 		
-		this.balloonImg = new ImageIcon("Resources/waterbomb.png").getImage();
-		this.centerImg = new ImageIcon("Resources/waterbomb_center.png").getImage();
-		this.leftImg = new ImageIcon("Resources/waterbomb_width.png").getImage();
-		this.rightImg = new ImageIcon("Resources/waterbomb_width2.png").getImage();
-		this.upImg = new ImageIcon("Resources/waterbomb_height2.png").getImage();
-		this.downImg = new ImageIcon("Resources/waterbomb_height.png").getImage();
+		this.balloonImg = new ImageIcon(getClass().getClassLoader().getResource("waterbomb.png")).getImage();
+		this.centerImg = new ImageIcon(getClass().getClassLoader().getResource("waterbomb_center.png")).getImage();
+		this.leftImg = new ImageIcon(getClass().getClassLoader().getResource("waterbomb_width.png")).getImage();
+		this.rightImg = new ImageIcon(getClass().getClassLoader().getResource("waterbomb_width2.png")).getImage();
+		this.upImg = new ImageIcon(getClass().getClassLoader().getResource("waterbomb_height2.png")).getImage();
+		this.downImg = new ImageIcon(getClass().getClassLoader().getResource("waterbomb_height.png")).getImage();
 	}
 	
 	public Image getImg() {// 물풍선 이미지를 스크린에 주기위한 함수
@@ -180,22 +189,257 @@ public class WaterBalloon {
 					boomballoonXList.add(remember_x); /*물풍선 x 좌표 인덱스를 저장하는 링크드 리스트*/
 					boomballoonYList.add(remember_y); /*물풍선 y 좌표 인덱스를 저장하는 링크드 리스트*/
 					
-					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 4;
+					down_check=-1;
+					up_check=-1;
+					left_check=-1;
+					right_check=-1;
+					
 					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
+						if(boomballoonYqueue.peek()+bombSize+plusbombsize<=12) {
+							if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 5){
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 6){
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 7) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 8) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 10) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 11) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 13) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 14) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 16) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 17) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 19) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 20) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 22) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 23) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 25) {
+								down_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 26) {
+								down_check = plusbombsize;
+								break;
+							}else{
+								down_check = plusbombsize;
+							}
+						}
+					}
+					down_checkList.add(down_check+1);
+					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
+						if(boomballoonYqueue.peek()-bombSize-plusbombsize>=0) {
+							if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 5){
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 6){
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 7) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 8) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 10) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 11) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 13) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 14) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 16) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 17) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 19) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 20) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 22) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 23) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 25) {
+								up_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 26) {
+								up_check = plusbombsize;
+								break;
+							}else{
+								up_check = plusbombsize;
+							}
+						}
+					}
+					up_checkList.add(up_check+1);
+					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
+						if(boomballoonXqueue.peek()+bombSize+plusbombsize<=12) {
+							if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 5){
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 6){
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 7) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 8) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 10) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 11) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 13) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 14) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 16) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 17) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 19) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 20) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 22) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 23) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 25) {
+								right_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 26) {
+								right_check = plusbombsize;
+								break;
+							}else{
+								right_check = plusbombsize;
+							}
+						}
+					}
+					right_checkList.add(right_check+1);
+					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
+						if(boomballoonXqueue.peek()-bombSize-plusbombsize>=0) {
+							if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 5){
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 6){
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 7) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 8) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 10) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 11) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 13) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 14) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 16) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 17) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 19) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 20) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 22) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 23) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 25) {
+								left_check = plusbombsize;
+								break;
+							}else if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 26) {
+								left_check = plusbombsize;
+								break;
+							}else{
+								left_check = plusbombsize;
+							}
+						}
+					}
+					left_checkList.add(left_check+1);
+					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 4; 
+					for(int plusbombsize = 0; plusbombsize<right_checkList.get(0); plusbombsize++) {
 						if(boomballoonXqueue.peek()+bombSize+plusbombsize<=12) {
 							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] = 4;
 						}
+					}
+					for(int plusbombsize = 0; plusbombsize<left_checkList.get(0); plusbombsize++) {
 						if(boomballoonXqueue.peek()-bombSize-plusbombsize>=0) {
 							BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] = 4;
 						}
+					}
+					for(int plusbombsize = 0; plusbombsize<down_checkList.get(0); plusbombsize++) {
 						if(boomballoonYqueue.peek()+bombSize+plusbombsize<=12) {
 							BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] = 4;
 						}
+					}
+					for(int plusbombsize = 0; plusbombsize<up_checkList.get(0); plusbombsize++) {
 						if(boomballoonYqueue.peek()-bombSize-plusbombsize>=0) {
 							BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] = 4;
 						}
-						bgplay();						
 					}
+					bgplay();
 					waterballoonmax +=1;
 			    }
 			};
@@ -206,38 +450,38 @@ public class WaterBalloon {
 				public void run() {
 					// TODO Auto-generated method stub
 					//7번인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 7, 9);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 7, 9);
 					//8번 인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 8, 9);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 8, 9);
 					//10번 인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 10, 12);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 10, 12);
 					//11번 인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 11, 12);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 11, 12);
 					//13번 인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 13, 15);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 13, 15);
 					//14번 인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 14, 15);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 14, 15);
 					//16번 인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 16, 18);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 16, 18);
 					//17번 인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 17, 18);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 17, 18);
 					//19번 인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 19, 21);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 19, 21);
 					//20번 인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 20, 21);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 20, 21);
 					//22번 인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 22, 24);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 22, 24);
 					//23번 인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 23, 24);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 23, 24);
 					//25번 인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 25, 27);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 25, 27);
 					//26번 인덱스
-					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, balloonplus, 26, 27);
+					item.make_item_index(boomballoonYqueue.peek(), boomballoonXqueue.peek(), bombSize, up_checkList, down_checkList, left_checkList, right_checkList, 26, 27);
 					
 					//기존 인덱스
 					BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
 					BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()] = 0;
-					for(int plusbombsize = 0; plusbombsize<balloonplus+1; plusbombsize++) {
+					for(int plusbombsize = 0; plusbombsize<down_checkList.get(0); plusbombsize++) {
 						if(boomballoonYqueue.peek()+bombSize+plusbombsize<=12) {
 							if(BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] == 9){
 								BoomJudge.map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] = 9;
@@ -265,7 +509,8 @@ public class WaterBalloon {
 								BoomJudge.previous_map_size[boomballoonYqueue.peek()+bombSize+plusbombsize][boomballoonXqueue.peek()] = 0;
 							}
 						}
-	
+					}
+					for(int plusbombsize = 0; plusbombsize<up_checkList.get(0); plusbombsize++) {
 						if(boomballoonYqueue.peek()-bombSize-plusbombsize>=0) {
 							if(BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] == 9) {
 								BoomJudge.map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] = 9;
@@ -293,7 +538,8 @@ public class WaterBalloon {
 								BoomJudge.previous_map_size[boomballoonYqueue.peek()-bombSize-plusbombsize][boomballoonXqueue.peek()] = 0;
 							}
 						}
-	
+					}
+					for(int plusbombsize = 0; plusbombsize<right_checkList.get(0); plusbombsize++) {
 						if(boomballoonXqueue.peek()+bombSize+plusbombsize<=12) {
 							if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] == 9) {
 								BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] = 9;
@@ -321,7 +567,8 @@ public class WaterBalloon {
 								BoomJudge.previous_map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()+bombSize+plusbombsize] = 0;
 							}
 						}
-	
+					}
+					for(int plusbombsize = 0; plusbombsize<left_checkList.get(0); plusbombsize++) {
 						if(boomballoonXqueue.peek()-bombSize-plusbombsize>=0) {
 							if(BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] == 9) {
 								BoomJudge.map_size[boomballoonYqueue.peek()][boomballoonXqueue.peek()-bombSize-plusbombsize] = 9;
@@ -350,19 +597,34 @@ public class WaterBalloon {
 							}
 						}
 					}
+				
 					boomballoonXqueue.remove();
 					boomballoonYqueue.remove();
 					boomballoonXList.remove(0);
 					boomballoonYList.remove(0);
+					up_checkList.remove(0);
+					down_checkList.remove(0);
+					left_checkList.remove(0);
+					right_checkList.remove(0);
 				}
 			};
-			
-			
-			
+
 			Timer boom = new Timer();
-			
 			boom.schedule(task, 5000);
 			boom.schedule(boomover, 6000);
 		}
+	}
+	
+	public LinkedList<Integer> get_up_checkList() {
+		return up_checkList;
+	}
+	public LinkedList<Integer> get_down_checkList() {
+		return down_checkList;
+	}
+	public LinkedList<Integer> get_left_checkList() {
+		return left_checkList;
+	}
+	public LinkedList<Integer> get_right_checkList() {
+		return right_checkList;
 	}
 }

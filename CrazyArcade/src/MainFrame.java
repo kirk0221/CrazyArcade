@@ -17,9 +17,9 @@ import javazoom.jl.player.Player;
 public class MainFrame extends JFrame implements ActionListener {
 
 	private JButton[] loginButtons; //시작, 종료 관리용 멤버필드
-	private Image starteBackground = new ImageIcon("Resources/start.png").getImage();//처음 배경 넣기
-	ImageIcon loginBackground = new ImageIcon("Resources/login.png");//로그인 배경 넣기
-	ImageIcon exitBackground = new ImageIcon("Resources/exit.png");//종료 배경 넣기
+	private Image starteBackground = new ImageIcon(getClass().getClassLoader().getResource("start.png")).getImage();//처음 배경 넣기
+	ImageIcon loginBackground = new ImageIcon(getClass().getClassLoader().getResource("login.png"));//로그인 배경 넣기
+	ImageIcon exitBackground = new ImageIcon(getClass().getClassLoader().getResource("login.png"));//종료 배경 넣기
 	
 	public static Thread music;
 	

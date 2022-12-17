@@ -21,7 +21,7 @@ public class MapChoice extends JFrame implements MouseListener{
 	private JButton[] mapButtons; //맵 관리용 멤버필드
 	private int num=0;
 	static int MapNumber=0;
-	private Image MapChoiceBackground = new ImageIcon("Resources/MapChoice1.png").getImage();//처음 배경 넣기
+	private Image MapChoiceBackground = new ImageIcon(getClass().getClassLoader().getResource("MapChoice1.png")).getImage();//처음 배경 넣기
 	
 	
 	public MapChoice(){ //MainFrame 생성자

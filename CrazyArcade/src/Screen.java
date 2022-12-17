@@ -40,32 +40,29 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	int[] previous_Index_y;
 	
 	//맵 관련 이미지
-	private Image map_CookieBackground = new ImageIcon("Resources/mapCookie.png").getImage();//쿠키(맵0) 이미지
-	private Image map_CookieBox1 = new ImageIcon("Resources/boxcookie1.png").getImage();
-	private Image map_CookieBox2 = new ImageIcon("Resources/boxcookie2.png").getImage();
-	private Image map_PatriotsBackground = new ImageIcon("Resources/mapPatriots.png").getImage();//해적(맵1) 이미지
-	private Image map_PatriotsBox1 = new ImageIcon("Resources/box1.png").getImage(); // 이거 아마 안쓸듯 이미지가 2랑 똑같은데 작은거임
-	private Image map_PatriotsBox2 = new ImageIcon("Resources/box2.png").getImage();
-	private Image map_PatriotsBox3 = new ImageIcon("Resources/box3.png").getImage();
-	private Image map_VillageBackground = new ImageIcon("Resources/mapvillage.png").getImage();
-	private Image map_VillageBox1 = new ImageIcon("Resources/boxhome.png").getImage();//이거 아직은 안쓸듯
-	private Image map_VillageBox2 = new ImageIcon("Resources/boxtree.png").getImage();
-	private Image map_VillageBox3 = new ImageIcon("Resources/boxvillage2.png").getImage();
-	private Image map_VillageBox4 = new ImageIcon("Resources/boxvillage3.png").getImage();//이거 아직은 안쓸듯
-	//아이템 관련 이미지
-	private Image item_waterbomb = new ImageIcon("Resources/item_waterbombplus.png").getImage();
-	private Image item_speed = new ImageIcon("Resources/item_Speed.png").getImage();
-	private Image item_stream = new ImageIcon("Resources/item_waterstream.png").getImage();
-	private Image item_purpledevil = new ImageIcon("Resources/item_Purpledevil.png").getImage();
-	private Image item_reddevil = new ImageIcon("Resources/item_Reddevil.png").getImage();
-	private Image item_super = new ImageIcon("Resources/item_super.png").getImage();
-	private Image item_hackstream = new ImageIcon("Resources/item_hackstream.png").getImage();
-	
-	//물풍선 링크 이미지
-	private Image boombmiddleup = new ImageIcon("Resources/waterbomb_link1.png").getImage();
-	private Image boombmiddledown = new ImageIcon("Resources/waterbomb_link2.png").getImage();
-	private Image boombmiddleleft = new ImageIcon("Resources/waterbomb_link3.png").getImage();
-	private Image boombmiddleright = new ImageIcon("Resources/waterbomb_link4.png").getImage();
+		private Image map_CookieBackground = new ImageIcon(getClass().getClassLoader().getResource("mapCookie.png")).getImage();//쿠키(맵0) 이미지
+		private Image map_CookieBox1 = new ImageIcon(getClass().getClassLoader().getResource("boxcookie1.png")).getImage();
+		private Image map_CookieBox2 = new ImageIcon(getClass().getClassLoader().getResource("boxcookie2.png")).getImage();
+		private Image map_PatriotsBackground = new ImageIcon(getClass().getClassLoader().getResource("mapPatriots.png")).getImage();//해적(맵1) 이미지
+		private Image map_PatriotsBox2 = new ImageIcon(getClass().getClassLoader().getResource("box2.png")).getImage();
+		private Image map_PatriotsBox3 = new ImageIcon(getClass().getClassLoader().getResource("box3.png")).getImage();
+		private Image map_VillageBackground = new ImageIcon(getClass().getClassLoader().getResource("mapvillage.png")).getImage();
+		private Image map_VillageBox2 = new ImageIcon(getClass().getClassLoader().getResource("boxtree.png")).getImage();
+		private Image map_VillageBox3 = new ImageIcon(getClass().getClassLoader().getResource("boxvillage2.png")).getImage();
+		//아이템 관련 이미지
+		private Image item_waterbomb = new ImageIcon(getClass().getClassLoader().getResource("item_waterbombplus.png")).getImage();
+		private Image item_speed = new ImageIcon(getClass().getClassLoader().getResource("item_Speed.png")).getImage();
+		private Image item_stream = new ImageIcon(getClass().getClassLoader().getResource("item_waterstream.png")).getImage();
+		private Image item_purpledevil = new ImageIcon(getClass().getClassLoader().getResource("item_Purpledevil.png")).getImage();
+		private Image item_reddevil = new ImageIcon(getClass().getClassLoader().getResource("item_Reddevil.png")).getImage();
+		private Image item_super = new ImageIcon(getClass().getClassLoader().getResource("item_super.png")).getImage();
+		private Image item_hackstream = new ImageIcon(getClass().getClassLoader().getResource("item_hackstream.png")).getImage();
+		
+		//물풍선 링크 이미지
+		private Image boombmiddleup = new ImageIcon(getClass().getClassLoader().getResource("waterbomb_link1.png")).getImage();
+		private Image boombmiddledown = new ImageIcon(getClass().getClassLoader().getResource("waterbomb_link2.png")).getImage();
+		private Image boombmiddleleft = new ImageIcon(getClass().getClassLoader().getResource("waterbomb_link3.png")).getImage();
+		private Image boombmiddleright = new ImageIcon(getClass().getClassLoader().getResource("waterbomb_link4.png")).getImage();
 	public Screen(int map) {
 		this.map_selection = map; //생성자를 통해 어떤 맵 설정되었는지 받아오기 위함
 		BoomJudge judge = new BoomJudge(map); //맵 배치 받아오기 위해서 사용
@@ -308,33 +305,50 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 			for(int i=0;i<players[playertype].getboomballonListsize();i++) { /*터진 물풍선의 링크드 리스트 사이즈 만큼 반복문 수행*/
 			/*일반적인 물풍선 터진 이미지 그리기*/
 			bufferGraphics.drawImage(players[playertype].getcenterImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-			
-			for(int plusbombsize = players[playertype].getstreamSize(); plusbombsize>0; plusbombsize--) {
-				if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize>=0) {
-					bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				}
-				if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize<=12) {
-				bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
-				}
-				if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize>=0) {
-				bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()+plusbombsize], this);
-				}
-				if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize<=12) {
-				bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()-plusbombsize], this);
+			boolean check_end=true;
+			for(int plusbombsize = players[playertype].getbombSize(2).get(i); plusbombsize>0; plusbombsize--) {
+				if(players[playertype].getboomballoonX(i)-plusbombsize>=0) {
+					if (check_end) {
+						bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+						check_end=false;
+					}else {
+						bufferGraphics.drawImage(boombmiddleleft,mapXlocationlist[players[playertype].getboomballoonX(i)-plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+					}
 				}
 			}
-			if(players[playertype].getboomballoonX(i)-players[playertype].getbombSize()>=0) {
-				bufferGraphics.drawImage(players[playertype].getleftImg(),mapXlocationlist[players[playertype].getboomballoonX(i)-players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+			check_end=true;
+			for(int plusbombsize = players[playertype].getbombSize(3).get(i); plusbombsize>0; plusbombsize--) {
+				if(players[playertype].getboomballoonX(i)+plusbombsize<=12) {
+					if (check_end) {
+						bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+						check_end=false;
+					}else {
+						bufferGraphics.drawImage(boombmiddleright,mapXlocationlist[players[playertype].getboomballoonX(i)+plusbombsize],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+					}
 				}
-			if(players[playertype].getboomballoonX(i)+players[playertype].getbombSize()<=12) {
-				bufferGraphics.drawImage(players[playertype].getrightImg(),mapXlocationlist[players[playertype].getboomballoonX(i)+players[playertype].getbombSize()],mapYlocationlist[players[playertype].getboomballoonY(i)], this);
+			}
+			check_end=true;
+			for(int plusbombsize = players[playertype].getbombSize(0).get(i); plusbombsize>0; plusbombsize--) {
+				if(players[playertype].getboomballoonY(i)-plusbombsize>=0) {
+					if (check_end) {
+						bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-plusbombsize], this);
+						check_end=false;
+					}else {
+						bufferGraphics.drawImage(boombmiddleup,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-plusbombsize], this);
+					}
 				}
-			if(players[playertype].getboomballoonY(i)-players[playertype].getbombSize()>=0) {
-				bufferGraphics.drawImage(players[playertype].getupImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)-players[playertype].getbombSize()], this);
+			}
+			check_end=true;
+			for(int plusbombsize = players[playertype].getbombSize(1).get(i); plusbombsize>0; plusbombsize--) {
+				if(players[playertype].getboomballoonY(i)+plusbombsize<=12) {
+					if (check_end) {
+						bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+plusbombsize], this);
+						check_end=false;
+					}else {
+						bufferGraphics.drawImage(boombmiddledown,mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+plusbombsize], this);
+					}
 				}
-			if(players[playertype].getboomballoonY(i)+players[playertype].getbombSize()<=12) {
-				bufferGraphics.drawImage(players[playertype].getdownImg(),mapXlocationlist[players[playertype].getboomballoonX(i)],mapYlocationlist[players[playertype].getboomballoonY(i)+players[playertype].getbombSize()], this);
-				}
+			}
 		}
 	}
 		
@@ -436,31 +450,38 @@ public class Screen extends Canvas implements KeyListener, ComponentListener {
 	@Override
 	public void keyReleased(KeyEvent e) { /*동시이동적용*/
 		// TODO Auto-generated method stub
-		
 		switch(e.getKeyCode()) {
 		case KeyEvent.VK_W:
 			c1.setUp(false);
+			this.players[0].getmovestop();
 			break;
 		case KeyEvent.VK_S:
 			c1.setDown(false);
+			this.players[0].getmovestop();
 			break;
 		case KeyEvent.VK_A:
 			c1.setLeft(false);
+			this.players[0].getmovestop();
 			break;
 		case KeyEvent.VK_D:
 			c1.setRight(false);
+			this.players[0].getmovestop();
 			break;
 		case KeyEvent.VK_UP:
 			 c2.setUp(false);
+			 this.players[1].getmovestop();
 			break;
 		case KeyEvent.VK_DOWN:
 			c2.setDown(false);
+			this.players[1].getmovestop();
 			break;
 		case KeyEvent.VK_LEFT:
 			c2.setLeft(false);
+			this.players[1].getmovestop();
 			break;
 		case KeyEvent.VK_RIGHT:
 			c2.setRight(false);
+			this.players[1].getmovestop();
 			break;
 		}
         repaint();

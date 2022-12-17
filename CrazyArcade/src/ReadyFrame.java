@@ -23,24 +23,24 @@ import javazoom.jl.player.Player;
 public class ReadyFrame extends JFrame implements MouseListener {
 	private JButton[] mapButtons;
 	private JButton[] characterButtons;
-	private Image starteBackground = new ImageIcon("Resources/ready2.png").getImage();//처음 배경 넣기
-	private Image daoBackground = new ImageIcon("Resources/dao.png").getImage();//다오 배경 넣기
-	private Image eddiBackground = new ImageIcon("Resources/eddi.png").getImage();//에띠 배경 넣기
-	private Image mosBackground = new ImageIcon("Resources/mos.png").getImage();//모스 배경 넣기
-	private Image maridBackground = new ImageIcon("Resources/marid.png").getImage();//마리드 배경 넣기
-	private Image keppiBackground = new ImageIcon("Resources/keppi.png").getImage();//케피 배경 넣기
-	private Image suBackground = new ImageIcon("Resources/su.png").getImage();//수 배경 넣기
-	private Image bazziBackground = new ImageIcon("Resources/bazzi.png").getImage();//배찌 배경 넣기
-	private Image uniBackground = new ImageIcon("Resources/uni.png").getImage();//우니 배경 넣기
-	private Image dizniackground = new ImageIcon("Resources/dizni.png").getImage();//디즈니 배경 넣기
-	private Image FactoryBackground = new ImageIcon("Resources/Factorymap.png").getImage();//팩토리 배경 넣기
-	private Image CookieBackground = new ImageIcon("Resources/Cookiemap.png").getImage();//쿠키 배경
-	private Image VilageBackground = new ImageIcon("Resources/Vilagemap.png").getImage();//빌리지 배경
-	private Image FactorylevelBackground = new ImageIcon("Resources/factorylevel.png").getImage();//팩토리 난이도 넣기
-	private Image CookielevelBackground = new ImageIcon("Resources/Cookielevel.png").getImage();//쿠키 난이도
-	private Image ReadyBackground = new ImageIcon("Resources/Readyy.png").getImage();//준비 그림
-	private Image NoreadyBackground = new ImageIcon("Resources/Noready.png").getImage();//준비 취소 그림
-	private Image VilagelevelBackground = new ImageIcon("Resources/Vilagelevel.png").getImage();//빌리지 난이도
+	private Image starteBackground = new ImageIcon(getClass().getClassLoader().getResource("ready2.png")).getImage();//처음 배경 넣기
+	private Image daoBackground = new ImageIcon(getClass().getClassLoader().getResource("dao.png")).getImage();//다오 배경 넣기
+	private Image eddiBackground = new ImageIcon(getClass().getClassLoader().getResource("eddi.png")).getImage();//에띠 배경 넣기
+	private Image mosBackground = new ImageIcon(getClass().getClassLoader().getResource("mos.png")).getImage();//모스 배경 넣기
+	private Image maridBackground = new ImageIcon(getClass().getClassLoader().getResource("marid.png")).getImage();//마리드 배경 넣기
+	private Image keppiBackground = new ImageIcon(getClass().getClassLoader().getResource("keppi.png")).getImage();//케피 배경 넣기
+	private Image suBackground = new ImageIcon(getClass().getClassLoader().getResource("su.png")).getImage();//수 배경 넣기
+	private Image bazziBackground = new ImageIcon(getClass().getClassLoader().getResource("bazzi.png")).getImage();//배찌 배경 넣기
+	private Image uniBackground = new ImageIcon(getClass().getClassLoader().getResource("uni.png")).getImage();//우니 배경 넣기
+	private Image dizniackground = new ImageIcon(getClass().getClassLoader().getResource("dizni.png")).getImage();//디즈니 배경 넣기
+	private Image FactoryBackground = new ImageIcon(getClass().getClassLoader().getResource("Factorymap.png")).getImage();//팩토리 배경 넣기
+	private Image CookieBackground = new ImageIcon(getClass().getClassLoader().getResource("Cookiemap.png")).getImage();//쿠키 배경
+	private Image VilageBackground = new ImageIcon(getClass().getClassLoader().getResource("Vilagemap.png")).getImage();//빌리지 배경
+	private Image FactorylevelBackground = new ImageIcon(getClass().getClassLoader().getResource("factorylevel.png")).getImage();//팩토리 난이도 넣기
+	private Image CookielevelBackground =new ImageIcon(getClass().getClassLoader().getResource("Cookielevel.png")).getImage();//쿠키 난이도
+	private Image ReadyBackground =new ImageIcon(getClass().getClassLoader().getResource("Readyy.png")).getImage();//준비 그림
+	private Image NoreadyBackground = new ImageIcon(getClass().getClassLoader().getResource("Noready.png")).getImage();//준비 취소 그림
+	private Image VilagelevelBackground =new ImageIcon(getClass().getClassLoader().getResource("Vilagelevel.png")).getImage();//빌리지 난이도
 	
 	static int plyaernumber=0; //몇번 플레이어인지 구분하기위한 변수
 	static int chrnumber=0;  //캐릭터그릴때 필요한 변수 디즈니 =1, 배찌 = 2, 우니 =3

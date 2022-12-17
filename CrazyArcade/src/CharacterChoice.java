@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 public class CharacterChoice extends JFrame implements MouseListener{
 	
-	private Image ChrChoiceBackground = new ImageIcon("Resources/Charcterch.png").getImage();//처음 배경 넣기
+	private Image ChrChoiceBackground = new ImageIcon(getClass().getClassLoader().getResource("Charcterch.png")).getImage();//처음 배경 넣기
 	private int num =0;
 	
 	public CharacterChoice(){ 
